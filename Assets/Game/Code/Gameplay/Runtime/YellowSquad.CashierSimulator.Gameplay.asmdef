@@ -1,0 +1,14 @@
+{
+    "name": "YellowSquad.CashierSimulator.Gameplay",
+    "rootNamespace": "YellowSquad.CashierSimulator.Gameplay",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
