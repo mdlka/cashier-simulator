@@ -1,7 +1,8 @@
 ﻿namespace YellowSquad.CashierSimulator.Gameplay
 {
-    public interface IPayment
+    public enum PaymentMethod
     {
-        
+        Cash,
+        CreditCard,
     }
 }

@@ -16,7 +16,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _customerContainer ??= new GameObject("Customers").transform;
             
             var customer = Instantiate(_customers[Random.Range(0, _customers.Length)], _customerContainer);
-            customer.Initialize(productListFactory.CreateRandomProducts(), null);
+            customer.Initialize(productListFactory.CreateRandomProducts(), PaymentMethod.Cash);
 
             return customer;
         }

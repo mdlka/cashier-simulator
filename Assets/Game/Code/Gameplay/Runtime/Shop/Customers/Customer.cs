@@ -8,16 +8,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private float _speed;
         
-        private IPayment _payment;
+        private PaymentMethod _paymentMethod;
         private ProductList _productList;
         private Coroutine _movingCoroutine;
 
         public bool IsMoving => _movingCoroutine != null;
         
-        public void Initialize(ProductList productList, IPayment payment)
+        public void Initialize(ProductList productList, PaymentMethod paymentMethod)
         {
             _productList = productList;
-            _payment = payment;
+            _paymentMethod = paymentMethod;
         }
 
         public void MoveTo(Vector3 position, Action onComplete = null)
