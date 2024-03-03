@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tape: {fileID: 1408870696}
   _scannedProductsPoint: {fileID: 492914422}
-  _animationDuration: 0.5
+  _animationDuration: 0.75
 --- !u!1 &1408870694
 GameObject:
   m_ObjectHideFlags: 0

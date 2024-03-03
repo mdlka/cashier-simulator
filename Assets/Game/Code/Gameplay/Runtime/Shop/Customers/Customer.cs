@@ -13,6 +13,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private Coroutine _movingCoroutine;
 
         public bool IsMoving => _movingCoroutine != null;
+        public PaymentMethod PaymentMethod => _paymentMethod;
         
         public void Initialize(ProductList productList, PaymentMethod paymentMethod)
         {
@@ -33,7 +34,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             foreach (var product in _productList.Products)
                 yield return tape.Add(Instantiate(product, transform.position, Quaternion.identity));
         }
-
+        
         public IEnumerator Payment()
         {
             yield return new WaitForSeconds(1f);

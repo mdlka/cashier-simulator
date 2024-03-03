@@ -45,18 +45,23 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 currentCostumer.MoveTo(_exitPoint.position, onComplete: () => Destroy(currentCostumer.gameObject));
                 _queuePoints[0].Free();
 
-                for (int i = 1; i < _queuePoints.Length; i++)
-                {
-                    if (_queuePoints[i].IsBusy == false)
-                        break;
+                MoveQueue();
+            }
+        }
 
-                    var customer = _queuePoints[i].Value;
-                    
-                    _queuePoints[i].Free();
-                    _queuePoints[i - 1].Take(customer);
-                    
-                    customer.MoveTo(_queuePoints[i - 1].Position);
-                }
+        private void MoveQueue()
+        {
+            for (int i = 1; i < _queuePoints.Length; i++)
+            {
+                if (_queuePoints[i].IsBusy == false)
+                    break;
+
+                var customer = _queuePoints[i].Value;
+
+                _queuePoints[i].Free();
+                _queuePoints[i - 1].Take(customer);
+
+                customer.MoveTo(_queuePoints[i - 1].Position);
             }
         }
     }
