@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
     [CreateAssetMenu(menuName = "Cashier Simulator/Create CustomerFactory", fileName = "CustomerFactory", order = 56)]
     public class CustomerFactory : ScriptableObject
     {
-        private Transform _customerContainer;
-        
         [SerializeField] private Customer[] _customers;
+        
+        [NonSerialized] private Transform _customerContainer;
 
         public Customer CreateRandomCustomer(ProductListFactory productListFactory)
         {

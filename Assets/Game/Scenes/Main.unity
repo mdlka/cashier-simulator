@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbe2cd938a74468a57d6bdcdc0d4d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationDuration: 1.5
+  _animationDuration: 0.5
   _productPoints:
   - {fileID: 1729186333}
   - {fileID: 1694008048}

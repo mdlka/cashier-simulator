@@ -31,10 +31,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public IEnumerator PlaceProducts(ProductTape tape)
         {
             foreach (var product in _productList.Products)
-            {
-                tape.Add(Instantiate(product));
-                yield return null;
-            }
+                yield return tape.Add(Instantiate(product, transform.position, Quaternion.identity));
         }
 
         public IEnumerator Payment()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -23,7 +24,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             var point = _queuePoints.First(point => point.IsBusy == false);
             point.Take(customer);
 
+            var customerScale = customer.transform.localScale;
+            
+            customer.transform.localScale = Vector3.zero;
             customer.transform.position = point.Position;
+
+            customer.transform.DOScale(customerScale, 0.7f);
         }
 
         private IEnumerator Working()
