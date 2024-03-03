@@ -20,7 +20,7 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         public void Update()
         {
-            _cameraAim.RotateAim(_input.AimDelta * (_sensitivity * Time.deltaTime));
+            _cameraAim.RotateAim(_input.AimDelta * _sensitivity);
         }
     }
 }

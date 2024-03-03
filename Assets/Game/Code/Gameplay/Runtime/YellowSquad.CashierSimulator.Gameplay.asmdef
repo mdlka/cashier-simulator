@@ -1,7 +1,9 @@
 {
     "name": "YellowSquad.CashierSimulator.Gameplay",
     "rootNamespace": "YellowSquad.CashierSimulator.Gameplay",
-    "references": [],
+    "references": [
+        "GUID:5ad926ab5ff9d914ea1f6812dfd6f07a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
