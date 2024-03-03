@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7722223e54a049fe944c87c2106b9a5c, type: 3}
   m_Name: ProductListFactory
   m_EditorClassIdentifier: 
+  _minMaxProducts: {x: 1, y: 4}
   _products:
   - {fileID: 742612311231153814, guid: dc83e46494f5f6949b7f64f307a92eb7, type: 3}

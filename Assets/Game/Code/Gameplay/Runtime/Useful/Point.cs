@@ -1,22 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-namespace YellowSquad.CashierSimulator.Gameplay
+namespace YellowSquad.CashierSimulator.Gameplay.Useful
 {
-    public class QueuePoint : MonoBehaviour
+    public class Point<T> : MonoBehaviour where T : class
     {
-        private Customer _customer;
-
-        public bool IsBusy => _customer != null;
-        public Customer Customer => _customer;
         public Vector3 Position => transform.position;
-        
-        public void Take(Customer customer)
+        public bool IsBusy => Value != null;
+        public T Value { get; private set; }
+
+        public void Take(T value)
         {
             if (IsBusy)
                 throw new InvalidOperationException();
             
-            _customer = customer;
+            Value = value;
         }
 
         public void Free()
@@ -24,7 +22,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (IsBusy == false)
                 throw new InvalidOperationException();
             
-            _customer = null;
+            Value = null;
         }
     }
 }

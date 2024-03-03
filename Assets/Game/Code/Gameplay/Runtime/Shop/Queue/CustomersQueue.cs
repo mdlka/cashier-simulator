@@ -8,7 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private CashDesk _cashDesk;
         [SerializeField] private Transform _exitPoint;
-        [SerializeField] private QueuePoint[] _queuePoints;
+        [SerializeField] private CustomerPoint[] _queuePoints;
 
         public bool HasPlace => _queuePoints[^1].IsBusy == false;
         public bool HasCustomers => _queuePoints[0].IsBusy;
@@ -32,7 +32,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             {
                 yield return new WaitUntil(() => _queuePoints[0].IsBusy);
 
-                var currentCostumer = _queuePoints[0].Customer;
+                var currentCostumer = _queuePoints[0].Value;
 
                 yield return _cashDesk.AcceptCustomer(currentCostumer);
                 
@@ -44,7 +44,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     if (_queuePoints[i].IsBusy == false)
                         yield break;
 
-                    var customer = _queuePoints[i].Customer;
+                    var customer = _queuePoints[i].Value;
                     
                     _queuePoints[i].Free();
                     _queuePoints[i - 1].Take(customer);
