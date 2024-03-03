@@ -27,7 +27,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             while (createdCustomers < _shopDaySettings.CostumersCount)
             {
                 yield return new WaitUntil(() => _customersQueue.HasPlace);
-                yield return new WaitForSeconds(Random.Range(5, 10));
+                yield return new WaitForSeconds(Random.Range(2, 5));
 
                 _customersQueue.Add(_customerFactory.CreateRandomCustomer(_shopDaySettings.ProductListFactory));
                 createdCustomers += 1;

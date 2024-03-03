@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CameraAim : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
         [SerializeField, Range(0f, 90f)] private float _upperAngleLimit = 70f;
         [SerializeField, Range(0f, 90f)] private float _lowerAngleLimit = 80f;
+        
+        private Camera _camera;
+
+        private void Awake()
+        {
+            _camera = Camera.main;
+        }
 
         public void RotateAim(Vector2 deltaAngle)
         {
