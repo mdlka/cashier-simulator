@@ -33,7 +33,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 createdCustomers += 1;
             }
 
-            yield return new WaitUntil(() => _customersQueue.HasCustomers);
+            yield return new WaitUntil(() => _customersQueue.HasCustomers == false);
 
             WorkIsDone = true;
         }

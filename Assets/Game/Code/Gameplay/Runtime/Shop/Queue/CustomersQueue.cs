@@ -39,7 +39,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 yield return new WaitUntil(() => _queuePoints[0].IsBusy);
 
                 var currentCostumer = _queuePoints[0].Value;
-
+                
                 yield return _cashDesk.AcceptCustomer(currentCostumer);
                 
                 currentCostumer.MoveTo(_exitPoint.position, onComplete: () => Destroy(currentCostumer.gameObject));
@@ -48,7 +48,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 for (int i = 1; i < _queuePoints.Length; i++)
                 {
                     if (_queuePoints[i].IsBusy == false)
-                        yield break;
+                        break;
 
                     var customer = _queuePoints[i].Value;
                     

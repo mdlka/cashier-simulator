@@ -36,7 +36,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public IEnumerator Payment()
         {
-            yield return null;
+            yield return new WaitForSeconds(1f);
         }
 
         private IEnumerator Moving(Vector3 targetPosition, Action onComplete = null)

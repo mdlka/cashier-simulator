@@ -14,6 +14,8 @@ namespace YellowSquad.CashierSimulator.Application
             while (true)
             {
                 _shop.StartDay(_shopDaySettings);
+                
+                Debug.Log("Day started");
 
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
