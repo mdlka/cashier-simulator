@@ -8,6 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class CustomersQueue : MonoBehaviour
     {
         [SerializeField] private CashDesk _cashDesk;
+        [SerializeField] private Transform _enterPoint;
         [SerializeField] private Transform _exitPoint;
         [SerializeField] private CustomerPoint[] _queuePoints;
 
@@ -24,12 +25,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             var point = _queuePoints.First(point => point.IsBusy == false);
             point.Take(customer);
 
-            var customerScale = customer.transform.localScale;
-            
-            customer.transform.localScale = Vector3.zero;
-            customer.transform.position = point.Position;
-
-            customer.transform.DOScale(customerScale, 0.7f);
+            customer.transform.position = _enterPoint.position;
+            customer.MoveTo(point.Position);
         }
 
         private IEnumerator Working()
