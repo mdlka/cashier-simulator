@@ -7,6 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private ProductTape _productTape;
         [SerializeField] private ProductScanner _productScanner;
+        [SerializeField] private CashRegister _cashRegister;
         
         public IEnumerator AcceptCustomer(Customer customer)
         {
@@ -18,8 +19,25 @@ namespace YellowSquad.CashierSimulator.Gameplay
             yield return new WaitUntil(() => _productTape.HasProducts == false);
 
             Debug.Log($"Price: {_productScanner.ScannedProductsPrice}");
-            
-            yield return customer.Payment();
+
+            yield return customer.StartPayment();
+
+            if (customer.PaymentMethod == PaymentMethod.Cash)
+            {
+                float givingCash = Mathf.Ceil(_productScanner.ScannedProductsPrice / 10) * 10;
+                float targetChange = givingCash - _productScanner.ScannedProductsPrice;
+                
+                Debug.Log($"Giving cash: {givingCash}, need - {targetChange} change");
+                
+                yield return _cashRegister.AcceptPayment(givingCash, targetChange);
+
+                string rep = _cashRegister.CurrentChange >= targetChange ? "+rep" : "-rep";
+                Debug.Log($"Target: {targetChange}, Current: {_cashRegister.CurrentChange} ({rep})");
+            }
+            else if (customer.PaymentMethod == PaymentMethod.CreditCard)
+            {
+                
+            }
             
             _productScanner.Restart();
         }

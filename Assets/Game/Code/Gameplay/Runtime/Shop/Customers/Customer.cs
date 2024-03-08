@@ -34,10 +34,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             foreach (var product in _productList.Products)
                 yield return tape.Add(Instantiate(product, transform.position, Quaternion.identity));
         }
-        
-        public IEnumerator Payment()
+
+        public IEnumerator StartPayment()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1);
         }
 
         private IEnumerator Moving(Vector3 targetPosition, Action onComplete = null)

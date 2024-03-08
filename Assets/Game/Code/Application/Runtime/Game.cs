@@ -11,16 +11,18 @@ namespace YellowSquad.CashierSimulator.Application
 
         private IEnumerator Start()
         {
+            int day = 1;
+            
             while (true)
             {
                 _shop.StartDay(_shopDaySettings);
                 
-                Debug.Log("Day started");
+                Debug.Log($"Day {day} started");
 
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
                 
-                Debug.Log("Day ended");
+                Debug.Log($"Day {day++} ended");
             }
         }
     }
