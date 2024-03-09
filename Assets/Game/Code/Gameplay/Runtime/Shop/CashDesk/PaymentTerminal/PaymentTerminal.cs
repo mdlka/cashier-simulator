@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private PaymentTerminalButton[] _buttons;
 
         private string _currentPrice = "";
+        private CultureInfo _cultureInfo;
+
+        private void Awake()
+        {
+            _cultureInfo = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+            _cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+        }
 
         public IEnumerator AcceptPayment(float targetPrice)
         {
@@ -52,20 +60,35 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private bool ValidateInputPrice(float targetPrice)
         {
-            if (float.TryParse(_screenText.text, out float value) == false)
+            if (float.TryParse(_screenText.text, NumberStyles.Any, _cultureInfo, out float value) == false)
                 return false;
-
+            
             return Math.Abs(value - targetPrice) < float.Epsilon;
         }
 
         private void ApplyInput(PaymentTerminalButtonType type)
         {
-            if (type == PaymentTerminalButtonType.Delete && _currentPrice.Length > 0)
+            if (type == PaymentTerminalButtonType.Delete)
+            {
+                if (_currentPrice.Length == 0)
+                    return;
+                
                 _currentPrice = _currentPrice[..^1];
-            else if (type == PaymentTerminalButtonType.Dot && _currentPrice.Length > 0 && _currentPrice.Contains('.') == false)
+            }
+            else if (type == PaymentTerminalButtonType.Dot)
+            {
+                if (_currentPrice.Contains('.'))
+                    return;
+
+                if (_currentPrice.Length == 0)
+                    _currentPrice += '0';
+                
                 _currentPrice += '.';
-            else if (_currentPrice.Length < 7)
+            }
+            else if (_currentPrice.Length < 6)
+            {
                 _currentPrice += (char)(48 + type);
+            }
             
             UpdateScreenText();
         }
