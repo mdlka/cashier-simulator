@@ -8,6 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private ProductTape _productTape;
         [SerializeField] private ProductScanner _productScanner;
         [SerializeField] private CashRegister _cashRegister;
+        [SerializeField] private PaymentTerminal _paymentTerminal;
         
         public IEnumerator AcceptCustomer(Customer customer)
         {
@@ -34,9 +35,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 string rep = _cashRegister.CurrentChange >= targetChange ? "+rep" : "-rep";
                 Debug.Log($"Target: {targetChange}, Current: {_cashRegister.CurrentChange} ({rep})");
             }
-            else if (customer.PaymentMethod == PaymentMethod.CreditCard)
+            else if (customer.PaymentMethod == PaymentMethod.Card)
             {
-                
+                yield return _paymentTerminal.AcceptPayment(_productScanner.ScannedProductsPrice);
             }
             
             _productScanner.Restart();

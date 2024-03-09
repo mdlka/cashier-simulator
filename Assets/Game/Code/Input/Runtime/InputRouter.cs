@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
 
@@ -6,6 +9,8 @@ namespace YellowSquad.CashierSimulator.UserInput
 {
     public class InputRouter : MonoBehaviour
     {
+        private readonly List<RaycastResult> _raycastResults = new();
+        
         [SerializeField] private CameraAim _cameraAim;
         [SerializeField] private ProductScanner _productScanner;
         [SerializeField] private CashRegister _cashRegister;
@@ -32,8 +37,13 @@ namespace YellowSquad.CashierSimulator.UserInput
 
             if (_input.Use == false)
                 return;
+
+            var pointerPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
             
-            var ray = _camera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
+            if (IsPointerOverUIObject(pointerPosition))
+                return;
+            
+            var ray = _camera.ScreenPointToRay(pointerPosition);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo) == false)
                 return;
@@ -42,6 +52,14 @@ namespace YellowSquad.CashierSimulator.UserInput
                 _productScanner.Scan(product);
             else if (hitInfo.transform.TryGetComponentInParent(out CashSlot cashSlot))
                 _cashRegister.Take(cashSlot);
+        }
+        
+        private bool IsPointerOverUIObject(Vector2 inputPosition)
+        {
+            var eventDataCurrentPosition = new PointerEventData(EventSystem.current) { position = inputPosition };
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, _raycastResults);
+
+            return _raycastResults.Any(result => result.gameObject.layer == LayerMask.NameToLayer("UI"));
         }
     }
 }

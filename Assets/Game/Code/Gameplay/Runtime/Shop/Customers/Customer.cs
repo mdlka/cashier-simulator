@@ -24,7 +24,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void MoveTo(Vector3 position, Action onComplete = null)
         {
             if (_movingCoroutine != null)
-                throw new InvalidOperationException();
+                StopCoroutine(_movingCoroutine);
 
             _movingCoroutine = StartCoroutine(Moving(position, onComplete));
         }
