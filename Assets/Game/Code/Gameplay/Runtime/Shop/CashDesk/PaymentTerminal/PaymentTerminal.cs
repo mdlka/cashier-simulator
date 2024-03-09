@@ -10,13 +10,14 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class PaymentTerminal : MonoBehaviour
     {
         [SerializeField] private Transform _cameraPoint;
+        [SerializeField] private Transform _cardPoint;
         [SerializeField] private TMP_Text _screenText;
         [SerializeField] private InputButton _okButton;
         [SerializeField] private PaymentTerminalButton[] _buttons;
 
         private string _currentPrice = "";
         private CultureInfo _cultureInfo;
-
+        
         public Transform CameraPoint => _cameraPoint;
         public bool Active { get; private set; }
 
@@ -26,10 +27,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
         }
 
-        public IEnumerator AcceptPayment(float targetPrice)
+        public IEnumerator AcceptPayment(PaymentObject card, float targetPrice)
         {
             Active = true;
             ReleaseButtons();
+            
+            card.MoveTo(_cardPoint, animationDuration: 0.75f);
             
             while (_okButton.Pressed == false)
             {
@@ -53,6 +56,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             _currentPrice = "";
             UpdateScreenText();
+            
+            card.Destroy();
 
             Active = false;
         }

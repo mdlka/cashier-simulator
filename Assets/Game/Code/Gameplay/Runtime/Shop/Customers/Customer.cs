@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -7,6 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class Customer : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private PaymentObject[] _paymentObjects;
         
         private PaymentMethod _paymentMethod;
         private ProductList _productList;
@@ -35,9 +37,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 yield return tape.Add(Instantiate(product, transform.position, Quaternion.identity));
         }
 
-        public IEnumerator StartPayment()
+        public void StartPayment()
         {
-            yield return new WaitForSeconds(1);
+            var paymentObject = _paymentObjects.First(obj => obj.PaymentMethod == _paymentMethod);
+            paymentObject.Enable();
         }
 
         private IEnumerator Moving(Vector3 targetPosition, Action onComplete = null)

@@ -42,18 +42,18 @@ namespace YellowSquad.CashierSimulator.UserInput
             
             if (IsPointerOverUIObject(pointerPosition))
                 return;
-            
-            var ray = _camera.ScreenPointToRay(pointerPosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo) == false)
+            if (Physics.Raycast(_camera.ScreenPointToRay(pointerPosition), out RaycastHit hitInfo) == false)
                 return;
             
             if (hitInfo.transform.root.TryGetComponent(out Product product))
                 _cashDesk.ProductScanner.Scan(product);
             else if (hitInfo.transform.TryGetComponentInParent(out CashSlot cashSlot))
                 _cashDesk.CashRegister.Take(cashSlot);
+            else if (hitInfo.transform.TryGetComponentInParent(out PaymentObject paymentObject))
+                _cashDesk.AcceptPaymentObject(paymentObject);
         }
-        
+
         private bool IsPointerOverUIObject(Vector2 inputPosition)
         {
             var eventDataCurrentPosition = new PointerEventData(EventSystem.current) { position = inputPosition };

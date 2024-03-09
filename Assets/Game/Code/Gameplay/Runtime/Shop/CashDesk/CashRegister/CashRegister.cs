@@ -23,10 +23,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _slotsQueue.Enqueue(slot);
         }
 
-        public IEnumerator AcceptPayment(float givingCash, float targetChange)
+        public IEnumerator AcceptPayment(PaymentObject paymentCash, float givingCash, float targetChange)
         {
             _paymentEnded = false;
             CurrentChange = 0;
+            
+            paymentCash.Destroy();
 
             while (_paymentEnded == false)
             {
