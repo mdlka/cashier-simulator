@@ -12,8 +12,7 @@ namespace YellowSquad.CashierSimulator.UserInput
         private readonly List<RaycastResult> _raycastResults = new();
         
         [SerializeField] private CameraAim _cameraAim;
-        [SerializeField] private ProductScanner _productScanner;
-        [SerializeField] private CashRegister _cashRegister;
+        [SerializeField] private CashDesk _cashDesk;
         [SerializeField, Min(0.001f)] private float _sensitivity;
 
         private IInput _input;
@@ -23,17 +22,18 @@ namespace YellowSquad.CashierSimulator.UserInput
         {
             _camera = Camera.main;
             _input = new StandaloneInput();
-            
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void Update()
         {
-            _cameraAim.RotateAim(_input.AimDelta * _sensitivity);
+            Cursor.visible = _cashDesk.PaymentTerminal.Active;
+            Cursor.lockState = _cashDesk.PaymentTerminal.Active ? CursorLockMode.None : CursorLockMode.Locked;
+            
+            if (_cashDesk.PaymentTerminal.Active == false)
+                _cameraAim.RotateAim(_input.AimDelta * _sensitivity);
             
             if (_input.Apply)
-                _cashRegister.EndPayment();
+                _cashDesk.CashRegister.EndPayment();
 
             if (_input.Use == false)
                 return;
@@ -49,9 +49,9 @@ namespace YellowSquad.CashierSimulator.UserInput
                 return;
             
             if (hitInfo.transform.root.TryGetComponent(out Product product))
-                _productScanner.Scan(product);
+                _cashDesk.ProductScanner.Scan(product);
             else if (hitInfo.transform.TryGetComponentInParent(out CashSlot cashSlot))
-                _cashRegister.Take(cashSlot);
+                _cashDesk.CashRegister.Take(cashSlot);
         }
         
         private bool IsPointerOverUIObject(Vector2 inputPosition)

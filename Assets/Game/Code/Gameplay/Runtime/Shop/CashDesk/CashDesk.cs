@@ -5,10 +5,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashDesk : MonoBehaviour
     {
+        [SerializeField] private CameraMovement _cameraMovement;
         [SerializeField] private ProductTape _productTape;
         [SerializeField] private ProductScanner _productScanner;
         [SerializeField] private CashRegister _cashRegister;
         [SerializeField] private PaymentTerminal _paymentTerminal;
+
+        public ProductScanner ProductScanner => _productScanner;
+        public CashRegister CashRegister => _cashRegister;
+        public PaymentTerminal PaymentTerminal => _paymentTerminal;
         
         public IEnumerator AcceptCustomer(Customer customer)
         {
@@ -37,7 +42,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
             {
+                _cameraMovement.MoveTo(_paymentTerminal.CameraPoint);
+                
                 yield return _paymentTerminal.AcceptPayment(_productScanner.ScannedProductsPrice);
+                
+                _cameraMovement.ReturnToBase();
             }
             
             _productScanner.Restart();
