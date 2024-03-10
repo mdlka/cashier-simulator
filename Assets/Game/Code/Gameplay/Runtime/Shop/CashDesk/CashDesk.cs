@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -48,7 +49,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, targetChange);
 
-                string rep = _cashRegister.CurrentChange >= targetChange ? "+rep" : "-rep";
+                string rep = Math.Abs(_cashRegister.CurrentChange - targetChange) < float.Epsilon 
+                    ? "+rep" : _cashRegister.CurrentChange > targetChange ? "" : "-rep";
                 Debug.Log($"Target: {targetChange}, Current: {_cashRegister.CurrentChange} ({rep})");
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
