@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2487122810310858945}
-  - component: {fileID: 6670044906754928858}
+  - component: {fileID: 3710711808819232340}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 3683430701892609498}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6670044906754928858
+--- !u!114 &3710711808819232340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 235122283880340861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ab5a4bb83e4a9b9c093724ea0ba4fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4947dbef392f4cf8b702c4190e6bb0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PaymentMethod>k__BackingField: 1
@@ -160,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2744510377576042276}
-  - component: {fileID: 2212970792115359176}
+  - component: {fileID: 4863352648392909977}
   m_Layer: 0
   m_Name: Cash
   m_TagString: Untagged
@@ -186,7 +186,7 @@ Transform:
   m_Father: {fileID: 3683430701892609498}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2212970792115359176
+--- !u!114 &4863352648392909977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 605162296831656179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4ab5a4bb83e4a9b9c093724ea0ba4fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4947dbef392f4cf8b702c4190e6bb0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <PaymentMethod>k__BackingField: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _paymentObjects:
-  - {fileID: 6670044906754928858}
-  - {fileID: 2212970792115359176}
+  - {fileID: 3710711808819232340}
+  - {fileID: 4863352648392909977}
 --- !u!1 &5787750880492944939
 GameObject:
   m_ObjectHideFlags: 0
