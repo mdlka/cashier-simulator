@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,7 +9,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashRegister : MonoBehaviour
     {
-        private readonly Queue<CashSlot> _slotsQueue = new();
+        private readonly Queue<(SlotAction, CashSlot)> _slotsQueue = new();
         private readonly List<Cash> _cash = new();
 
         [SerializeField] private List<CashSlot> _slots;
@@ -34,7 +36,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (_paymentEnded)
                 return;
             
-            _slotsQueue.Enqueue(slot);
+            _slotsQueue.Enqueue((SlotAction.Take, slot));
+        }
+
+        public void Return(CashSlot slot)
+        {
+            if (_paymentEnded) 
+                return;
+            
+            _slotsQueue.Enqueue((SlotAction.Return, slot));
         }
 
         public IEnumerator AcceptPayment(PaymentObject paymentCash, float givingCash, float productsPrice)
@@ -57,11 +67,26 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     yield break;
 
                 var slot = _slotsQueue.Dequeue();
-                var cash = slot.Take(_cashPoint.position);
-                CurrentChange += cash.Value;
+
+                if (slot.Item1 == SlotAction.Take)
+                {
+                    var cash = slot.Item2.Take(_cashPoint.position);
+                    CurrentChange += cash.Value;
+                    _cash.Add(cash);
+                }
+                else if (slot.Item1 == SlotAction.Return)
+                {
+                    var cash = _cash.FirstOrDefault(cash => Math.Abs(cash.Value - slot.Item2.TargetCashValue) < float.Epsilon);
+
+                    if (cash != null)
+                    {
+                        slot.Item2.Return(cash);
+                        CurrentChange -= cash.Value;
+                        _cash.Remove(cash);
+                    }
+                }
                 
                 _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
-                _cash.Add(cash);
             }
         }
 
@@ -77,6 +102,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _cashBox.DOLocalMove(_cashBoxCloseLocalPosition, 0.2f);
             
             _monitor.UpdateInfo();
+        }
+        
+        private enum SlotAction
+        {
+            Take,
+            Return
         }
     }
 }

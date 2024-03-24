@@ -35,7 +35,7 @@ namespace YellowSquad.CashierSimulator.UserInput
             if (_input.Apply)
                 _cashDesk.CashRegister.EndPayment();
 
-            if (_input.Use == false)
+            if (_input.Use == false && _input.Undo == false)
                 return;
 
             var pointerPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -45,13 +45,22 @@ namespace YellowSquad.CashierSimulator.UserInput
 
             if (Physics.Raycast(_camera.ScreenPointToRay(pointerPosition), out RaycastHit hitInfo) == false)
                 return;
-            
-            if (hitInfo.transform.root.TryGetComponent(out Product product))
+
+            if (_input.Use && hitInfo.transform.root.TryGetComponent(out Product product))
+            {
                 _cashDesk.ProductScanner.Scan(product);
+            }
             else if (hitInfo.transform.TryGetComponentInParent(out CashSlot cashSlot))
-                _cashDesk.CashRegister.Take(cashSlot);
-            else if (hitInfo.transform.TryGetComponentInParent(out PaymentObject paymentObject))
+            {
+                if (_input.Use)
+                    _cashDesk.CashRegister.Take(cashSlot);
+                else if (_input.Undo)
+                    _cashDesk.CashRegister.Return(cashSlot);
+            }
+            else if (_input.Use && hitInfo.transform.TryGetComponentInParent(out PaymentObject paymentObject))
+            {
                 _cashDesk.AcceptPaymentObject(paymentObject);
+            }
         }
 
         private bool IsPointerOverUIObject(Vector2 inputPosition)
