@@ -9,6 +9,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashRegister : MonoBehaviour
     {
+        private const float ChangePercentDifferenceForCanEnd = 20;
+        
         private readonly Queue<(SlotAction, CashSlot)> _slotsQueue = new();
         private readonly List<Cash> _cash = new();
 
@@ -20,6 +22,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Vector3 _cashBoxOpenLocalPosition;
 
         private bool _paymentEnded = true;
+        private bool _canEnd;
         
         public float CurrentChange { get; private set; }
 
@@ -49,6 +52,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public IEnumerator AcceptPayment(PaymentObject paymentCash, float givingCash, float productsPrice)
         {
+            _canEnd = false;
             _paymentEnded = false;
             CurrentChange = 0;
             
@@ -85,6 +89,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                         _cash.Remove(cash);
                     }
                 }
+
+                float targetChange = givingCash - productsPrice;
+                _canEnd = Mathf.Abs(targetChange - CurrentChange) / targetChange * 100 < ChangePercentDifferenceForCanEnd;
                 
                 _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
             }
@@ -92,6 +99,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void EndPayment()
         {
+            if (_canEnd == false)
+                return;
+            
             _paymentEnded = true;
 
             foreach (var cash in _cash)
