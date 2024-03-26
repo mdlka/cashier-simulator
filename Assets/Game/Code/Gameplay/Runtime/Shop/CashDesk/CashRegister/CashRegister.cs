@@ -16,7 +16,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         [SerializeField] private List<CashSlot> _slots;
         [SerializeField] private CashRegisterMonitor _monitor;
-        [SerializeField] private Transform _cashPoint;
+        [SerializeField] private Transform _dollarsPoint;
+        [SerializeField] private Transform _centsPoint;
         [SerializeField] private Transform _cashBox;
         [SerializeField] private Vector3 _cashBoxCloseLocalPosition;
         [SerializeField] private Vector3 _cashBoxOpenLocalPosition;
@@ -74,7 +75,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 if (slot.Item1 == SlotAction.Take)
                 {
-                    var cash = slot.Item2.Take(_cashPoint.position);
+                    var targetPoint = slot.Item2.TargetCashValue >= 1f ? _dollarsPoint : _centsPoint;
+                    var cash = slot.Item2.Take(targetPoint.position, targetPoint.rotation.eulerAngles);
                     CurrentChange += cash.Value;
                     _cash.Add(cash);
                 }
