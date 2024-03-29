@@ -53,12 +53,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
+      propertyPath: _cents
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
       propertyPath: _value
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
       propertyPath: _offset.x
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
+      propertyPath: _totalCents
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4356512148628929348, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
       propertyPath: m_Name

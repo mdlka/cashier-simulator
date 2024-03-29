@@ -9,12 +9,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Transform _scannedProductsPoint;
         [SerializeField, Min(0f)] private float _animationDuration;
         
-        public float ScannedProductsPrice { get; private set; }
+        public Currency ScannedProductsPrice { get; private set; }
         
         public void Scan(Product product)
         {
             _tape.Remove(product);
-            ScannedProductsPrice += product.PriceInDollars;
+            ScannedProductsPrice += product.PriceInCents;
 
             product.transform.DOMove(_scannedProductsPoint.position, _animationDuration)
                 .OnComplete(() => Destroy(product.gameObject));
@@ -22,7 +22,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void Restart()
         {
-            ScannedProductsPrice = 0;
+            ScannedProductsPrice = Currency.Zero;
         }
     }
 }

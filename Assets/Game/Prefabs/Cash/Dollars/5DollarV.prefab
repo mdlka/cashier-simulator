@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: _tilling.y
       value: 0.1055
       objectReference: {fileID: 0}
+    - target: {fileID: 6592914248425245634, guid: 88792abc297e50e4ea943a4446d17026, type: 3}
+      propertyPath: _totalCents
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 7359260960523607538, guid: 88792abc297e50e4ea943a4446d17026, type: 3}
       propertyPath: m_Name
       value: 5DollarV

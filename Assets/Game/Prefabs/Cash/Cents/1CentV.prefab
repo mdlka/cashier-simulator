@@ -52,9 +52,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
+      propertyPath: _cents
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239547130506033022, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
+      propertyPath: _totalCents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4356512148628929348, guid: 5fec67420ceef1e4f93330f49dcf4fc8, type: 3}
       propertyPath: m_Name
-      value: 1Cent Variant
+      value: 1CentV
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

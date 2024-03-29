@@ -4,13 +4,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Cash : MonoBehaviour
     {
-        [SerializeField] private float _value;
+        [SerializeField] private long _totalCents;
         [Header("Material settings")] 
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private Vector2 _tilling;
         [SerializeField] private Vector2 _offset;
 
-        public float Value => _value;
+        public long TotalCents => _totalCents;
 
         private void Awake()
         {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private bool _paymentEnded = true;
         private bool _canEnd;
         
-        public float CurrentChange { get; private set; }
+        public Currency CurrentChange { get; private set; }
 
         private void Awake()
         {
@@ -51,11 +50,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _slotsQueue.Enqueue((SlotAction.Return, slot));
         }
 
-        public IEnumerator AcceptPayment(PaymentObject paymentCash, float givingCash, float productsPrice)
+        public IEnumerator AcceptPayment(PaymentObject paymentCash, Currency givingCash, Currency productsPrice)
         {
             _canEnd = false;
             _paymentEnded = false;
-            CurrentChange = 0;
+            CurrentChange = Currency.Zero;
             
             paymentCash.Destroy();
             
@@ -75,25 +74,25 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 if (slot.Item1 == SlotAction.Take)
                 {
-                    var targetPoint = slot.Item2.TargetCashValue >= 1f ? _dollarsPoint : _centsPoint;
+                    var targetPoint = slot.Item2.TargetCurrencyTotalCents >= 100 ? _dollarsPoint : _centsPoint;
                     var cash = slot.Item2.Take(targetPoint.position, targetPoint.rotation.eulerAngles);
-                    CurrentChange += cash.Value;
+                    CurrentChange += cash.TotalCents;
                     _cash.Add(cash);
                 }
                 else if (slot.Item1 == SlotAction.Return)
                 {
-                    var cash = _cash.FirstOrDefault(cash => Math.Abs(cash.Value - slot.Item2.TargetCashValue) < float.Epsilon);
+                    var cash = _cash.FirstOrDefault(cash => cash.TotalCents == slot.Item2.TargetCurrencyTotalCents);
 
                     if (cash != null)
                     {
                         slot.Item2.Return(cash);
-                        CurrentChange -= cash.Value;
+                        CurrentChange -= cash.TotalCents;
                         _cash.Remove(cash);
                     }
                 }
 
-                float targetChange = givingCash - productsPrice;
-                _canEnd = Mathf.Abs(targetChange - CurrentChange) / targetChange * 100 < ChangePercentDifferenceForCanEnd;
+                var targetChange = givingCash - productsPrice;
+                _canEnd = Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
                 
                 _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
             }

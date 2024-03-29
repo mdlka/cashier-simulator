@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b310b8422e454486fdac514f574838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PriceInDollars>k__BackingField: 1
+  <PriceInCents>k__BackingField: 123
 --- !u!1 &3106491612560591111
 GameObject:
   m_ObjectHideFlags: 0

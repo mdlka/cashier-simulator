@@ -27,7 +27,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
         }
 
-        public IEnumerator AcceptPayment(PaymentObject card, float targetPrice)
+        public IEnumerator AcceptPayment(PaymentObject card, Currency targetPrice)
         {
             Active = true;
             ReleaseButtons();
@@ -40,7 +40,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 if (_okButton.Pressed)
                 {
-                    if (ValidateInputPrice(targetPrice))
+                    if (ValidateInputPrice(ref targetPrice))
                         break;
                     
                     Debug.Log($"No. Need {targetPrice}, but was {_screenText.text}");
@@ -70,12 +70,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _okButton.Release();
         }
 
-        private bool ValidateInputPrice(float targetPrice)
+        private bool ValidateInputPrice(ref Currency targetPrice)
         {
             if (float.TryParse(_screenText.text, NumberStyles.Any, _cultureInfo, out float value) == false)
                 return false;
             
-            return Math.Abs(value - targetPrice) < float.Epsilon;
+            return targetPrice.TotalCents == (long)(value * 100f);
         }
 
         private void ApplyInput(PaymentTerminalButtonType type)

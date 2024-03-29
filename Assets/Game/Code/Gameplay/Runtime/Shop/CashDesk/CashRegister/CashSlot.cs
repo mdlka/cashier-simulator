@@ -7,7 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private Cash _targetCashTemplate;
 
-        public float TargetCashValue => _targetCashTemplate.Value;
+        public long TargetCurrencyTotalCents => _targetCashTemplate.TotalCents;
         
         public Cash Take(Vector3 cashPosition, Vector3 rotation)
         {

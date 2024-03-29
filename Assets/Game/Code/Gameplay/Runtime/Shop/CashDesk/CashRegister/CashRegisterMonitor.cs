@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -13,25 +12,27 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Color _correctColor;
         [SerializeField] private Color _wrongColor;
 
-        public void UpdateInfo(float givenCash = 0f, float productsPrice = 0f, float currentChange = 0f)
+        public void UpdateInfo()
         {
-            _givenCashText.text = FormatCashText(givenCash);
-            _productsPriceText.text = FormatCashText(productsPrice);
-
-            float targetChange = givenCash - productsPrice;
-            
-            _targetChangeText.text = FormatCashText(targetChange);
-            _currentChangeText.text = FormatCashText(currentChange);
-
-            _currentChangeText.color = Math.Abs(targetChange - currentChange) < float.Epsilon ? _correctColor : _wrongColor;
+            UpdateInfo(Currency.Zero, Currency.Zero, Currency.Zero);
         }
 
-        private string FormatCashText(float cash)
+        public void UpdateInfo(Currency givenCash, Currency productsPrice, Currency currentChange)
         {
-            int integerPart = (int)cash;
-            float fractionalPart = cash - integerPart;
+            _givenCashText.text = FormatCurrency(ref givenCash);
+            _productsPriceText.text = FormatCurrency(ref productsPrice);
 
-            return $"{integerPart}.<size=80%>{fractionalPart:00}";
+            var targetChange = givenCash - productsPrice;
+            
+            _targetChangeText.text = FormatCurrency(ref targetChange);
+            _currentChangeText.text = FormatCurrency(ref currentChange);
+
+            _currentChangeText.color = targetChange == currentChange ? _correctColor : _wrongColor;
+        }
+
+        private string FormatCurrency(ref Currency currency)
+        {
+            return $"{currency.Dollars}.<size=80%>{currency.Cents:00}";
         }
     }
 }

@@ -42,12 +42,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             if (customer.PaymentMethod == PaymentMethod.Cash)
             {
-                float givingCash = Mathf.Ceil(_productScanner.ScannedProductsPrice / 10) * 10;
+                var givingCash = new Currency((long)(Mathf.Ceil(_productScanner.ScannedProductsPrice.TotalCents / 10f) * 10));
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
 
-                float targetChange = givingCash - _productScanner.ScannedProductsPrice;
-                string rep = Math.Abs(_cashRegister.CurrentChange - targetChange) < float.Epsilon ? "+rep" : "-rep";
+                var targetChange = givingCash - _productScanner.ScannedProductsPrice;
+                string rep = _cashRegister.CurrentChange == targetChange ? "+rep" : "-rep";
                 Debug.Log($"Target: {targetChange}, Current: {_cashRegister.CurrentChange} ({rep})");
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
