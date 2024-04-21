@@ -9,11 +9,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public long TargetCurrencyTotalCents => _targetCashTemplate.TotalCents;
         
-        public Cash Take(Vector3 cashPosition, Vector3 rotation)
+        public Cash Take(CashStack cashStack)
         {
             var cashInstance = Instantiate(_targetCashTemplate, transform.position, Quaternion.identity);
-            cashInstance.transform.DOJump(cashPosition, 0.1f, 1, 0.5f);
-            cashInstance.transform.DORotate(rotation, 0.5f);
+            cashInstance.DisableOutline();
+            cashStack.Add(cashInstance);
             
             return cashInstance;
         }

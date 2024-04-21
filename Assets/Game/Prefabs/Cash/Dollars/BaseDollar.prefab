@@ -211,7 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c35feddc3475da8a4aac75d2a0fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 1
+  _totalCents: 0
+  _outlinedObject: {fileID: 2793526586852176025}
   _meshRenderer: {fileID: 1959057670073634376}
   _tilling: {x: 0.845, y: 0.18}
   _offset: {x: 0, y: 0.1}

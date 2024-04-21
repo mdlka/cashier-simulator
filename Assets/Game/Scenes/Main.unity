@@ -988,6 +988,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 20DollarV
       objectReference: {fileID: 0}
+    - target: {fileID: 8531054277491955050, guid: 1278d28f6a0878c41bb0315ecf92df30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1722,6 +1726,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 60759952}
     m_Modifications:
+    - target: {fileID: 831123843077127626, guid: fa411b35e4dbdfb4ca3f18e64706a61f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.006
+      objectReference: {fileID: 0}
     - target: {fileID: 4570977493173112541, guid: fa411b35e4dbdfb4ca3f18e64706a61f, type: 3}
       propertyPath: m_Name
       value: 1DollarV
@@ -4901,6 +4909,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1238956921}
     m_Modifications:
+    - target: {fileID: 342109022634016918, guid: 09f88ec67e85dfe4ea41793de5640997, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.006
+      objectReference: {fileID: 0}
     - target: {fileID: 3483687296267793281, guid: 09f88ec67e85dfe4ea41793de5640997, type: 3}
       propertyPath: m_Name
       value: 50DollarV
@@ -8218,7 +8230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.44313726, g: 0.9372549, b: 0.3137255, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10298,8 +10310,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1026303581}
+  - component: {fileID: 1026303582}
   m_Layer: 0
-  m_Name: CentsPoint
+  m_Name: CentsStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10320,6 +10333,20 @@ Transform:
   m_Father: {fileID: 1735263217}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1026303582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026303580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a92cb37fd40471ab408ea732e7774bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offsetY: 0.001
+  _content: {fileID: 1026303581}
 --- !u!1001 &1027636667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11379,8 +11406,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1177337589}
+  - component: {fileID: 1177337590}
   m_Layer: 0
-  m_Name: DollarsPoint
+  m_Name: DollarsStack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11401,6 +11429,20 @@ Transform:
   m_Father: {fileID: 1735263217}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1177337590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177337588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a92cb37fd40471ab408ea732e7774bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offsetY: 0.001
+  _content: {fileID: 1177337589}
 --- !u!1 &1222132643
 GameObject:
   m_ObjectHideFlags: 0
@@ -14731,8 +14773,8 @@ MonoBehaviour:
   - {fileID: 1813016649}
   - {fileID: 484293743}
   _monitor: {fileID: 351447929}
-  _dollarsPoint: {fileID: 1177337589}
-  _centsPoint: {fileID: 1026303581}
+  _dollarsStack: {fileID: 1177337590}
+  _centsStack: {fileID: 1026303582}
   _cashBox: {fileID: 5577672807294486839}
   _cashBoxCloseLocalPosition: {x: -0.00801, y: 0, z: 0}
   _cashBoxOpenLocalPosition: {x: -0.00204, y: 0, z: 0}
@@ -17418,6 +17460,10 @@ PrefabInstance:
     - target: {fileID: 206804872522789078, guid: 592bed381ed785a42be78fe5bb750ef7, type: 3}
       propertyPath: m_Name
       value: 5DollarV
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907249375953404865, guid: 592bed381ed785a42be78fe5bb750ef7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.006
       objectReference: {fileID: 0}
     - target: {fileID: 8563078648288390872, guid: 592bed381ed785a42be78fe5bb750ef7, type: 3}
       propertyPath: m_RootOrder

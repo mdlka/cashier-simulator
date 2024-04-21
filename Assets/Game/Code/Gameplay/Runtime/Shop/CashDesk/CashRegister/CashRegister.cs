@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -15,8 +14,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         [SerializeField] private List<CashSlot> _slots;
         [SerializeField] private CashRegisterMonitor _monitor;
-        [SerializeField] private Transform _dollarsPoint;
-        [SerializeField] private Transform _centsPoint;
+        [SerializeField] private CashStack _dollarsStack;
+        [SerializeField] private CashStack _centsStack;
         [SerializeField] private Transform _cashBox;
         [SerializeField] private Vector3 _cashBoxCloseLocalPosition;
         [SerializeField] private Vector3 _cashBoxOpenLocalPosition;
@@ -74,17 +73,19 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 if (slot.Item1 == SlotAction.Take)
                 {
-                    var targetPoint = slot.Item2.TargetCurrencyTotalCents >= 100 ? _dollarsPoint : _centsPoint;
-                    var cash = slot.Item2.Take(targetPoint.position, targetPoint.rotation.eulerAngles);
+                    var targetStack = TargetStack(slot.Item2.TargetCurrencyTotalCents);
+                    var cash = slot.Item2.Take(targetStack);
                     CurrentChange += cash.TotalCents;
                     _cash.Add(cash);
                 }
                 else if (slot.Item1 == SlotAction.Return)
                 {
-                    var cash = _cash.FirstOrDefault(cash => cash.TotalCents == slot.Item2.TargetCurrencyTotalCents);
+                    int lastIndex = _cash.FindLastIndex(cash => cash.TotalCents == slot.Item2.TargetCurrencyTotalCents);
+                    var cash = lastIndex == -1 ? null : _cash[lastIndex];
 
                     if (cash != null)
                     {
+                        TargetStack(slot.Item2.TargetCurrencyTotalCents).Remove(cash);
                         slot.Item2.Return(cash);
                         CurrentChange -= cash.TotalCents;
                         _cash.Remove(cash);
@@ -119,6 +120,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             Take,
             Return
+        }
+
+        private CashStack TargetStack(long cents)
+        {
+            return cents >= 100 ? _dollarsStack : _centsStack;
         }
     }
 }
