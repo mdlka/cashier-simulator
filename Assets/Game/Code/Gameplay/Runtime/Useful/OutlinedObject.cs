@@ -7,14 +7,21 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private Outline _outline;
 
+        private bool _needOutline = true;
+
         private void Awake()
         {
             _outline.enabled = false;
         }
 
+        public void Disable()
+        {
+            _needOutline = false;
+        }
+
         private void OnMouseEnter()
         {
-            _outline.enabled = true;
+            _outline.enabled = _needOutline;
         }
 
         private void OnMouseExit()

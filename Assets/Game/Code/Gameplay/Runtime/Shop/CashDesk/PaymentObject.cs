@@ -5,6 +5,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class PaymentObject : MonoBehaviour
     {
+        [SerializeField] private OutlinedObject _outlinedObject;
         [field: SerializeField] public PaymentMethod PaymentMethod { get; private set; }
 
         public void Enable()
@@ -25,6 +26,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             transform.DOLocalMove(Vector3.zero, animationDuration);
             transform.DOLocalRotate(Vector3.zero, animationDuration);
+        }
+
+        public void DisableOutline()
+        {
+            _outlinedObject.Disable();
         }
     }
 }

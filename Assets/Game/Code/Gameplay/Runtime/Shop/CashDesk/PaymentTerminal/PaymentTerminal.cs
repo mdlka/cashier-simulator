@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class PaymentTerminal : MonoBehaviour
     {
+        [SerializeField, Min(0)] private int _maxInputPriceLenght;
         [SerializeField] private Transform _cameraPoint;
         [SerializeField] private Transform _cardPoint;
         [SerializeField] private TMP_Text _screenText;
@@ -33,6 +33,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             ReleaseButtons();
             
             card.MoveTo(_cardPoint, animationDuration: 0.75f);
+            card.DisableOutline();
             
             while (_okButton.Pressed == false)
             {
@@ -74,8 +75,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             if (float.TryParse(_screenText.text, NumberStyles.Any, _cultureInfo, out float value) == false)
                 return false;
+
+            string[] stringValue = value.ToString(_cultureInfo).Split(_cultureInfo.NumberFormat.NumberDecimalSeparator);
+            int valueLenght = stringValue.Length != 2 ? 2 : stringValue[1].Length;
             
-            return targetPrice.TotalCents == (long)(value * 100f);
+            return targetPrice.TotalCents == (long)(value * Mathf.Pow(10, valueLenght));
         }
 
         private void ApplyInput(PaymentTerminalButtonType type)
@@ -92,12 +96,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 if (_currentPrice.Contains('.'))
                     return;
 
+                if (_currentPrice.Length >= _maxInputPriceLenght)
+                    return;
+
                 if (_currentPrice.Length == 0)
                     _currentPrice += '0';
                 
                 _currentPrice += '.';
             }
-            else if (_currentPrice.Length < 6)
+            else if (_currentPrice.Length < _maxInputPriceLenght)
             {
                 _currentPrice += (char)(48 + type);
             }
