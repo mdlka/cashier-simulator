@@ -19,20 +19,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void UpdateInfo(Currency givenCash, Currency productsPrice, Currency currentChange)
         {
-            _givenCashText.text = FormatCurrency(ref givenCash);
-            _productsPriceText.text = FormatCurrency(ref productsPrice);
+            _givenCashText.text = givenCash.ToPriceTag();
+            _productsPriceText.text = productsPrice.ToPriceTag();
 
             var targetChange = givenCash - productsPrice;
             
-            _targetChangeText.text = FormatCurrency(ref targetChange);
-            _currentChangeText.text = FormatCurrency(ref currentChange);
+            _targetChangeText.text = targetChange.ToPriceTag();
+            _currentChangeText.text = targetChange.ToPriceTag();
 
             _currentChangeText.color = targetChange == currentChange ? _correctColor : _wrongColor;
-        }
-
-        private string FormatCurrency(ref Currency currency)
-        {
-            return $"{currency.Dollars}.<size=80%>{currency.Cents:00}";
         }
     }
 }

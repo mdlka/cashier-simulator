@@ -17,6 +17,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public CashRegister CashRegister => _cashRegister;
         public PaymentTerminal PaymentTerminal => _paymentTerminal;
 
+        private void Awake()
+        {
+            _productScanner.Clear();
+        }
+
         public void AcceptPaymentObject(PaymentObject paymentObject)
         {
             _currentPaymentObject = paymentObject;
@@ -58,7 +63,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 _cameraMovement.ReturnToBase();
             }
             
-            _productScanner.Restart();
+            _productScanner.Clear();
         }
     }
 }
