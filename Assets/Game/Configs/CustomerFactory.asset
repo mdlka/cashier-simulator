@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9943014803db43bf9a6b4024183392ae, type: 3}
   m_Name: CustomerFactory
   m_EditorClassIdentifier: 
-  _customers:
-  - {fileID: 2031259846796342239, guid: 9c3c32eac0455014494d0ffa190d6d3a, type: 3}
+  _customerTemplate: {fileID: 2031259846796342239, guid: 9c3c32eac0455014494d0ffa190d6d3a, type: 3}

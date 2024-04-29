@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using DG.Tweening;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -37,8 +36,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 var currentCostumer = _queuePoints[0].Value;
                 
+                yield return new WaitUntil(() => currentCostumer.IsMoving == false);
+                
+                currentCostumer.RotateY(-60f);
+                
+                yield return new WaitForSeconds(1f);
+                
                 yield return _cashDesk.AcceptCustomer(currentCostumer);
                 
+                currentCostumer.RotateY(0f);
                 currentCostumer.MoveTo(_exitPoint.position, onComplete: () => Destroy(currentCostumer.gameObject));
                 _queuePoints[0].Free();
 

@@ -30,17 +30,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public IEnumerator AcceptCustomer(Customer customer)
         {
             _currentPaymentObject = null;
-            
-            yield return new WaitUntil(() => customer.IsMoving == false);
-            yield return new WaitForSeconds(1f);
-            
-            yield return customer.PlaceProducts(_productTape);
 
+            yield return customer.PlaceProducts(_productTape);
             yield return new WaitUntil(() => _productTape.HasProducts == false);
 
             customer.StartPayment();
 
             yield return new WaitUntil(() => _currentPaymentObject != null);
+            
+            customer.EndPayment();
 
             if (customer.PaymentMethod == PaymentMethod.Cash)
             {

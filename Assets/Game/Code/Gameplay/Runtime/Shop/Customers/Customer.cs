@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Customer : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        [SerializeField] private CustomerAnimator _animator;
         [SerializeField] private PaymentObject[] _paymentObjects;
+        [SerializeField] private CustomerModel[] _models;
         
         private PaymentMethod _paymentMethod;
         private ProductList _productList;
@@ -21,6 +25,14 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _productList = productList;
             _paymentMethod = paymentMethod;
+            
+            var targetModel = _models[Random.Range(0, _models.Length)];
+            targetModel.gameObject.SetActive(true);
+            
+            _animator.Initialize(targetModel);
+
+            foreach (var paymentObject in _paymentObjects)
+                targetModel.SetupPaymentObject(paymentObject);
         }
 
         public void MoveTo(Vector3 position, Action onComplete = null)
@@ -29,6 +41,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 StopCoroutine(_movingCoroutine);
 
             _movingCoroutine = StartCoroutine(Moving(position, onComplete));
+        }
+
+        public void RotateY(float rotationY, float duration = 0.2f)
+        {
+            transform.DOComplete(true);
+            transform.DORotate(Vector3.up * rotationY, duration);
         }
 
         public IEnumerator PlaceProducts(ProductTape tape)
@@ -41,6 +59,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             var paymentObject = _paymentObjects.First(obj => obj.PaymentMethod == _paymentMethod);
             paymentObject.Enable();
+            
+            _animator.PutUpHand();
+        }
+
+        public void EndPayment()
+        {
+            _animator.PutDownHand();
         }
 
         private IEnumerator Moving(Vector3 targetPosition, Action onComplete = null)
@@ -48,6 +73,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             Vector3 startPosition = transform.position;
             float moveDuration = Vector3.Distance(startPosition, targetPosition) / _speed;
             float elapsedTime = 0;
+            
+            _animator.EnableMove();
 
             while (elapsedTime <= moveDuration)
             {
@@ -57,6 +84,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 yield return null;
             }
 
+            _animator.DisableMove();
+            
             transform.position = targetPosition;
             onComplete?.Invoke();
 
