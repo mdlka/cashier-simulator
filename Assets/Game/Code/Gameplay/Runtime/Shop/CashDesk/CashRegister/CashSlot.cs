@@ -8,7 +8,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Cash _targetCashTemplate;
 
         public long TargetCurrencyTotalCents => _targetCashTemplate.TotalCents;
-        
+
         public Cash Take(CashStack cashStack)
         {
             var cashInstance = Instantiate(_targetCashTemplate, transform.position, Quaternion.identity);
@@ -22,6 +22,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             cash.transform.DORotate(Vector3.zero, 0.3f);
             cash.transform.DOJump(transform.position, 0.1f, 1, 0.3f).OnComplete(() => Destroy(cash.gameObject));
+        }
+
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Disable()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

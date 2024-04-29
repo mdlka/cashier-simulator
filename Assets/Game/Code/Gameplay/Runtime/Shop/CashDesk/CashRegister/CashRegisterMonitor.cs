@@ -25,7 +25,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             var targetChange = givenCash - productsPrice;
             
             _targetChangeText.text = targetChange.ToPriceTag();
-            _currentChangeText.text = targetChange.ToPriceTag();
+            _currentChangeText.text = currentChange.ToPriceTag();
 
             _currentChangeText.color = targetChange == currentChange ? _correctColor : _wrongColor;
         }

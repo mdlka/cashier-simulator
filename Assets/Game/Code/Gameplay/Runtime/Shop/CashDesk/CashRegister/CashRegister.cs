@@ -28,7 +28,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private void Awake()
         {
             _cashBox.localPosition = _cashBoxCloseLocalPosition;
-            _slots.ForEach(slot => slot.gameObject.SetActive(false));
+            _slots.ForEach(slot => slot.Disable());
             
             _monitor.UpdateInfo();
         }
@@ -51,15 +51,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public IEnumerator AcceptPayment(PaymentObject paymentCash, Currency givingCash, Currency productsPrice)
         {
-            _canEnd = false;
             _paymentEnded = false;
+            _canEnd = CalculateCanEnd(givingCash - productsPrice);
             CurrentChange = Currency.Zero;
-            
+
             paymentCash.Destroy();
             
             _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
             
-            _slots.ForEach(slot => slot.gameObject.SetActive(true));
+            _slots.ForEach(slot => slot.Enable());
             _cashBox.DOLocalMove(_cashBoxOpenLocalPosition, 0.2f);
 
             while (_paymentEnded == false)
@@ -92,9 +92,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     }
                 }
 
-                var targetChange = givingCash - productsPrice;
-                _canEnd = Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
-                
+                _canEnd = CalculateCanEnd(givingCash - productsPrice);
                 _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
             }
         }
@@ -110,21 +108,26 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 Destroy(cash.gameObject);
             
             _cash.Clear();
-            _slots.ForEach(slot => slot.gameObject.SetActive(false));
+            _slots.ForEach(slot => slot.Disable());
             _cashBox.DOLocalMove(_cashBoxCloseLocalPosition, 0.2f);
             
             _monitor.UpdateInfo();
+        }
+
+        private bool CalculateCanEnd(Currency targetChange)
+        {
+            return Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
+        }
+
+        private CashStack TargetStack(long cents)
+        {
+            return cents >= 100 ? _dollarsStack : _centsStack;
         }
         
         private enum SlotAction
         {
             Take,
             Return
-        }
-
-        private CashStack TargetStack(long cents)
-        {
-            return cents >= 100 ? _dollarsStack : _centsStack;
         }
     }
 }

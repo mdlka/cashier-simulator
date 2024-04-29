@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 742612311231153814, guid: dc83e46494f5f6949b7f64f307a92eb7, type: 3}
       propertyPath: <PriceInCents>k__BackingField
-      value: 200
+      value: 231
       objectReference: {fileID: 0}
     - target: {fileID: 1294448747437824272, guid: dc83e46494f5f6949b7f64f307a92eb7, type: 3}
       propertyPath: m_Name

@@ -9,7 +9,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private bool _needOutline = true;
 
-        private void Awake()
+        private void OnEnable()
         {
             _outline.enabled = false;
         }
