@@ -38,8 +38,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             yield return new WaitUntil(() => _productTape.HasProducts == false);
 
-            Debug.Log($"Price: {_productScanner.ScannedProductsPrice}");
-
             customer.StartPayment();
 
             yield return new WaitUntil(() => _currentPaymentObject != null);

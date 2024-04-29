@@ -9467,6 +9467,9 @@ MonoBehaviour:
   - {fileID: 534403184}
   - {fileID: 1701269331}
   - {fileID: 1466488340}
+  _errorStepAnimationDuration: 0.2
+  _screenBackground: {fileID: 481956750}
+  _errorColor: {r: 1, g: 0.15471691, b: 0.15471691, a: 1}
 --- !u!1 &840150712
 GameObject:
   m_ObjectHideFlags: 0

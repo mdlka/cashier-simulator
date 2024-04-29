@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minMaxProducts: {x: 1, y: 4}
   _products:
-  - {fileID: 742612311231153814, guid: dc83e46494f5f6949b7f64f307a92eb7, type: 3}
+  - {fileID: 7105054472199416933, guid: af960121141e95047b9189e949d3a0ce, type: 3}
+  - {fileID: 6690493380587567190, guid: bec9671c91d36ed498be01c9bbc660d4, type: 3}

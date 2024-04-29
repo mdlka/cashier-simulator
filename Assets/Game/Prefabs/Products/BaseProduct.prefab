@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7913571030560318748}
   - component: {fileID: 742612311231153814}
   m_Layer: 0
-  m_Name: Product
+  m_Name: BaseProduct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b310b8422e454486fdac514f574838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <NameTag>k__BackingField: Bread
-  <PriceInCents>k__BackingField: 123
+  <NameTag>k__BackingField: Default
+  <PriceInCents>k__BackingField: 0
 --- !u!1 &3106491612560591111
 GameObject:
   m_ObjectHideFlags: 0

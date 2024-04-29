@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Globalization;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -14,10 +16,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private TMP_Text _screenText;
         [SerializeField] private InputButton _okButton;
         [SerializeField] private PaymentTerminalButton[] _buttons;
+        [Header("Error animation")]
+        [SerializeField] private float _errorStepAnimationDuration;
+        [SerializeField] private Image _screenBackground;
+        [SerializeField] private Color _errorColor;
 
         private string _currentPrice = "";
         private CultureInfo _cultureInfo;
-        
+        private Color _defaultScreenColor;
+        private float _epsilon;
+
         public Transform CameraPoint => _cameraPoint;
         public bool Active { get; private set; }
 
@@ -25,6 +33,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _cultureInfo = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             _cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+            _defaultScreenColor = _screenBackground.color;
+            _epsilon = Mathf.Pow(0.1f, _maxInputPriceLenght - 2);
         }
 
         public IEnumerator AcceptPayment(PaymentObject card, Currency targetPrice)
@@ -41,11 +51,14 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 if (_okButton.Pressed)
                 {
-                    if (ValidateInputPrice(ref targetPrice))
+                    if (ValidateInputPrice(targetPrice))
                         break;
                     
                     Debug.Log($"No. Need {targetPrice}, but was {_screenText.text}");
+                    
+                    PlayErrorAnimation();
                     _okButton.Release();
+                    
                     continue;
                 }
 
@@ -71,15 +84,18 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _okButton.Release();
         }
 
-        private bool ValidateInputPrice(ref Currency targetPrice)
+        private bool ValidateInputPrice(in Currency targetPrice)
         {
-            if (float.TryParse(_screenText.text, NumberStyles.Any, _cultureInfo, out float value) == false)
-                return false;
+            string[] splitValue = _screenText.text.Split('.');
+            string cents = splitValue.Length == 2 ? !string.IsNullOrEmpty(splitValue[1]) ? splitValue[1] : "0" : "0";
 
-            string[] stringValue = value.ToString(_cultureInfo).Split(_cultureInfo.NumberFormat.NumberDecimalSeparator);
-            int valueLenght = stringValue.Length != 2 ? 2 : stringValue[1].Length;
+            int centsMultiplier = cents.Length switch
+            {
+                2 when cents[0] != '0' => 1,
+                _ => cents[0] == '0' ? 1 : 10
+            };
             
-            return targetPrice.TotalCents == (long)(value * Mathf.Pow(10, valueLenght));
+            return int.Parse(splitValue[0]) == targetPrice.Dollars && int.Parse(cents) * centsMultiplier == targetPrice.Cents;
         }
 
         private void ApplyInput(PaymentTerminalButtonType type)
@@ -106,10 +122,26 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
             else if (_currentPrice.Length < _maxInputPriceLenght)
             {
+                if (_currentPrice.Length == 1 && _currentPrice[0] == '0')
+                    return;
+
+                if (_currentPrice.Contains('.') && _currentPrice.Split('.')[1].Length == 2)
+                    return;
+                
                 _currentPrice += (char)(48 + type);
             }
             
             UpdateScreenText();
+        }
+
+        private void PlayErrorAnimation()
+        {
+            transform.DOComplete(true);
+            _screenBackground.color = _defaultScreenColor;
+            
+            var sequence = DOTween.Sequence();
+            sequence.Append(_screenBackground.DOColor(_errorColor, _errorStepAnimationDuration));
+            sequence.Append(_screenBackground.DOColor(_defaultScreenColor, _errorStepAnimationDuration));
         }
 
         private void UpdateScreenText()
