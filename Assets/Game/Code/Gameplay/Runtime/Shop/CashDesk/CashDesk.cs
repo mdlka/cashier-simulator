@@ -10,6 +10,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private ProductScanner _productScanner;
         [SerializeField] private CashRegister _cashRegister;
         [SerializeField] private PaymentTerminal _paymentTerminal;
+        [SerializeField] private GameObject _paperboard;
 
         private PaymentObject _currentPaymentObject;
 
@@ -20,6 +21,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private void Awake()
         {
             _productScanner.Clear();
+            _paperboard.SetActive(false);
         }
 
         public void AcceptPaymentObject(PaymentObject paymentObject)
@@ -30,6 +32,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public IEnumerator AcceptCustomer(Customer customer)
         {
             _currentPaymentObject = null;
+            
+            _paperboard.SetActive(true);
 
             yield return customer.PlaceProducts(_productTape);
             yield return new WaitUntil(() => _productTape.HasProducts == false);
@@ -60,6 +64,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
             
             _productScanner.Clear();
+            _paperboard.SetActive(false);
         }
     }
 }

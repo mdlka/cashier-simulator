@@ -13,6 +13,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private CustomerAnimator _animator;
         [SerializeField] private PaymentObject[] _paymentObjects;
         [SerializeField] private CustomerModel[] _models;
+        [SerializeField] private Material[] _materials;
         
         private PaymentMethod _paymentMethod;
         private ProductList _productList;
@@ -28,11 +29,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             var targetModel = _models[Random.Range(0, _models.Length)];
             targetModel.gameObject.SetActive(true);
+            targetModel.SetupMaterial(_materials[Random.Range(0, _materials.Length)]);
             
-            _animator.Initialize(targetModel);
-
             foreach (var paymentObject in _paymentObjects)
                 targetModel.SetupPaymentObject(paymentObject);
+            
+            _animator.Initialize(targetModel);
         }
 
         public void MoveTo(Vector3 position, Action onComplete = null)

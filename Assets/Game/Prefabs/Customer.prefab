@@ -685,6 +685,8 @@ MonoBehaviour:
   _animator: {fileID: 6141764829733714770}
   _cashContainer: {fileID: 4602291538739514646}
   _cardContainer: {fileID: 7275277192895027749}
+  _meshRenderers:
+  - {fileID: 7153504478376193419}
 --- !u!95 &6141764829733714770
 Animator:
   serializedVersion: 5
@@ -2354,6 +2356,8 @@ MonoBehaviour:
   _animator: {fileID: 5074050222074528859}
   _cashContainer: {fileID: 3344108944874937327}
   _cardContainer: {fileID: 8338688109630282116}
+  _meshRenderers:
+  - {fileID: 1054675025250991328}
 --- !u!95 &5074050222074528859
 Animator:
   serializedVersion: 5
@@ -2553,6 +2557,9 @@ MonoBehaviour:
   _animator: {fileID: 4633656253328005690}
   _cashContainer: {fileID: 8662238970665168429}
   _cardContainer: {fileID: 8915257555180711064}
+  _meshRenderers:
+  - {fileID: 5153024634324395322}
+  - {fileID: 6757965931637983747}
 --- !u!95 &4633656253328005690
 Animator:
   serializedVersion: 5
@@ -2970,6 +2977,9 @@ MonoBehaviour:
   _animator: {fileID: 8992801837329321114}
   _cashContainer: {fileID: 4408962741588396393}
   _cardContainer: {fileID: 2366165675593370118}
+  _meshRenderers:
+  - {fileID: 5080751183107321040}
+  - {fileID: 8506561839714783998}
 --- !u!95 &8992801837329321114
 Animator:
   serializedVersion: 5
@@ -5223,6 +5233,8 @@ MonoBehaviour:
   _animator: {fileID: 2296165617081453602}
   _cashContainer: {fileID: 3860171533938595462}
   _cardContainer: {fileID: 6628348234711353240}
+  _meshRenderers:
+  - {fileID: 8640117461230798382}
 --- !u!95 &2296165617081453602
 Animator:
   serializedVersion: 5
@@ -5679,6 +5691,9 @@ MonoBehaviour:
   _animator: {fileID: 1878605837684766623}
   _cashContainer: {fileID: 9193321130662477599}
   _cardContainer: {fileID: 4209436211652798152}
+  _meshRenderers:
+  - {fileID: 1968258363267456878}
+  - {fileID: 948861750717599091}
 --- !u!95 &1878605837684766623
 Animator:
   serializedVersion: 5
@@ -5950,6 +5965,10 @@ MonoBehaviour:
   - {fileID: 4955423794766582471}
   - {fileID: 6020262563619665347}
   - {fileID: 1265845159768775501}
+  _materials:
+  - {fileID: 2100000, guid: 1a77ecb7d10f8e344a05c9cf5a49b8b4, type: 2}
+  - {fileID: 2100000, guid: b796737558bc8f745adc2b29ed699845, type: 2}
+  - {fileID: 2100000, guid: d0f5e309bdf2cb044b0e8310d738e923, type: 2}
 --- !u!1 &5554574795154202210
 GameObject:
   m_ObjectHideFlags: 0
@@ -7530,6 +7549,10 @@ MonoBehaviour:
   _animator: {fileID: 4449685161775530221}
   _cashContainer: {fileID: 1025763280655143464}
   _cardContainer: {fileID: 109472929605193490}
+  _meshRenderers:
+  - {fileID: 4360324017377667100}
+  - {fileID: 9067926215569843375}
+  - {fileID: 3951288787877364303}
 --- !u!95 &4449685161775530221
 Animator:
   serializedVersion: 5
