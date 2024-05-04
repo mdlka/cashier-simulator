@@ -54,7 +54,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _paymentEnded = false;
             _canEnd = CalculateCanEnd(givingCash - productsPrice);
             CurrentChange = Currency.Zero;
-
+            
             paymentCash.Destroy();
             
             _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
@@ -116,6 +116,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private bool CalculateCanEnd(Currency targetChange)
         {
+            if (targetChange.TotalCents == 0)
+                return CurrentChange.TotalCents == 0;
+            
             return Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
         }
 
