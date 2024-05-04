@@ -53,9 +53,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 {
                     if (ValidateInputPrice(targetPrice))
                         break;
-                    
-                    Debug.Log($"No. Need {targetPrice}, but was {_screenText.text}");
-                    
+
                     PlayErrorAnimation();
                     _okButton.Release();
                     
