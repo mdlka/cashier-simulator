@@ -51,10 +51,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public IEnumerator AcceptPayment(PaymentObject paymentCash, Currency givingCash, Currency productsPrice)
         {
-            _paymentEnded = false;
-            _canEnd = CalculateCanEnd(givingCash - productsPrice);
             CurrentChange = Currency.Zero;
             
+            _paymentEnded = false;
+            _canEnd = CalculateCanEnd(givingCash - productsPrice);
+
             paymentCash.Destroy();
             
             _monitor.UpdateInfo(givingCash, productsPrice, CurrentChange);
