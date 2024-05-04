@@ -5952,7 +5952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccf6a5081a879e44823ff43b03419c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 2.75
   _animator: {fileID: 7156273554716000770}
   _paymentObjects:
   - {fileID: 3710711808819232340}
