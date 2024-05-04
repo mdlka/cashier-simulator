@@ -46,7 +46,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             if (customer.PaymentMethod == PaymentMethod.Cash)
             {
-                var givingCash = new Currency((long)(Mathf.Ceil(_productScanner.ScannedProductsPrice.TotalCents / 10f) * 10));
+                var givingCash = new Currency((long)(Mathf.Ceil(_productScanner.ScannedProductsPrice.TotalCents / 100f) * 100));
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
 
