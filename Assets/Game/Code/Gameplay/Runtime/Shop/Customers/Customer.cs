@@ -54,7 +54,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public IEnumerator PlaceProducts(ProductTape tape)
         {
             foreach (var product in _productList.Products)
+            {
                 yield return tape.Add(Instantiate(product, transform.position, Quaternion.identity));
+                yield return new WaitUntil(() => tape.HasFreePoint);
+            }
         }
 
         public void StartPayment()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7722223e54a049fe944c87c2106b9a5c, type: 3}
   m_Name: ProductListFactory
   m_EditorClassIdentifier: 
-  _minMaxProducts: {x: 1, y: 4}
+  _minMaxProducts: {x: 1, y: 10}
   _products:
   - {fileID: 2625376656763673400, guid: 1041fc69bf2de4647b73def58c88a8c8, type: 3}
   - {fileID: 6678906134326035183, guid: c38bd0b1019082b469d5e3b30e50d30b, type: 3}
