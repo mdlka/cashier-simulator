@@ -7,15 +7,24 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class CustomersQueue : MonoBehaviour
     {
         [SerializeField] private CashDesk _cashDesk;
-        [SerializeField] private Transform _enterPoint;
-        [SerializeField] private Transform _exitPoint;
+        [SerializeField] private Transform[] _enterPoints;
+        [SerializeField] private Transform[] _exitPoints;
         [SerializeField] private CustomerPoint[] _queuePoints;
+
+        private Vector3[] _enterPositions;
+        private Vector3[] _exitPositions;
 
         public bool HasPlace => _queuePoints[^1].IsBusy == false;
         public bool HasCustomers => _queuePoints[0].IsBusy;
 
         private void Start()
         {
+            _enterPositions = new Vector3[_enterPoints.Length];
+            for (int i = 1; i < _enterPoints.Length; i++)
+                _enterPositions[i-1] = _enterPoints[i].position;
+            
+            _exitPositions = _exitPoints.Select(point => point.position).ToArray();
+            
             StartCoroutine(Working());
         }
 
@@ -24,8 +33,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             var point = _queuePoints.First(point => point.IsBusy == false);
             point.Take(customer);
 
-            customer.transform.position = _enterPoint.position;
-            customer.MoveTo(point.Position);
+            _enterPositions[^1] = point.Position;
+            
+            customer.transform.position = _enterPoints[0].position;
+            customer.MoveThrough(positions: _enterPositions.ToArray());
         }
 
         private IEnumerator Working()
@@ -44,8 +55,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 
                 yield return _cashDesk.AcceptCustomer(currentCostumer);
                 
-                currentCostumer.RotateY(0f);
-                currentCostumer.MoveTo(_exitPoint.position, onComplete: () => Destroy(currentCostumer.gameObject));
+                currentCostumer.MoveThrough(positions: _exitPositions, 
+                    onComplete: () => Destroy(currentCostumer.gameObject));
+                
                 _queuePoints[0].Free();
 
                 MoveQueue();
@@ -63,8 +75,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 _queuePoints[i].Free();
                 _queuePoints[i - 1].Take(customer);
-
-                customer.MoveTo(_queuePoints[i - 1].Position);
+                
+                if (i == 1)
+                    customer.MoveThrough(positions: _queuePoints[i - 1].Position);
+                else
+                    customer.MoveThrough(positions: _queuePoints[i - 1].Position, onComplete: () => customer.RotateY(0f));
             }
         }
     }

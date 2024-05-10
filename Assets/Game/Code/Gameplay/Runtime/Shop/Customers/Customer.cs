@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using YellowSquad.CashierSimulator.Gameplay.Useful;
 using Random = UnityEngine.Random;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -36,13 +37,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _animator.Initialize(targetModel);
         }
-
-        public void MoveTo(Vector3 position, Action onComplete = null)
+        
+        public void MoveThrough(Action onComplete = null, params Vector3[] positions)
         {
+            if (positions.Length == 0)
+                return;
+            
             if (_movingCoroutine != null)
                 StopCoroutine(_movingCoroutine);
 
-            _movingCoroutine = StartCoroutine(Moving(position, onComplete));
+            _movingCoroutine = StartCoroutine(Moving(positions, onComplete));
         }
 
         public void RotateY(float rotationY, float duration = 0.2f)
@@ -73,25 +77,31 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _animator.PutDownHand();
         }
 
-        private IEnumerator Moving(Vector3 targetPosition, Action onComplete = null)
+        private IEnumerator Moving(Vector3[] targetPositions, Action onComplete = null)
         {
-            Vector3 startPosition = transform.position;
-            float moveDuration = Vector3.Distance(startPosition, targetPosition) / _speed;
-            float elapsedTime = 0;
-            
             _animator.EnableMove();
-
-            while (elapsedTime <= moveDuration)
+            
+            foreach (var targetPosition in targetPositions)
             {
-                transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
-                elapsedTime += Time.deltaTime;
+                Vector3 startPosition = transform.position;
+                float moveDuration = Vector3.Distance(startPosition, targetPosition) / _speed;
+                float elapsedTime = 0;
 
-                yield return null;
+                Vector3 moveDirection = (targetPosition.XZ() - startPosition.XZ()).normalized;
+                RotateY(Quaternion.LookRotation(moveDirection).eulerAngles.y - 180f);
+                
+                while (elapsedTime <= moveDuration)
+                {
+                    transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
+                    elapsedTime += Time.deltaTime;
+
+                    yield return null;
+                }
             }
+            
+            transform.position = targetPositions[^1];
 
             _animator.DisableMove();
-            
-            transform.position = targetPosition;
             onComplete?.Invoke();
 
             _movingCoroutine = null;
