@@ -11,6 +11,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private CashRegister _cashRegister;
         [SerializeField] private PaymentTerminal _paymentTerminal;
         [SerializeField] private GameObject _paperboard;
+        [Header("Tutorial")] 
+        [SerializeField] private CashDeskHelpBox _helpBox;
 
         private PaymentObject _currentPaymentObject;
 
@@ -22,6 +24,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _productScanner.Clear();
             _paperboard.SetActive(false);
+            
+            _helpBox.Switch(CashDeskHelpBox.State.Idle);
         }
 
         public void AcceptPaymentObject(PaymentObject paymentObject)
@@ -34,11 +38,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _currentPaymentObject = null;
             
             _paperboard.SetActive(true);
+            _helpBox.Switch(CashDeskHelpBox.State.Scan);
 
             yield return customer.PlaceProducts(_productTape);
             yield return new WaitUntil(() => _productTape.HasProducts == false);
 
             customer.StartPayment();
+            _helpBox.Switch(CashDeskHelpBox.State.AcceptPayment);
 
             yield return new WaitUntil(() => _currentPaymentObject != null);
             
@@ -46,6 +52,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             if (customer.PaymentMethod == PaymentMethod.Cash)
             {
+                _helpBox.Switch(CashDeskHelpBox.State.CashRegister);
+                
                 var givingCash = new Currency((long)(Mathf.Ceil(_productScanner.ScannedProductsPrice.TotalCents / 100f) * 100));
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
@@ -56,6 +64,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
             {
+                _helpBox.Switch(CashDeskHelpBox.State.PaymentTerminal);
+                
                 _cameraMovement.MoveTo(_paymentTerminal.CameraPoint);
                 
                 yield return _paymentTerminal.AcceptPayment(_currentPaymentObject, _productScanner.ScannedProductsPrice);
@@ -65,6 +75,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _productScanner.Clear();
             _paperboard.SetActive(false);
+            
+            _helpBox.Switch(CashDeskHelpBox.State.Idle);
         }
     }
 }
