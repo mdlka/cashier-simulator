@@ -88,7 +88,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 float elapsedTime = 0;
 
                 Vector3 moveDirection = (targetPosition.XZ() - startPosition.XZ()).normalized;
-                RotateY(Quaternion.LookRotation(moveDirection).eulerAngles.y - 180f);
+                RotateY(Quaternion.LookRotation(moveDirection).eulerAngles.y - 180f, 0.35f);
                 
                 while (elapsedTime <= moveDuration)
                 {
