@@ -5,6 +5,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     internal class ScannedProductPanel : MonoBehaviour
     {
+        [SerializeField] private ProductsNames _productsNames;
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _countText;
         [SerializeField] private TMP_Text _priceText;
@@ -18,7 +19,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             TargetProductNameTag = productNameTag;
             CurrentProductsCount = count;
 
-            _nameText.text = productNameTag;
+            _nameText.text = _productsNames.RuName(productNameTag);
             _countText.text = count.ToString();
             _priceText.text = productPrice.ToPriceTag();
             _totalText.text = (productPrice * count).ToPriceTag();
