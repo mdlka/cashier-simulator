@@ -9,6 +9,13 @@ namespace YellowSquad.CashierSimulator.Application
         [SerializeField] private Shop _shop;
         [SerializeField] private ShopDaySettings _shopDaySettings;
 
+        private void Awake()
+        {
+#if !UNITY_EDITOR
+            UnityEngine.Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
+#endif
+        }
+
         private IEnumerator Start()
         {
             int day = 1;
@@ -18,7 +25,7 @@ namespace YellowSquad.CashierSimulator.Application
                 _shop.StartDay(_shopDaySettings);
                 
                 Debug.Log($"Day {day} started");
-
+            
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
                 
