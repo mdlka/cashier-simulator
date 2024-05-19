@@ -2,9 +2,9 @@
     "name": "YellowSquad.CashierSimulator.Gameplay",
     "rootNamespace": "YellowSquad.CashierSimulator.Gameplay",
     "references": [
-        "GUID:5ad926ab5ff9d914ea1f6812dfd6f07a",
         "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:b9c9f427d758e88449909608ea148d76"
+        "GUID:b9c9f427d758e88449909608ea148d76",
+        "GUID:3d1805e0683398d438f9505c9d1968b9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,4 +1,4 @@
-using cakeslice;
+using QuickOutline;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay

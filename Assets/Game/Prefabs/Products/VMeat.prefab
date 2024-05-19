@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4310999534056223334}
   - component: {fileID: 2033173426886887084}
   - component: {fileID: 1167192160293622537}
-  - component: {fileID: 1653453251630351488}
   - component: {fileID: 5876052966194928233}
+  - component: {fileID: 5142424214042599903}
   m_Layer: 0
   m_Name: Meat1
   m_TagString: Untagged
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520082218017941369}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2078825141380630667}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4310999534056223334
 MeshFilter:
@@ -98,21 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bddd2b10c2e163499324c307754afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outline: {fileID: 1653453251630351488}
---- !u!114 &1653453251630351488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520082218017941369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 1
-  eraseRenderer: 0
+  _outline: {fileID: 5142424214042599903}
 --- !u!64 &5876052966194928233
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -135,6 +121,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4132985572731744122, guid: 119f4fcbeb59f814b94eb2cd4732769e, type: 3}
+--- !u!114 &5142424214042599903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520082218017941369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &609949791656584461
 PrefabInstance:
   m_ObjectHideFlags: 0

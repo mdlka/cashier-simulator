@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3373362033774633365}
   - component: {fileID: 6362865715137764641}
   - component: {fileID: 4689259518257516169}
-  - component: {fileID: 8296258729114190290}
+  - component: {fileID: 6242459854595027398}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Untagged
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3877716470289039424}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4219588865937436712}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &663262438438589791
 MeshFilter:
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bddd2b10c2e163499324c307754afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outline: {fileID: 8296258729114190290}
---- !u!114 &8296258729114190290
+  _outline: {fileID: 6242459854595027398}
+--- !u!114 &6242459854595027398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,11 +130,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3877716470289039424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 1
-  eraseRenderer: 0
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &3324078594602540462
 PrefabInstance:
   m_ObjectHideFlags: 0

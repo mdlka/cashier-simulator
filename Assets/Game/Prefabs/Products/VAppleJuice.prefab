@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 411127031338153885}
   - component: {fileID: 5212012621985388726}
   - component: {fileID: 2572003308074174677}
-  - component: {fileID: 6669872232758090105}
   - component: {fileID: 2696545524950768390}
+  - component: {fileID: 6518167269410194640}
   m_Layer: 0
   m_Name: applejuicegfx
   m_TagString: Untagged
@@ -28,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6455106170060771143}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1625, z: 0}
   m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
@@ -35,7 +36,6 @@ Transform:
   m_Children:
   - {fileID: 7582249597987864028}
   m_Father: {fileID: 4778871302835071487}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &411127031338153885
 MeshFilter:
@@ -99,21 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bddd2b10c2e163499324c307754afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outline: {fileID: 6669872232758090105}
---- !u!114 &6669872232758090105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6455106170060771143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 1
-  eraseRenderer: 0
+  _outline: {fileID: 6518167269410194640}
 --- !u!65 &2696545524950768390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,6 +121,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.17320696, y: 0.5116065, z: 0.17416844}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6518167269410194640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455106170060771143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7690506683637724522
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,13 +164,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7690506683637724522}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.052351873, y: 0.1646772, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1752071830232364157}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &374743830902684526
 MeshFilter:

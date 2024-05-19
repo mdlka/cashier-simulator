@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2083857832088431120}
   - component: {fileID: 4255812457468731098}
   - component: {fileID: 8442371136074573678}
-  - component: {fileID: 6568686807845324414}
   - component: {fileID: 5900322137886277116}
+  - component: {fileID: 7208033633705169014}
   m_Layer: 0
   m_Name: yaourt
   m_TagString: Untagged
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2310155918881636111}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.0385, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2078825141380630667}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2083857832088431120
 MeshFilter:
@@ -98,21 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bddd2b10c2e163499324c307754afd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outline: {fileID: 6568686807845324414}
---- !u!114 &6568686807845324414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2310155918881636111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 1
-  eraseRenderer: 0
+  _outline: {fileID: 7208033633705169014}
 --- !u!65 &5900322137886277116
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,6 +120,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12836988, y: 0.116339564, z: 0.12836497}
   m_Center: {x: 0, y: 0.00421118, z: 0}
+--- !u!114 &7208033633705169014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2310155918881636111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &609949791656584461
 PrefabInstance:
   m_ObjectHideFlags: 0
