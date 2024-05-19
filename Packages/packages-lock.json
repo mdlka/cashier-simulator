@@ -7,13 +7,6 @@
       "dependencies": {},
       "hash": "32d39130ea78dce0c3ea0ed83ec5f022efefde42"
     },
-    "com.cakeslice.outline-effect": {
-      "version": "https://github.com/cakeslice/Outline-Effect.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "5a1fa96bd2d75e8402a66b4e8480105472a9aca7"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
