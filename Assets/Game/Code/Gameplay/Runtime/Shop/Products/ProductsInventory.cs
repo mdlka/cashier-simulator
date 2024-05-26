@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -6,6 +7,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class ProductsInventory : ScriptableObject
     {
         [SerializeField] private Product[] _products;
+
+        public IReadOnlyList<Product> OpenedProducts => _products;
 
         public Product RandomOpenedProduct()
         {
