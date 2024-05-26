@@ -7363,6 +7363,7 @@ RectTransform:
   m_Children:
   - {fileID: 607891935}
   - {fileID: 2071838360}
+  - {fileID: 1013001527}
   m_Father: {fileID: 507160280}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13823,6 +13824,58 @@ PrefabInstance:
       addedObject: {fileID: 1757004113}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b192cc40154b00840a019f85bd789519, type: 3}
+--- !u!1 &1013001526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013001527}
+  - component: {fileID: 1013001528}
+  m_Layer: 0
+  m_Name: PurchaseProductMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1013001527
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013001526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 556449597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1013001528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013001526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704f25239c999cb4db0a775e5cd01627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _productsInventory: {fileID: 11400000, guid: 691d0a292df4ce74db16cbf7ec4ee78b, type: 2}
+  _products:
+  - <Product>k__BackingField: {fileID: 0}
+    <PriceInCents>k__BackingField: 0
 --- !u!1 &1019775521
 GameObject:
   m_ObjectHideFlags: 0
