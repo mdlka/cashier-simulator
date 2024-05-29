@@ -10,11 +10,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _priceText;
 
-        public void Render(PurchaseProduct product, string localizedName, bool opened)
+        public void Render(Sprite icon, Currency price, string localizedName, bool opened)
         {
-            _icon.sprite = product.Icon;
+            _icon.sprite = icon;
             _nameText.text = localizedName;
-            _priceText.text = product.Price.ToPriceTag();
+            _priceText.text = price.ToPriceTag();
         }
     }
 }

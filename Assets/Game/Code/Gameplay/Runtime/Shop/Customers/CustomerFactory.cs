@@ -11,7 +11,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         [NonSerialized] private Transform _customerContainer;
 
-        public Customer CreateRandomCustomer(ProductListFactory productListFactory)
+        public Customer CreateRandomCustomer(CustomerProductListFactory productListFactory)
         {
             _customerContainer ??= new GameObject("Customers").transform;
             

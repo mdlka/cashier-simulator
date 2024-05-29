@@ -17,13 +17,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Material[] _materials;
         
         private PaymentMethod _paymentMethod;
-        private ProductList _productList;
+        private CustomerProductList _productList;
         private Coroutine _movingCoroutine;
 
         public bool IsMoving => _movingCoroutine != null;
         public PaymentMethod PaymentMethod => _paymentMethod;
         
-        public void Initialize(ProductList productList, PaymentMethod paymentMethod)
+        public void Initialize(CustomerProductList productList, PaymentMethod paymentMethod)
         {
             _productList = productList;
             _paymentMethod = paymentMethod;

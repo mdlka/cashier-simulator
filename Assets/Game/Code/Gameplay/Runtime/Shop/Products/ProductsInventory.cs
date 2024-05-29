@@ -6,13 +6,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
     [CreateAssetMenu(menuName = "Cashier Simulator/Create ProductsInventory", fileName = "ProductsInventory", order = 56)]
     public class ProductsInventory : ScriptableObject
     {
-        [SerializeField] private Product[] _products;
+        [SerializeField] private ProductList _productList;
 
-        public IReadOnlyList<Product> OpenedProducts => _products;
+        public IReadOnlyList<Product> OpenedProducts => _productList.Products;
 
         public Product RandomOpenedProduct()
         {
-            return _products[Random.Range(0, _products.Length)];
+            return OpenedProducts[Random.Range(0, OpenedProducts.Count)];
         }
     }
 }

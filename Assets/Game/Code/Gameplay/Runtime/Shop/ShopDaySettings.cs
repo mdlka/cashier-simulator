@@ -6,6 +6,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class ShopDaySettings : ScriptableObject
     {
         [field: SerializeField] public int CostumersCount { get; private set; }
-        [field: SerializeField] public ProductListFactory ProductListFactory { get; private set; }
+        [field: SerializeField] public CustomerProductListFactory ProductListFactory { get; private set; }
     }
 }

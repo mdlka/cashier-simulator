@@ -12,17 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87edd4ca63e44b1b8cb9a0aefd5af2bc, type: 3}
   m_Name: ProductsInventory
   m_EditorClassIdentifier: 
-  _products:
-  - {fileID: 2625376656763673400, guid: 1041fc69bf2de4647b73def58c88a8c8, type: 3}
-  - {fileID: 6678906134326035183, guid: c38bd0b1019082b469d5e3b30e50d30b, type: 3}
-  - {fileID: 7722111609809673729, guid: d54067c4c8587424eb826b0f5276cf84, type: 3}
-  - {fileID: 7105054472199416933, guid: af960121141e95047b9189e949d3a0ce, type: 3}
-  - {fileID: 160075617230939035, guid: 392e1c19701ee7643873ea2d6df9184e, type: 3}
-  - {fileID: 160075617230939035, guid: a0dddcbb5ddf42946bd85773ae852160, type: 3}
-  - {fileID: 160075617230939035, guid: 8bcb2ab42d55be44fb980c8afaf5593b, type: 3}
-  - {fileID: 160075617230939035, guid: ae7fd42f07b808b448fb36caf51cbe51, type: 3}
-  - {fileID: 6690493380587567190, guid: bec9671c91d36ed498be01c9bbc660d4, type: 3}
-  - {fileID: 160075617230939035, guid: 2d2006bdaa95a254d85360b49a2f6c7a, type: 3}
-  - {fileID: 160075617230939035, guid: 064ac2bc2541b2743932147be67fa823, type: 3}
-  - {fileID: 160075617230939035, guid: 683378f5ef2ddf140a7cbb9ecd92f2ad, type: 3}
-  - {fileID: 160075617230939035, guid: dd293120cbae1a649a21f9f24ae6d6f7, type: 3}
+  _productList: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}

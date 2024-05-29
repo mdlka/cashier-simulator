@@ -14068,7 +14068,7 @@ MonoBehaviour:
   _closeButton: {fileID: 341647718}
   _productsViewContent: {fileID: 8416417}
   _purchaseProductViewTemplate: {fileID: 0}
-  _productsNames: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}
+  _productList: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}
   _canvasGroup: {fileID: 1013001529}
 --- !u!1 &1019775521
 GameObject:

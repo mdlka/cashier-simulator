@@ -14,7 +14,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Button _closeButton;
         [SerializeField] private Transform _productsViewContent;
         [SerializeField] private PurchaseProductView _purchaseProductViewTemplate;
-        [SerializeField] private ProductsNames _productsNames;
+        [SerializeField] private ProductList _productList;
         [SerializeField] private CanvasGroup _canvasGroup;
 
         private bool _rendered;
@@ -30,7 +30,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);
         }
         
-        internal void Render(IEnumerable<PurchaseProduct> products, IReadOnlyCollection<Product> openedProducts, Action onCloseButtonClick = null)
+        internal void Render(IReadOnlyCollection<Product> openedProducts, Action onCloseButtonClick = null)
         {
             if (_rendered)
                 throw new InvalidOperationException("Before this you need to call " + nameof(Close));
@@ -38,10 +38,12 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _canvasGroup.Enable();
             _onCloseButtonClick = onCloseButtonClick;
 
-            foreach (var product in products)
+            foreach (var product in _productList.Products)
             {
                 var viewInstance = Instantiate(_purchaseProductViewTemplate, _productsViewContent);
-                viewInstance.Render(product, _productsNames.RuName(product.NameTag), 
+                var info = _productList.FindInfoBy(product.NameTag);
+
+                viewInstance.Render(info.Icon, info.PurchasePrice, info.RuName,
                     opened: openedProducts.Any(p => p.NameTag == product.NameTag));
                 
                 _purchaseProductsInstances.Add(viewInstance);
