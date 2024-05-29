@@ -14034,13 +14034,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 1013001530}
   _productsInventory: {fileID: 11400000, guid: 691d0a292df4ce74db16cbf7ec4ee78b, type: 2}
-  _products:
-  - _product: {fileID: 2625376656763673400, guid: 1041fc69bf2de4647b73def58c88a8c8, type: 3}
-    _icon: {fileID: 0}
-    _priceInCents: 100
-  - _product: {fileID: 6678906134326035183, guid: c38bd0b1019082b469d5e3b30e50d30b, type: 3}
-    _icon: {fileID: 0}
-    _priceInCents: 0
 --- !u!225 &1013001529
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -16609,6 +16602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _content: {fileID: 1767818357}
+  _productList: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}
   _scannedProductPanelTemplate: {fileID: 802387820701043030, guid: 68a27542b834e5d48ada2d16a8b88917, type: 3}
   _totalPriceText: {fileID: 694514282}
 --- !u!1 &1341117449

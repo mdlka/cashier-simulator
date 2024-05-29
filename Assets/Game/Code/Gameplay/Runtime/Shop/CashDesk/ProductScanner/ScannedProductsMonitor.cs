@@ -9,6 +9,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private readonly List<ScannedProductPanel> _scannedProductsPanels = new();
         
         [SerializeField] private Transform _content;
+        [SerializeField] private ProductList _productList;
         [SerializeField] private ScannedProductPanel _scannedProductPanelTemplate;
         [SerializeField] private TMP_Text _totalPriceText;
         
@@ -16,7 +17,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         internal void Add(Product product)
         {
-            ScannedProductsPrice += product.PriceInCents;
+            Currency productPrice = _productList.FindInfoBy(product.NameTag).Price;
+            
+            ScannedProductsPrice += productPrice;
             _totalPriceText.text = ScannedProductsPrice.ToPriceTag();
 
             foreach (var productPanel in _scannedProductsPanels)
@@ -24,12 +27,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 if (productPanel.TargetProductNameTag != product.NameTag) 
                     continue;
                 
-                productPanel.Render(product.NameTag, product.PriceInCents, productPanel.CurrentProductsCount + 1);
+                productPanel.Render(product.NameTag, productPrice, productPanel.CurrentProductsCount + 1);
                 return;
             }
 
             var scannedProductPanelInstance = Instantiate(_scannedProductPanelTemplate, _content);
-            scannedProductPanelInstance.Render(product.NameTag, product.PriceInCents);
+            scannedProductPanelInstance.Render(product.NameTag, productPrice);
             
             _scannedProductsPanels.Add(scannedProductPanelInstance);
         }
