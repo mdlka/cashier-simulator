@@ -35,7 +35,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             if (_rendered)
                 throw new InvalidOperationException("Before this you need to call " + nameof(Close));
 
-            _canvasGroup.Enable();
+            _canvasGroup.Enable(duration: 0.2f);
             _onCloseButtonClick = onCloseButtonClick;
 
             foreach (var product in _productList.Products)
@@ -48,9 +48,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
                 
                 _purchaseProductsInstances.Add(viewInstance);
             }
+
+            _rendered = true;
         }
 
-        internal void Close()
+        internal void Close(float duration = 0.2f)
         {
             foreach (var product in _purchaseProductsInstances)
                 Destroy(product.gameObject);
@@ -58,7 +60,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _purchaseProductsInstances.Clear();
             _rendered = false;
             
-            _canvasGroup.Disable();
+            _canvasGroup.Disable(duration);
         }
         
         private void OnCloseButtonClick()

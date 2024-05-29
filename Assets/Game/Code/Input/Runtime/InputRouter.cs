@@ -24,11 +24,10 @@ namespace YellowSquad.CashierSimulator.UserInput
             _input = new StandaloneInput();
         }
 
-        public void Update()
+        public void UpdateInput()
         {
-            Cursor.visible = _cashDesk.PaymentTerminal.Active;
-            Cursor.lockState = _cashDesk.PaymentTerminal.Active ? CursorLockMode.None : CursorLockMode.Locked;
-            
+            SetActiveCursor(_cashDesk.PaymentTerminal.Active);
+
             if (_cashDesk.PaymentTerminal.Active == false)
                 _cameraAim.RotateAim(_input.AimDelta * _sensitivity);
             
@@ -61,6 +60,12 @@ namespace YellowSquad.CashierSimulator.UserInput
             {
                 _cashDesk.AcceptPaymentObject(paymentObject);
             }
+        }
+
+        public void SetActiveCursor(bool value)
+        {
+            Cursor.visible = value;
+            Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         private bool IsPointerOverUIObject(Vector2 inputPosition)

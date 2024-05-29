@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay;
+using YellowSquad.CashierSimulator.Gameplay.Meta;
+using YellowSquad.CashierSimulator.UserInput;
 
 namespace YellowSquad.CashierSimulator.Application
 {
@@ -8,6 +10,10 @@ namespace YellowSquad.CashierSimulator.Application
     {
         [SerializeField] private Shop _shop;
         [SerializeField] private ShopDaySettings _shopDaySettings;
+        [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
+        [SerializeField] private InputRouter _inputRouter;
+
+        private bool _needUpdate = true;
 
         private void Awake()
         {
@@ -19,6 +25,7 @@ namespace YellowSquad.CashierSimulator.Application
         private IEnumerator Start()
         {
             int day = 1;
+            _needUpdate = true;
             
             while (true)
             {
@@ -30,7 +37,24 @@ namespace YellowSquad.CashierSimulator.Application
                 yield return new WaitForSeconds(5);
                 
                 Debug.Log($"Day {day++} ended");
+
+                _needUpdate = false;
+                _inputRouter.SetActiveCursor(true);
+                
+                _purchaseProductMenu.Open();
+
+                yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
+                
+                _needUpdate = true;
             }
+        }
+
+        private void Update()
+        {
+            if (_needUpdate == false)
+                return;
+            
+            _inputRouter.UpdateInput();
         }
     }
 }

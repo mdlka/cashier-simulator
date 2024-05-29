@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Useful
 {
     public static class UIExtensions
     {
-        public static void Enable(this CanvasGroup canvasGroup)
+        public static void Enable(this CanvasGroup canvasGroup, float duration = 0)
         {
-            canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
+            canvasGroup.DOFade(1, duration);
         }
         
-        public static void Disable(this CanvasGroup canvasGroup)
+        public static void Disable(this CanvasGroup canvasGroup, float duration = 0)
         {
-            canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
+            canvasGroup.DOFade(0, duration);
         }
     }
 }

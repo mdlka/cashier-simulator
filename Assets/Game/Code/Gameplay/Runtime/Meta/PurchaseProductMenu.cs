@@ -11,7 +11,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void Awake()
         {
-            _view.Close();
+            _view.Close(duration: 0);
         }
 
         public void Open()
