@@ -29,6 +29,7 @@ namespace YellowSquad.CashierSimulator.Application
             
             while (true)
             {
+                _inputRouter.ResetCameraRotation();
                 _shop.StartDay(_shopDaySettings);
                 
                 Debug.Log($"Day {day} started");

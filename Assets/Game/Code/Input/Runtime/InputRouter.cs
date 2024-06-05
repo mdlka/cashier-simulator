@@ -68,6 +68,11 @@ namespace YellowSquad.CashierSimulator.UserInput
             Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
+        public void ResetCameraRotation()
+        {
+            _cameraAim.ResetRotation();
+        }
+
         private bool IsPointerOverUIObject(Vector2 inputPosition)
         {
             var eventDataCurrentPosition = new PointerEventData(EventSystem.current) { position = inputPosition };
