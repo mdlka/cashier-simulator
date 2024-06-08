@@ -7,7 +7,7 @@ using YellowSquad.CashierSimulator.Gameplay.Useful;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
-    internal class PurchaseProductMenuView : MonoBehaviour
+    internal class PurchaseProductListView : MonoBehaviour
     {
         private readonly List<PurchaseProductView> _purchaseProductsInstances = new();
 
@@ -19,31 +19,39 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private bool _rendered;
         private Action _onCloseButtonClick;
+        private Action<ProductInfo> _onProductSelect;
 
         private void OnEnable()
         {
             _closeButton.onClick.AddListener(OnCloseButtonClick);
+            
+            foreach (var product in _purchaseProductsInstances)
+                product.Clicked += OnProductClick;
         }
 
         private void OnDisable()
         {
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);
+            
+            foreach (var product in _purchaseProductsInstances)
+                product.Clicked -= OnProductClick;
         }
         
-        internal void Render(IReadOnlyCollection<Product> openedProducts, Action onCloseButtonClick = null)
+        internal void Render(IReadOnlyCollection<Product> openedProducts, Action onCloseButtonClick = null, Action<ProductInfo> onProductSelect = null)
         {
             if (_rendered)
                 throw new InvalidOperationException("Before this you need to call " + nameof(Close));
-
+            
             _canvasGroup.Enable(duration: 0.2f);
             _onCloseButtonClick = onCloseButtonClick;
+            _onProductSelect = onProductSelect;
 
             foreach (var product in _productList.Products)
             {
                 var viewInstance = Instantiate(_purchaseProductViewTemplate, _productsViewContent);
-                var info = _productList.FindInfoBy(product.NameTag);
 
-                viewInstance.Render(info.Icon, info.PurchasePrice, info.RuName,
+                viewInstance.Clicked += OnProductClick;
+                viewInstance.Render(_productList.FindInfoBy(product.NameTag), 
                     opened: openedProducts.Any(p => p.NameTag == product.NameTag));
                 
                 _purchaseProductsInstances.Add(viewInstance);
@@ -52,15 +60,29 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _rendered = true;
         }
 
+        internal void UpdateRender(ProductInfo product, bool opened)
+        {
+            _purchaseProductsInstances.First(view => view.ProductInfo.Product.NameTag == product.Product.NameTag)
+                .Render(product, opened);
+        }
+
         internal void Close(float duration = 0.2f)
         {
             foreach (var product in _purchaseProductsInstances)
+            {
+                product.Clicked -= OnProductClick;
                 Destroy(product.gameObject);
+            }
             
             _purchaseProductsInstances.Clear();
             _rendered = false;
             
             _canvasGroup.Disable(duration);
+        }
+
+        private void OnProductClick(PurchaseProductView productView)
+        {
+            _onProductSelect?.Invoke(productView.ProductInfo);
         }
         
         private void OnCloseButtonClick()

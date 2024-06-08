@@ -16,6 +16,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Color _openedTextColor;
 
         internal event Action<PurchaseProductView> Clicked;
+        internal ProductInfo ProductInfo { get; private set; }
 
         private void OnEnable()
         {
@@ -27,11 +28,13 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _button.onClick.RemoveListener(OnButtonClick);
         }
 
-        public void Render(Sprite icon, Currency price, string localizedName, bool opened)
+        public void Render(ProductInfo info, bool opened)
         {
-            _icon.sprite = icon;
-            _nameText.text = localizedName;
-            _priceText.text = opened ? _openedText : price.ToPriceTag();
+            ProductInfo = info;
+            
+            _icon.sprite = info.Icon;
+            _nameText.text = info.RuName;
+            _priceText.text = opened ? _openedText : info.PurchasePrice.ToPriceTag();
             _priceText.color = opened ? _openedTextColor : _priceText.color;
         }
 

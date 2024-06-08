@@ -10,6 +10,7 @@ namespace YellowSquad.CashierSimulator.Application
     {
         [SerializeField] private Shop _shop;
         [SerializeField] private ShopDaySettings _shopDaySettings;
+        [SerializeField] private ProductsInventory _productsInventory;
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private InputRouter _inputRouter;
 
@@ -26,6 +27,8 @@ namespace YellowSquad.CashierSimulator.Application
         {
             int day = 1;
             _needUpdate = true;
+            
+            _productsInventory.Initialize();
             
             while (true)
             {

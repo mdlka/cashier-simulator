@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ProductsInventory
   m_EditorClassIdentifier: 
   _productList: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}
+  _startOpenedProduct: {fileID: 2625376656763673400, guid: 1041fc69bf2de4647b73def58c88a8c8, type: 3}

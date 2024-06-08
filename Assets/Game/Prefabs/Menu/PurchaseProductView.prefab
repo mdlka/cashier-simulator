@@ -402,7 +402,7 @@ MonoBehaviour:
   _priceText: {fileID: 2786066114369390907}
   _button: {fileID: 7781613765523741583}
   _openedText: "\u041A\u0443\u043F\u043B\u0435\u043D\u043E"
-  _openedTextColor: {r: 0.2105709, g: 0.8113208, b: 0.07194728, a: 1}
+  _openedTextColor: {r: 0.31764707, g: 0.7294118, b: 0.49803922, a: 1}
 --- !u!222 &984114699855072399
 CanvasRenderer:
   m_ObjectHideFlags: 0
