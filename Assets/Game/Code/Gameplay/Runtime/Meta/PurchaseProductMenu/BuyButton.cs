@@ -11,6 +11,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Button _button;
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _cantBuyColor;
+        [SerializeField] private string _defaultText;
+        [SerializeField] private string _cantBuyText;
 
         public event Action Clicked;
 
@@ -26,8 +28,10 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         public void Render(Currency price, Currency currentBalance)
         {
-            _priceText.text = price.ToPriceTag();
-            _button.image.color = currentBalance.TotalCents > price.TotalCents ? _defaultColor : _cantBuyColor;
+            bool canBuy = currentBalance.TotalCents > price.TotalCents;
+            
+            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : _cantBuyText;
+            _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
         }
 
         private void OnButtonClick()
