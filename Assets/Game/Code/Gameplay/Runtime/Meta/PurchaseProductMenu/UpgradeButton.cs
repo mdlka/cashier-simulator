@@ -26,9 +26,9 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _button.onClick.RemoveListener(OnButtonClick);
         }
 
-        public void Render(Currency price, Currency currentBalance)
+        public void Render(Currency price, IReadOnlyWallet wallet)
         {
-            bool canBuy = currentBalance.TotalCents > price.TotalCents;
+            bool canBuy = wallet.CanSpend(price);
  
             _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : $"{price.ToPriceTag()}\n{_cantBuyText}";
             _button.image.color = canBuy ? _defaultColor : _cantBuyColor;

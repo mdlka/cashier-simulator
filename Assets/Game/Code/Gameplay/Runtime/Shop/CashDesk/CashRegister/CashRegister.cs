@@ -119,6 +119,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             if (targetChange.TotalCents == 0)
                 return CurrentChange.TotalCents == 0;
+
+            if (targetChange.TotalCents - CurrentChange.TotalCents < 0)
+                return false;
             
             return Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
         }

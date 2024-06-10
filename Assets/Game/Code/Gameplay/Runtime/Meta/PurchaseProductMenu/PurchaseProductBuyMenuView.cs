@@ -33,7 +33,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _upgradePriceButton.Clicked -= OnUpgradePriceClicked;
         }
 
-        public void Render(ProductInfo productInfo, Currency currentBalance, bool opened)
+        public void Render(ProductInfo productInfo, IReadOnlyWallet wallet, bool opened)
         {
             LastRenderedProduct = productInfo;
             
@@ -42,9 +42,9 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _icon.sprite = productInfo.Icon;
             _nameText.text = productInfo.RuName;
             
-            _buyButton.Render(productInfo.PurchasePrice, currentBalance);
-            _upgradePriceButton.Render(productInfo.Price, currentBalance);
-            _upgradePopularityButton.Render(productInfo.Price, currentBalance);
+            _buyButton.Render(productInfo.PurchasePrice, wallet);
+            _upgradePriceButton.Render(productInfo.Price, wallet);
+            _upgradePopularityButton.Render(productInfo.Price, wallet);
             
             _buyButton.gameObject.SetActive(!opened);
             _upgradePriceButton.gameObject.SetActive(opened);

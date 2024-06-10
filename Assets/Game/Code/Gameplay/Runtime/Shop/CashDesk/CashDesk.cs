@@ -5,6 +5,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashDesk : MonoBehaviour
     {
+        [SerializeField] private Wallet _wallet;
         [SerializeField] private CameraMovement _cameraMovement;
         [SerializeField] private ProductTape _productTape;
         [SerializeField] private ProductScanner _productScanner;
@@ -57,10 +58,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 var givingCash = new Currency((long)(Mathf.Ceil(_productScanner.ScannedProductsPrice.TotalCents / 100f) * 100));
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
-
-                var targetChange = givingCash - _productScanner.ScannedProductsPrice;
-                string rep = _cashRegister.CurrentChange == targetChange ? "+rep" : "-rep";
-                Debug.Log($"Target: {targetChange}, Current: {_cashRegister.CurrentChange} ({rep})");
+                
+                _wallet.Add(givingCash - _cashRegister.CurrentChange);
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
             {
@@ -71,6 +70,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 yield return _paymentTerminal.AcceptPayment(_currentPaymentObject, _productScanner.ScannedProductsPrice);
                 
                 _cameraMovement.ReturnToBase();
+                _wallet.Add(_productScanner.ScannedProductsPrice);
             }
             
             _productScanner.Clear();
