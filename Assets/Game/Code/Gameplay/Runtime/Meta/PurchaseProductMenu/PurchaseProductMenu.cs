@@ -17,6 +17,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _productListView.Close(duration: 0);
 
             _productBuyMenuView.BuyButtonClicked += OnBuyButtonClicked;
+            _productBuyMenuView.UpgradePriceButtonClicked += OnUpgradePriceButtonClicked;
         }
 
         public void Open()
@@ -54,9 +55,21 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _productBuyMenuView.Render(targetProduct, _wallet.CurrentValue, opened: true);
         }
 
+        private void OnUpgradePriceButtonClicked()
+        {
+            var targetProduct = _productBuyMenuView.LastRenderedProduct;
+            
+            if (_wallet.CanSpend(targetProduct.PurchasePrice) == false)
+                return;
+            
+            _wallet.Spend(targetProduct.PurchasePrice);
+            _productBuyMenuView.Render(targetProduct, _wallet.CurrentValue, opened: true);
+        }
+
         private void OnDestroy()
         {
             _productBuyMenuView.BuyButtonClicked -= OnBuyButtonClicked;
+            _productBuyMenuView.UpgradePriceButtonClicked -= OnUpgradePriceButtonClicked;
         }
     }
 }

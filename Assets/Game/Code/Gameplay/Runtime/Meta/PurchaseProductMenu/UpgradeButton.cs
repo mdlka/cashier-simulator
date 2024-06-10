@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
-    internal class BuyButton : MonoBehaviour
+    internal class UpgradeButton : MonoBehaviour
     {
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private Button _button;
@@ -29,8 +29,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         public void Render(Currency price, Currency currentBalance)
         {
             bool canBuy = currentBalance.TotalCents > price.TotalCents;
-
-            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : _cantBuyText;
+ 
+            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : $"{price.ToPriceTag()}\n{_cantBuyText}";
             _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
         }
 

@@ -18,6 +18,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void Add(Currency value)
         {
+            if (value.TotalCents < 0)
+                throw new ArgumentOutOfRangeException();
+            
             CurrentValue += value;
             _view.Render(CurrentValue);
         }
@@ -33,6 +36,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public bool CanSpend(Currency value)
         {
+            if (value.TotalCents < 0)
+                throw new ArgumentOutOfRangeException();
+            
             return CurrentValue.TotalCents - value.TotalCents >= 0;
         }
     }
