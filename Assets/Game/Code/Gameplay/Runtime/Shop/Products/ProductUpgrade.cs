@@ -6,23 +6,23 @@ namespace YellowSquad.CashierSimulator.Gameplay
     [Serializable]
     internal class ProductUpgrade
     {
-        [SerializeField] private long _minValue;
-        [SerializeField] private long _minUpgradePriceInCents;
+        [SerializeField] private long _startValue;
+        [SerializeField] private long _startUpgradePriceInCents;
         
         private long _level;
 
         public long CurrentValue => ValueBy(_level);
         public long AppendValue => ValueBy(_level + 1) - CurrentValue;
-        public Currency Price => _minUpgradePriceInCents * (_level + 1);
+        public Currency Price => _startUpgradePriceInCents * (_level + 1);
 
         public void Upgrade()
         {
             _level += 1;
         }
 
-        public long ValueBy(long level)
+        private long ValueBy(long level)
         {
-            return _minValue * level;
+            return _startValue + _startValue * level;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         public event Action BuyButtonClicked;
         public event Action UpgradePriceButtonClicked;
+        public event Action UpgradePopularityButtonClicked;
 
         public ProductInfo LastRenderedProduct { get; private set; }
 
@@ -25,12 +26,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         {
             _buyButton.Clicked += OnBuyButtonClicked;
             _upgradePriceButton.Clicked += OnUpgradePriceClicked;
+            _upgradePopularityButton.Clicked += OnUpgradePopularityClicked;
         }
 
         private void OnDisable()
         {
             _buyButton.Clicked -= OnBuyButtonClicked;
             _upgradePriceButton.Clicked -= OnUpgradePriceClicked;
+            _upgradePopularityButton.Clicked -= OnUpgradePopularityClicked;
         }
 
         public void Render(ProductInfo productInfo, IReadOnlyWallet wallet, bool opened)
@@ -43,8 +46,12 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _nameText.text = productInfo.RuName;
             
             _buyButton.Render(productInfo.PurchasePrice, wallet);
-            _upgradePriceButton.Render(productInfo.Price, wallet);
-            _upgradePopularityButton.Render(productInfo.Price, wallet);
+            _upgradePriceButton.Render(productInfo.PriceUpgrade, wallet, 
+                new Currency(productInfo.PriceUpgrade.CurrentValue).ToPriceTag(), 
+                new Currency(productInfo.PriceUpgrade.AppendValue).ToPriceTag());
+            _upgradePopularityButton.Render(productInfo.PopularityUpgrade, wallet, 
+                productInfo.PopularityUpgrade.CurrentValue.ToString(), 
+                productInfo.PopularityUpgrade.AppendValue.ToString());
             
             _buyButton.gameObject.SetActive(!opened);
             _upgradePriceButton.gameObject.SetActive(opened);
@@ -66,6 +73,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         private void OnUpgradePriceClicked()
         {
             UpgradePriceButtonClicked?.Invoke();
+        }
+
+        private void OnUpgradePopularityClicked()
+        {
+            UpgradePopularityButtonClicked?.Invoke();
         }
     }
 }

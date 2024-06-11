@@ -18,6 +18,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
             _productBuyMenuView.BuyButtonClicked += OnBuyButtonClicked;
             _productBuyMenuView.UpgradePriceButtonClicked += OnUpgradePriceButtonClicked;
+            _productBuyMenuView.UpgradePopularityButtonClicked += OnUpgradePopularityButtonClicked;
+        }
+        
+        private void OnDestroy()
+        {
+            _productBuyMenuView.BuyButtonClicked -= OnBuyButtonClicked;
+            _productBuyMenuView.UpgradePriceButtonClicked -= OnUpgradePriceButtonClicked;
+            _productBuyMenuView.UpgradePopularityButtonClicked -= OnUpgradePopularityButtonClicked;
         }
 
         public void Open()
@@ -58,18 +66,24 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         private void OnUpgradePriceButtonClicked()
         {
             var targetProduct = _productBuyMenuView.LastRenderedProduct;
-            
-            if (_wallet.CanSpend(targetProduct.Price) == false)
-                return;
-            
-            _wallet.Spend(targetProduct.Price);
-            _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
+            ApplyUpgradeProduct(targetProduct, targetProduct.PriceUpgrade);
         }
 
-        private void OnDestroy()
+        private void OnUpgradePopularityButtonClicked()
         {
-            _productBuyMenuView.BuyButtonClicked -= OnBuyButtonClicked;
-            _productBuyMenuView.UpgradePriceButtonClicked -= OnUpgradePriceButtonClicked;
+            var targetProduct = _productBuyMenuView.LastRenderedProduct;
+            ApplyUpgradeProduct(targetProduct, targetProduct.PopularityUpgrade);
+        }
+
+        private void ApplyUpgradeProduct(ProductInfo targetProduct, ProductUpgrade upgrade)
+        {
+            if (_wallet.CanSpend(upgrade.Price) == false)
+                return;
+
+            upgrade.Upgrade();
+            
+            _wallet.Spend(upgrade.Price);
+            _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
         }
     }
 }

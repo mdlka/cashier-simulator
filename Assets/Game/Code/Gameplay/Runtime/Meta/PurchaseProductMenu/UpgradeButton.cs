@@ -8,13 +8,22 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
     internal class UpgradeButton : MonoBehaviour
     {
         [SerializeField] private TMP_Text _priceText;
+        [SerializeField] private TMP_Text _statsText;
         [SerializeField] private Button _button;
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _cantBuyColor;
+        [SerializeField] private string _statsHeader;
         [SerializeField] private string _defaultText;
         [SerializeField] private string _cantBuyText;
 
+        private string _defaultColorHtml;
+
         public event Action Clicked;
+
+        private void Awake()
+        {
+            _defaultColorHtml = "#" + ColorUtility.ToHtmlStringRGB(_defaultColor);
+        }
 
         private void OnEnable()
         {
@@ -26,11 +35,12 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _button.onClick.RemoveListener(OnButtonClick);
         }
 
-        public void Render(Currency price, IReadOnlyWallet wallet)
+        public void Render(ProductUpgrade upgrade, IReadOnlyWallet wallet, string currentValue, string appendValue)
         {
-            bool canBuy = wallet.CanSpend(price);
- 
-            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : $"{price.ToPriceTag()}\n{_cantBuyText}";
+            bool canBuy = wallet.CanSpend(upgrade.Price);
+            
+            _statsText.text = $"{_statsHeader}\n<size=80%>{currentValue} <color={_defaultColorHtml}>+{appendValue}</color>";
+            _priceText.text = canBuy ? $"{upgrade.Price.ToPriceTag()}\n{_defaultText}" : $"{upgrade.Price.ToPriceTag()}\n{_cantBuyText}";
             _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
         }
 
