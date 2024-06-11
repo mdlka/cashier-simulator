@@ -49,13 +49,13 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _upgradePriceButton.Render(productInfo.PriceUpgrade, wallet, 
                 new Currency(productInfo.PriceUpgrade.CurrentValue).ToPriceTag(), 
                 new Currency(productInfo.PriceUpgrade.AppendValue).ToPriceTag());
-            _upgradePopularityButton.Render(productInfo.PopularityUpgrade, wallet, 
-                productInfo.PopularityUpgrade.CurrentValue.ToString(), 
-                productInfo.PopularityUpgrade.AppendValue.ToString());
+            // _upgradePopularityButton.Render(productInfo.PopularityUpgrade, wallet, 
+            //     productInfo.PopularityUpgrade.CurrentValue.ToString(), 
+            //     productInfo.PopularityUpgrade.AppendValue.ToString());
             
             _buyButton.gameObject.SetActive(!opened);
             _upgradePriceButton.gameObject.SetActive(opened);
-            _upgradePopularityButton.gameObject.SetActive(opened);
+            _upgradePopularityButton.gameObject.SetActive(false);
 
             _upgradeText.enabled = opened;
         }
