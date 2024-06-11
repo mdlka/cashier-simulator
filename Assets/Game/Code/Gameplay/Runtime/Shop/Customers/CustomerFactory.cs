@@ -11,12 +11,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         [NonSerialized] private Transform _customerContainer;
 
-        public Customer CreateRandomCustomer(CustomerProductListFactory productListFactory)
+        public Customer CreateRandomCustomer(CustomerProductListFactory productListFactory, int maxProducts)
         {
             _customerContainer ??= new GameObject("Customers").transform;
             
             var customer = Instantiate(_customerTemplate, _customerContainer);
-            customer.Initialize(productListFactory.CreateRandomProducts(), (PaymentMethod)Mathf.RoundToInt(Random.Range(0, 101) / 100f));
+            customer.Initialize(productListFactory.CreateRandomProducts(maxProducts), (PaymentMethod)Mathf.RoundToInt(Random.Range(0, 101) / 100f));
 
             return customer;
         }

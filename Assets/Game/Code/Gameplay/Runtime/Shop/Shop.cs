@@ -5,25 +5,22 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Shop : MonoBehaviour
     {
-        private ShopDaySettings _shopDaySettings;
-
         [SerializeField] private JobWatch _watch;
         [SerializeField] private CustomersQueue _customersQueue;
         [SerializeField] private CustomerFactory _customerFactory;
+        [SerializeField] private ShopSettings _settings;
 
         public bool WorkIsDone { get; private set; }
 
-        public void StartDay(ShopDaySettings daySettings)
+        public void StartDay()
         {
-            _shopDaySettings = daySettings;
-
             WorkIsDone = false;
             StartCoroutine(Working());
         }
 
         private IEnumerator Working()
         {
-            _watch.Run(_shopDaySettings.TimeSpeed);
+            _watch.Run(_settings.TimeSpeed);
             
             int createdCustomers = 0;
             
@@ -34,12 +31,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 if (_watch.EndTimeReached)
                     break;
 
-                yield return new WaitForSeconds(_shopDaySettings.MaxCostumersPerHour / _shopDaySettings.TimeSpeed);
+                yield return new WaitForSeconds(_settings.MaxCostumersPerHour / _settings.TimeSpeed);
                 
-                if (Random.Range(0f, 1f) > _shopDaySettings.CreateCostumerChance)
+                if (Random.Range(0f, 1f) > _settings.CreateCostumerChance)
                     continue;
 
-                _customersQueue.Add(_customerFactory.CreateRandomCustomer(_shopDaySettings.ProductListFactory));
+                _customersQueue.Add(_customerFactory.CreateRandomCustomer(_settings.ProductListFactory, _settings.MaxCartCapacity));
                 createdCustomers += 1;
             }
 
