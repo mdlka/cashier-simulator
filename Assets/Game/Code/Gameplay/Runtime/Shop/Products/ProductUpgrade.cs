@@ -9,7 +9,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private long _startValue;
         [SerializeField] private long _startUpgradePriceInCents;
         
-        private long _level;
+        [NonSerialized] private long _level;
 
         public long CurrentValue => ValueBy(_level);
         public long AppendValue => ValueBy(_level + 1) - CurrentValue;

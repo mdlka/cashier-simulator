@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ebf3b3263d41beb6fb23da78d60f7d, type: 3}
   m_Name: 1DaySettings
   m_EditorClassIdentifier: 
-  <CostumersCount>k__BackingField: 1
+  <TimeSpeed>k__BackingField: 300
+  <MaxCostumersPerHour>k__BackingField: 1
+  <CreateCostumerChance>k__BackingField: 0
   <ProductListFactory>k__BackingField: {fileID: 11400000, guid: 069e408c16f6d454fabac831b68dd9ce, type: 2}

@@ -7,6 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         private ShopDaySettings _shopDaySettings;
 
+        [SerializeField] private JobWatch _watch;
         [SerializeField] private CustomersQueue _customersQueue;
         [SerializeField] private CustomerFactory _customerFactory;
 
@@ -22,18 +23,27 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private IEnumerator Working()
         {
+            _watch.Run(_shopDaySettings.TimeSpeed);
+            
             int createdCustomers = 0;
             
-            while (createdCustomers < _shopDaySettings.CostumersCount)
+            while (_watch.EndTimeReached == false)
             {
                 yield return new WaitUntil(() => _customersQueue.HasPlace);
-                yield return new WaitForSeconds(Random.Range(2, 5));
+                
+                if (_watch.EndTimeReached)
+                    break;
+
+                yield return new WaitForSeconds(_shopDaySettings.MaxCostumersPerHour / _shopDaySettings.TimeSpeed);
+                
+                if (Random.Range(0f, 1f) > _shopDaySettings.CreateCostumerChance)
+                    continue;
 
                 _customersQueue.Add(_customerFactory.CreateRandomCustomer(_shopDaySettings.ProductListFactory));
                 createdCustomers += 1;
             }
 
-            yield return new WaitUntil(() => _customersQueue.HasCustomers == false);
+            yield return new WaitUntil(() => _watch.EndTimeReached && _customersQueue.HasCustomers == false);
 
             WorkIsDone = true;
         }
