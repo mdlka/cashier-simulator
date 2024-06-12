@@ -30,10 +30,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 
                 if (_watch.EndTimeReached)
                     break;
+                
+                if (_settings.MaxCostumersPerHour == 0)
+                    continue;
 
                 yield return new WaitForSeconds(_settings.MaxCostumersPerHour / _settings.TimeSpeed);
                 
-                if (Random.Range(0f, 1f) > _settings.CreateCostumerChance)
+                if (Random.Range(0f, 1f) > _settings.Popularity)
                     continue;
 
                 _customersQueue.Add(_customerFactory.CreateRandomCustomer(_settings.ProductListFactory, _settings.MaxCartCapacity));

@@ -15,7 +15,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         protected override long ValueBy(long level)
         {
-            return Math.Min(_startValue * (CurrentLevel + 1), _maxValue);
+            return Math.Min(_startValue * (level + 1), _maxValue);
         }
     }
 }

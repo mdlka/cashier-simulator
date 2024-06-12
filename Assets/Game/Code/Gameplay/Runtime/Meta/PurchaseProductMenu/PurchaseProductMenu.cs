@@ -79,10 +79,9 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         {
             if (_wallet.CanSpend(upgrade.Price) == false)
                 return;
-
-            upgrade.Upgrade();
             
             _wallet.Spend(upgrade.Price);
+            upgrade.Upgrade();
             _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
         }
     }
