@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ebf3b3263d41beb6fb23da78d60f7d, type: 3}
   m_Name: ShopSettings
   m_EditorClassIdentifier: 
+  <MinCostumersPerDay>k__BackingField: 2
   <MaxCostumersPerHour>k__BackingField: 0
-  <TimeSpeed>k__BackingField: 300
+  <TimeSpeed>k__BackingField: 60
   <ProductListFactory>k__BackingField: {fileID: 11400000, guid: 069e408c16f6d454fabac831b68dd9ce, type: 2}
   <PopularityUpgrade>k__BackingField:
     _startValue: 10
-    _maxValue: 100
+    _maxValue: 80
     _startUpgradePriceInCents: 100
   <CartCapacityUpgrade>k__BackingField:
     _startValue: 1

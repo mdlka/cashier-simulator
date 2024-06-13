@@ -23,6 +23,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _watch.Run(_settings.TimeSpeed);
             
             int createdCustomers = 0;
+            int createCustomersHoursInterval = _settings.MinCostumersPerDay > 0 ? _watch.WorkingHours / (_settings.MinCostumersPerDay + 1) : -1;
             
             while (_watch.EndTimeReached == false)
             {
@@ -31,13 +32,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 if (_watch.EndTimeReached)
                     break;
                 
-                if (_settings.MaxCostumersPerHour == 0)
-                    continue;
+                if (!NeedCreateCostumer())
+                {
+                    if (_settings.MaxCostumersPerHour == 0)
+                        continue;
 
-                yield return new WaitForSeconds(_settings.MaxCostumersPerHour / _settings.TimeSpeed);
+                    yield return new WaitForSeconds(_watch.HourDuration / _settings.MaxCostumersPerHour);
                 
-                if (Random.Range(0f, 1f) > _settings.Popularity)
-                    continue;
+                    if (Random.Range(0f, 1f) > _settings.Popularity)
+                        continue;
+                }
 
                 _customersQueue.Add(_customerFactory.CreateRandomCustomer(_settings.ProductListFactory, _settings.MaxCartCapacity));
                 createdCustomers += 1;
@@ -46,6 +50,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
             yield return new WaitUntil(() => _watch.EndTimeReached && _customersQueue.HasCustomers == false);
 
             WorkIsDone = true;
+
+            bool NeedCreateCostumer()
+            {
+                if (createCustomersHoursInterval == -1)
+                    return false;
+                
+                return createdCustomers < _settings.MinCostumersPerDay &&
+                       _watch.ElapsedHours >= createCustomersHoursInterval * (createdCustomers + 1);
+            }
         }
     }
 }
