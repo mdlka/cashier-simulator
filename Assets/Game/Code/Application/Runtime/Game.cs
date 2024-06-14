@@ -35,13 +35,9 @@ namespace YellowSquad.CashierSimulator.Application
                 _inputRouter.ResetCameraRotation();
                 _shop.StartDay();
                 
-                Debug.Log($"Day started");
-            
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
                 
-                Debug.Log($"Day ended");
-
                 _needUpdate = false;
                 _inputRouter.SetActiveCursor(true);
                 

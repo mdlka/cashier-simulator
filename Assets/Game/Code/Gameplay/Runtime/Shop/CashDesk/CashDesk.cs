@@ -63,9 +63,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 var givingCash = _cashPaymentCalculator.Calculate(_productScanner.ScannedProductsPrice);
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
+
+                var targetChange = givingCash - _productScanner.ScannedProductsPrice;
                 
-                if (givingCash - _productScanner.ScannedProductsPrice != _cashRegister.CurrentChange)
-                    _shopStats.CurrentDay.Costumers.AddCheatedWithChange();
+                if (targetChange != _cashRegister.CurrentChange)
+                    _shopStats.CurrentDay.Costumers.AddCheatedWithChange(targetChange - _cashRegister.CurrentChange);
 
                 _wallet.Add(givingCash - _cashRegister.CurrentChange);
             }
