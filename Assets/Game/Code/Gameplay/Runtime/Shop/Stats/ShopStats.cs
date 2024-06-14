@@ -9,7 +9,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private ShopStatsData _shopStats;
         private bool _currentDaySaved;
         
-        public ShopStatsData CurrentDayShopStats { get; private set; }
+        public ShopStatsData CurrentDay { get; private set; }
 
         public void Initialize()
         {
@@ -18,7 +18,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void StartDay()
         {
-            CurrentDayShopStats = new ShopStatsData();
+            CurrentDay = new ShopStatsData();
             _currentDaySaved = false;
         }
 
@@ -27,7 +27,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (_currentDaySaved)
                 throw new InvalidOperationException("Already saved");
             
-            _shopStats += CurrentDayShopStats;
+            _shopStats += CurrentDay;
             _currentDaySaved = true;
         }
     }

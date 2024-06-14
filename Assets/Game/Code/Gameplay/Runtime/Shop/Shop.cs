@@ -5,17 +5,35 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Shop : MonoBehaviour
     {
+        private int _currentDay;
+        
         [SerializeField] private JobWatch _watch;
         [SerializeField] private CustomersQueue _customersQueue;
+        [SerializeField] private ShopStatsView _statsView;
         [SerializeField] private CustomerFactory _customerFactory;
         [SerializeField] private ShopSettings _settings;
+        [SerializeField] private ShopStats _stats;
 
         public bool WorkIsDone { get; private set; }
+        public bool StatsShowing => _statsView.Opened;
+
+        public void Initialize()
+        {
+            _stats.Initialize();
+        }
 
         public void StartDay()
         {
+            _currentDay += 1;
+            _stats.StartDay();
+
             WorkIsDone = false;
             StartCoroutine(Working());
+        }
+
+        public void ShowStats()
+        {
+            _statsView.Render(_stats.CurrentDay, _currentDay);
         }
 
         private IEnumerator Working()
@@ -50,6 +68,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             yield return new WaitUntil(() => _watch.EndTimeReached && _customersQueue.HasCustomers == false);
 
             WorkIsDone = true;
+            _stats.SaveCurrentDay();
 
             bool NeedCreateCostumer()
             {

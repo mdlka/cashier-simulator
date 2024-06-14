@@ -4681,8 +4681,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _watch: {fileID: 310511481}
   _customersQueue: {fileID: 1965843646}
+  _statsView: {fileID: 0}
   _customerFactory: {fileID: 11400000, guid: 3af645b3c2c593d46bedffe16dfd8117, type: 2}
   _settings: {fileID: 11400000, guid: fd61091bdc344b243b739b22571dba1a, type: 2}
+  _stats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
 --- !u!114 &310511481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8542,7 +8544,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shop: {fileID: 310511480}
-  _shopStats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
   _productsInventory: {fileID: 11400000, guid: 691d0a292df4ce74db16cbf7ec4ee78b, type: 2}
   _purchaseProductMenu: {fileID: 1013001528}
   _shopUpgradeMenu: {fileID: 2132357854}

@@ -9,7 +9,6 @@ namespace YellowSquad.CashierSimulator.Application
     public class Game : MonoBehaviour
     {
         [SerializeField] private Shop _shop;
-        [SerializeField] private ShopStats _shopStats;
         [SerializeField] private ProductsInventory _productsInventory;
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private ShopUpgradeMenu _shopUpgradeMenu;
@@ -26,35 +25,33 @@ namespace YellowSquad.CashierSimulator.Application
 
         private IEnumerator Start()
         {
-            int day = 1;
             _needUpdate = true;
             
             _productsInventory.Initialize();
-            _shopStats.Initialize();
+            _shop.Initialize();
             
             while (true)
             {
                 _inputRouter.ResetCameraRotation();
                 _shop.StartDay();
-                _shopStats.StartDay();
                 
-                Debug.Log($"Day {day} started");
+                Debug.Log($"Day started");
             
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
                 
-                Debug.Log($"Day {day++} ended");
+                Debug.Log($"Day ended");
 
                 _needUpdate = false;
                 _inputRouter.SetActiveCursor(true);
-                _shopStats.SaveCurrentDay();
+                
+                _shop.ShowStats();
+                yield return new WaitUntil(() => _shop.StatsShowing == false);
 
                 _purchaseProductMenu.Open();
-
                 yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
                 
                 _shopUpgradeMenu.Open();
-                
                 yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
                 
                 _needUpdate = true;

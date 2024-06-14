@@ -19,7 +19,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _tape.Remove(product);
             var productPrice = _productsMonitor.Add(product);
-            _shopStats.CurrentDayShopStats.Products.Add(product.NameTag, productPrice);
+            _shopStats.CurrentDay.Products.Add(product.NameTag, productPrice);
 
             var sequence = DOTween.Sequence();
             sequence.Append(product.transform.DOMove(_jumpPoint.position, _moveDuration));
