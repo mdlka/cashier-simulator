@@ -8542,7 +8542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shop: {fileID: 310511480}
-  _shopStats: {fileID: 0}
+  _shopStats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
   _productsInventory: {fileID: 11400000, guid: 691d0a292df4ce74db16cbf7ec4ee78b, type: 2}
   _purchaseProductMenu: {fileID: 1013001528}
   _shopUpgradeMenu: {fileID: 2132357854}
@@ -21174,6 +21174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8947a498b8c742aab3c1b710e663b52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shopStats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
   _wallet: {fileID: 208422134}
   _cameraMovement: {fileID: 963194231}
   _productTape: {fileID: 1408870696}
@@ -21383,6 +21384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b3e440d74c4b32865072d36ca7d411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shopStats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
   _tape: {fileID: 1408870696}
   _productsMonitor: {fileID: 1336996782}
   _scannedProductsPoint: {fileID: 492914422}

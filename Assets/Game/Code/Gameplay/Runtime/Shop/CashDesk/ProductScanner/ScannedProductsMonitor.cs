@@ -15,7 +15,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         public Currency ScannedProductsPrice { get; private set; }
         
-        internal void Add(Product product)
+        internal Currency Add(Product product)
         {
             Currency productPrice = _productList.FindInfoBy(product.NameTag).Price;
             
@@ -28,13 +28,14 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     continue;
                 
                 productPanel.Render(product.NameTag, productPrice, productPanel.CurrentProductsCount + 1);
-                return;
+                return productPrice;
             }
 
             var scannedProductPanelInstance = Instantiate(_scannedProductPanelTemplate, _content);
             scannedProductPanelInstance.Render(product.NameTag, productPrice);
             
             _scannedProductsPanels.Add(scannedProductPanelInstance);
+            return productPrice;
         }
 
         internal void Clear()

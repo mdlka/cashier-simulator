@@ -7,6 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         private readonly CashPaymentCalculator _cashPaymentCalculator = new();
 
+        [SerializeField] private ShopStats _shopStats;
         [SerializeField] private Wallet _wallet;
         [SerializeField] private CameraMovement _cameraMovement;
         [SerializeField] private ProductTape _productTape;
@@ -38,6 +39,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         public IEnumerator AcceptCustomer(Customer customer)
         {
+            _shopStats.CurrentDayShopStats.Costumers.AddCostumer();
+
             _currentPaymentObject = null;
             
             _paperboard.SetActive(true);
@@ -61,6 +64,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 
                 yield return _cashRegister.AcceptPayment(_currentPaymentObject, givingCash, _productScanner.ScannedProductsPrice);
                 
+                if (givingCash - _productScanner.ScannedProductsPrice != _cashRegister.CurrentChange)
+                    _shopStats.CurrentDayShopStats.Costumers.AddCheatedWithChange();
+
                 _wallet.Add(givingCash - _cashRegister.CurrentChange);
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
