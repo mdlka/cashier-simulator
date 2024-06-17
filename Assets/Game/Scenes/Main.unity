@@ -30347,6 +30347,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1897916583}
+  _background: {fileID: 1207645414}
+  _defaultColor: {r: 0.58431375, g: 0.7607844, b: 0.86274517, a: 1}
+  _activeColor: {r: 0.59607846, g: 0.86274517, b: 0.58431375, a: 1}
 --- !u!1001 &2011396763
 PrefabInstance:
   m_ObjectHideFlags: 0

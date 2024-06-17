@@ -7,6 +7,9 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
     internal class BoostButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        [SerializeField] private Image _background;
+        [SerializeField] private Color _defaultColor;
+        [SerializeField] private Color _activeColor;
 
         public event Action Clicked;
 
@@ -22,7 +25,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         public void Render(IReadOnlyBoost boost)
         {
-            _button.interactable = !boost.Active;
+            _button.gameObject.SetActive(!boost.Active);
+            _background.color = boost.Active ? _activeColor : _defaultColor;
         }
 
         private void OnButtonClick()
