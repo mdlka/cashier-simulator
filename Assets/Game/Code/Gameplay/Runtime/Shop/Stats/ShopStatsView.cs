@@ -44,11 +44,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _satisfiedCustomersText.Render(satisfiedCustomers.ToString(), satisfiedCustomers > 0);
             _costumersCheatedWithChangeText.Render(stats.Costumers.CheatedWithChange.ToString(), stats.Costumers.CheatedWithChange > 0);
             _totalCostumersText.Render(stats.Costumers.TotalCount.ToString());
-            
-            _mostPopularProductText.Render(string.IsNullOrEmpty(stats.Products.MostPopularProductTag) ? "" 
-                : _productList.FindInfoBy(stats.Products.MostPopularProductTag).RuName);
-            _biggestProfitProductText.Render(string.IsNullOrEmpty(stats.Products.BiggestProfitProductTag) ? "" 
-                : $"{_productList.FindInfoBy(stats.Products.BiggestProfitProductTag).RuName} (+{stats.Products.BiggestProfit.ToPriceTag()})");
+
+            bool mostPopularProductNotExist = string.IsNullOrEmpty(stats.Products.MostPopularProductTag);
+            bool biggestProfitProductNotExist = string.IsNullOrEmpty(stats.Products.BiggestProfitProductTag);
+            _mostPopularProductText.Render(mostPopularProductNotExist ? "-" : _productList.FindInfoBy(stats.Products.MostPopularProductTag).RuName, 
+                !mostPopularProductNotExist);
+            _biggestProfitProductText.Render(biggestProfitProductNotExist ? "-" : $"{_productList.FindInfoBy(stats.Products.BiggestProfitProductTag).RuName} " +
+                $"(+{stats.Products.BiggestProfit.ToPriceTag()})", !biggestProfitProductNotExist);
             
             _balanceText.Render($"+{stats.TotalProfit.ToPriceTag()}", stats.TotalProfit.TotalCents > 0);
             
