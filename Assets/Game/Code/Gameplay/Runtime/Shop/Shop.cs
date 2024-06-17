@@ -41,6 +41,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void DeactivateBoosts()
         {
             _productList.DeactivateBoosts();
+            _settings.PopularityBoost.Deactivate();
+            _settings.ProductsPriceBoost.Deactivate();
         }
 
         private IEnumerator Working()

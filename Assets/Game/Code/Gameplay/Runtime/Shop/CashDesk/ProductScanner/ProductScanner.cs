@@ -6,6 +6,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
     public class ProductScanner : MonoBehaviour
     {
         [SerializeField] private ShopStats _shopStats;
+        [SerializeField] private ShopSettings _shopSettings;
         [SerializeField] private ProductTape _tape;
         [SerializeField] private ScannedProductsMonitor _productsMonitor;
         [SerializeField] private Transform _scannedProductsPoint;
@@ -18,7 +19,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void Scan(Product product)
         {
             _tape.Remove(product);
-            var productPrice = _productsMonitor.Add(product);
+            var productPrice = _productsMonitor.Add(product, _shopSettings.ProductsPriceFactor);
             _shopStats.CurrentDay.Products.Add(product.NameTag, productPrice);
 
             var sequence = DOTween.Sequence();

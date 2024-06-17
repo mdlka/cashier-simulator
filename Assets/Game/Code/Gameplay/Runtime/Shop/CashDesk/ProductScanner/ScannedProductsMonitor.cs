@@ -15,9 +15,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         public Currency ScannedProductsPrice { get; private set; }
         
-        internal Currency Add(Product product)
+        internal Currency Add(Product product, long priceFactor)
         {
-            Currency productPrice = _productList.FindInfoBy(product.NameTag).Price;
+            Currency productPrice = _productList.FindInfoBy(product.NameTag).Price * priceFactor;
             
             ScannedProductsPrice += productPrice;
             _totalPriceText.text = ScannedProductsPrice.ToPriceTag();

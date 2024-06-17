@@ -9,6 +9,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Wallet _wallet;
         [SerializeField] private UpgradeButton _upgradeCartButton;
         [SerializeField] private UpgradeButton _upgradePopularityButton;
+        [SerializeField] private BoostButton _boostProductsPriceButton;
+        [SerializeField] private BoostButton _boostPopularityButton;
         [SerializeField] private Button _closeButton;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private ShopSettings _shopSettings;
@@ -25,6 +27,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _closeButton.onClick.AddListener(OnCloseButtonClick);
             _upgradeCartButton.Clicked += OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked += OnUpgradePopularityButtonClicked;
+            _boostProductsPriceButton.Clicked += OnBoostProductsPriceButtonClicked;
+            _boostPopularityButton.Clicked += OnBoostPopularityButtonClicked;
         }
 
         private void OnDisable()
@@ -32,6 +36,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);
             _upgradeCartButton.Clicked -= OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked -= OnUpgradePopularityButtonClicked;
+            _boostProductsPriceButton.Clicked -= OnBoostProductsPriceButtonClicked;
+            _boostPopularityButton.Clicked -= OnBoostPopularityButtonClicked;
         }
 
         public void Open()
@@ -41,12 +47,26 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             
             RenderUpgradeButton(_upgradeCartButton, _shopSettings.CartCapacityUpgrade);
             RenderUpgradeButton(_upgradePopularityButton, _shopSettings.PopularityUpgrade, "%");
+            _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost);
+            _boostPopularityButton.Render(_shopSettings.PopularityBoost);
         }
 
         private void OnCloseButtonClick()
         {
             Opened = false;
             _canvasGroup.Disable(0.2f);
+        }
+
+        private void OnBoostProductsPriceButtonClicked()
+        {
+            ApplyBoost(_shopSettings.ProductsPriceBoost);
+            _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost);
+        }
+
+        private void OnBoostPopularityButtonClicked()
+        {
+            ApplyBoost(_shopSettings.PopularityBoost);
+            _boostPopularityButton.Render(_shopSettings.PopularityBoost);
         }
 
         private void OnUpgradeCartButtonClicked()
@@ -68,6 +88,16 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
             _wallet.Spend(upgrade.Price);
             upgrade.Upgrade();
+        }
+
+        private void ApplyBoost(Boost boost)
+        {
+            if (boost.Active)
+                return;
+
+            // TODO: Play rewarded
+
+            boost.Activate();
         }
 
         private void RenderUpgradeButton(UpgradeButton button, ShopUpgrade upgrade, string endSymbols = "")
