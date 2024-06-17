@@ -13,27 +13,27 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private TMP_Text _upgradeText;
         [SerializeField] private BuyButton _buyButton;
         [SerializeField] private UpgradeButton _upgradePriceButton;
-        [SerializeField] private UpgradeButton _upgradePopularityButton;
+        [SerializeField] private BoostButton _boostPopularityButton;
         [SerializeField] private CanvasGroup _canvasGroup;
 
         public event Action BuyButtonClicked;
         public event Action UpgradePriceButtonClicked;
-        public event Action UpgradePopularityButtonClicked;
+        public event Action BoostPopularityButtonClicked;
 
         public ProductInfo LastRenderedProduct { get; private set; }
 
         private void OnEnable()
         {
             _buyButton.Clicked += OnBuyButtonClicked;
-            _upgradePriceButton.Clicked += OnUpgradePriceClicked;
-            _upgradePopularityButton.Clicked += OnUpgradePopularityClicked;
+            _upgradePriceButton.Clicked += OnUpgradePriceButtonClicked;
+            _boostPopularityButton.Clicked += OnBoostPopularityButtonClicked;
         }
 
         private void OnDisable()
         {
             _buyButton.Clicked -= OnBuyButtonClicked;
-            _upgradePriceButton.Clicked -= OnUpgradePriceClicked;
-            _upgradePopularityButton.Clicked -= OnUpgradePopularityClicked;
+            _upgradePriceButton.Clicked -= OnUpgradePriceButtonClicked;
+            _boostPopularityButton.Clicked -= OnBoostPopularityButtonClicked;
         }
 
         public void Render(ProductInfo productInfo, IReadOnlyWallet wallet, bool opened)
@@ -49,13 +49,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _upgradePriceButton.Render(productInfo.PriceUpgrade, wallet, 
                 new Currency(productInfo.PriceUpgrade.CurrentValue).ToPriceTag(), 
                 new Currency(productInfo.PriceUpgrade.AppendValue).ToPriceTag());
-            // _upgradePopularityButton.Render(productInfo.PopularityUpgrade, wallet, 
-            //     productInfo.PopularityUpgrade.CurrentValue.ToString(), 
-            //     productInfo.PopularityUpgrade.AppendValue.ToString());
-            
+            _boostPopularityButton.Render(productInfo.PopularityBoost);
+
             _buyButton.gameObject.SetActive(!opened);
             _upgradePriceButton.gameObject.SetActive(opened);
-            _upgradePopularityButton.gameObject.SetActive(false);
+            _boostPopularityButton.gameObject.SetActive(opened);
 
             _upgradeText.enabled = opened;
         }
@@ -70,14 +68,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             BuyButtonClicked?.Invoke();
         }
 
-        private void OnUpgradePriceClicked()
+        private void OnUpgradePriceButtonClicked()
         {
             UpgradePriceButtonClicked?.Invoke();
         }
 
-        private void OnUpgradePopularityClicked()
+        private void OnBoostPopularityButtonClicked()
         {
-            UpgradePopularityButtonClicked?.Invoke();
+            BoostPopularityButtonClicked?.Invoke();
         }
     }
 }

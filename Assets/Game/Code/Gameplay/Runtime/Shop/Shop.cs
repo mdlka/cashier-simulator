@@ -12,6 +12,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private ShopStatsView _statsView;
         [SerializeField] private CustomerFactory _customerFactory;
         [SerializeField] private ShopSettings _settings;
+        [SerializeField] private ProductList _productList;
         [SerializeField] private ShopStats _stats;
 
         public bool WorkIsDone { get; private set; }
@@ -20,6 +21,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void Initialize()
         {
             _stats.Initialize();
+            DeactivateBoosts();
         }
 
         public void StartDay()
@@ -34,6 +36,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void ShowStats()
         {
             _statsView.Render(_stats.CurrentDay, _currentDay);
+        }
+
+        public void DeactivateBoosts()
+        {
+            _productList.DeactivateBoosts();
         }
 
         private IEnumerator Working()

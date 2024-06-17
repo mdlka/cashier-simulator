@@ -41,6 +41,8 @@ namespace YellowSquad.CashierSimulator.Application
                 _needUpdate = false;
                 _inputRouter.SetActiveCursor(true);
                 
+                _shop.DeactivateBoosts();
+                
                 _shop.ShowStats();
                 yield return new WaitUntil(() => _shop.StatsShowing == false);
 

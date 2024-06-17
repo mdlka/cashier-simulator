@@ -34,9 +34,20 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
         }
 
+        internal void DeactivateBoosts()
+        {
+            foreach (var product in _products)
+                product.PopularityBoost.Deactivate();
+        }
+
         internal ProductInfo FindInfoBy(string tag)
         {
             return _products.First(info => info.Product.NameTag == tag);
+        }
+
+        internal ProductInfo[] FindInfoBy(HashSet<string> tags)
+        {
+            return _products.Where(info => tags.Contains(info.Product.NameTag)).ToArray();
         }
     }
 }

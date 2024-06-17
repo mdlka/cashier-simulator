@@ -18,14 +18,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
             _productBuyMenuView.BuyButtonClicked += OnBuyButtonClicked;
             _productBuyMenuView.UpgradePriceButtonClicked += OnUpgradePriceButtonClicked;
-            _productBuyMenuView.UpgradePopularityButtonClicked += OnUpgradePopularityButtonClicked;
+            _productBuyMenuView.BoostPopularityButtonClicked += OnBoostPopularityButtonClicked;
         }
         
         private void OnDestroy()
         {
             _productBuyMenuView.BuyButtonClicked -= OnBuyButtonClicked;
             _productBuyMenuView.UpgradePriceButtonClicked -= OnUpgradePriceButtonClicked;
-            _productBuyMenuView.UpgradePopularityButtonClicked -= OnUpgradePopularityButtonClicked;
+            _productBuyMenuView.BoostPopularityButtonClicked -= OnBoostPopularityButtonClicked;
         }
 
         public void Open()
@@ -63,16 +63,23 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
         }
 
+        private void OnBoostPopularityButtonClicked()
+        {
+            var targetProduct = _productBuyMenuView.LastRenderedProduct;
+
+            if (targetProduct.PopularityBoost.Active)
+                return;
+            
+            // TODO: Play rewarded
+            
+            targetProduct.PopularityBoost.Activate();
+            _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
+        }
+
         private void OnUpgradePriceButtonClicked()
         {
             var targetProduct = _productBuyMenuView.LastRenderedProduct;
             ApplyUpgradeProduct(targetProduct, targetProduct.PriceUpgrade);
-        }
-
-        private void OnUpgradePopularityButtonClicked()
-        {
-            var targetProduct = _productBuyMenuView.LastRenderedProduct;
-            ApplyUpgradeProduct(targetProduct, targetProduct.PopularityUpgrade);
         }
 
         private void ApplyUpgradeProduct(ProductInfo targetProduct, ProductUpgrade upgrade)

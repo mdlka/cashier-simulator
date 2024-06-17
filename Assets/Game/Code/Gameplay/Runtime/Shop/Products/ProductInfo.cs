@@ -6,12 +6,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
     [Serializable]
     internal class ProductInfo
     {
+        private readonly Boost _popularityBoost = new();
+        
         [SerializeField] private Product _product;
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _ruName;
         [SerializeField, Min(0)] private long _purchasePriceInCents;
         [SerializeField] private ProductUpgrade _priceUpgrade;
-        [SerializeField] private ProductUpgrade _popularityUpgrade;
 
         private Currency? _purchasePrice;
 
@@ -21,6 +22,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public Currency Price => _priceUpgrade.CurrentValue;
         public Currency PurchasePrice => _purchasePrice ??= new Currency(_purchasePriceInCents);
         public ProductUpgrade PriceUpgrade => _priceUpgrade;
-        public ProductUpgrade PopularityUpgrade => _popularityUpgrade;
+        public Boost PopularityBoost => _popularityBoost;
     }
 }

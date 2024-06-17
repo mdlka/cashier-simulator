@@ -10,9 +10,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public CustomerProductList CreateRandomProducts(int maxProducts)
         {
             var products = new Product[Random.Range(1, maxProducts + 1)];
-
-            for (int i = 0; i < products.Length; i++)
-                products[i] = _productsInventory.RandomOpenedProduct();
+            _productsInventory.FillWithRandomOpenedProducts(products);
 
             return new CustomerProductList(products);
         }
