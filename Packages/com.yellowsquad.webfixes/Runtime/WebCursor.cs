@@ -20,20 +20,10 @@ namespace YellowSquad.WebFixes
         }
         
         private static bool _pointerLocked;
-        
-        public static void Lock()
-        {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            RequestPointerLock();
-#endif
-        }
-        
+
         [DllImport("__Internal")]
         private static extern void WebCursorInitialize(Action<bool> onPointerLockChange);
-        
-        [DllImport("__Internal")]
-        private static extern void RequestPointerLock();
-        
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 #endif

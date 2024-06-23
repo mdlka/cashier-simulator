@@ -11,20 +11,12 @@ const library = {
                 dynCall('vi', onPointerLockChangeCallbackPtr, [document.pointerLockElement == canvas]);
             });
         },
-
-        requestPointerLock: function () {
-            canvas.requestPointerLock();
-        },
     },
 
     // External C# calls.
 
     WebCursorInitialize: function (onPointerLockChangeCallbackPtr) {
         webCursor.initialize(onPointerLockChangeCallbackPtr);
-    },
-
-    RequestPointerLock: function () {
-        webCursor.requestPointerLock();
     },
 }
 
