@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Customer : MonoBehaviour
     {
+        private readonly List<Vector3> _targetMovePoints = new();
+        
         [SerializeField] private float _speed;
         [SerializeField] private CustomerAnimator _animator;
         [SerializeField] private PaymentObject[] _paymentObjects;
@@ -43,10 +46,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (positions.Length == 0)
                 return;
             
-            if (_movingCoroutine != null)
-                StopCoroutine(_movingCoroutine);
+            _targetMovePoints.AddRange(positions);
 
-            _movingCoroutine = StartCoroutine(Moving(positions, onComplete));
+            if (_movingCoroutine != null)
+                return;
+
+            _movingCoroutine = StartCoroutine(Moving(onComplete));
         }
 
         public void RotateY(float rotationY, float duration = 0.2f)
@@ -77,19 +82,21 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _animator.PutDownHand();
         }
 
-        private IEnumerator Moving(Vector3[] targetPositions, Action onComplete = null)
+        private IEnumerator Moving(Action onComplete = null)
         {
             _animator.EnableMove();
-            
-            foreach (var targetPosition in targetPositions)
+
+            for (int i = 0; i < _targetMovePoints.Count; i++)
             {
+                var targetPosition = _targetMovePoints[i];
+                
                 Vector3 startPosition = transform.position;
                 float moveDuration = Vector3.Distance(startPosition, targetPosition) / _speed;
                 float elapsedTime = 0;
 
                 Vector3 moveDirection = (targetPosition.XZ() - startPosition.XZ()).normalized;
                 RotateY(Quaternion.LookRotation(moveDirection).eulerAngles.y - 180f, 0.35f);
-                
+
                 while (elapsedTime <= moveDuration)
                 {
                     transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
@@ -98,8 +105,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     yield return null;
                 }
             }
-            
-            transform.position = targetPositions[^1];
+
+            transform.position = _targetMovePoints[^1];
+            _targetMovePoints.Clear();
 
             _animator.DisableMove();
             onComplete?.Invoke();
