@@ -1,0 +1,14 @@
+{
+    "name": "YellowSquad.WebFixes",
+    "rootNamespace": "YellowSquad.WebFixes",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
