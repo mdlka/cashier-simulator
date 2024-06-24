@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,10 +11,12 @@ namespace YellowSquad.CashierSimulator.UserInput
     public class InputRouter : MonoBehaviour
     {
         private readonly List<RaycastResult> _raycastResults = new();
-        
+
+        [SerializeField] private GameCursor _cursor;
         [SerializeField] private CameraAim _cameraAim;
         [SerializeField] private CashDesk _cashDesk;
-        [SerializeField, Min(0.001f)] private float _sensitivity;
+        [SerializeField, Min(0.001f)] private float _rotationSensitivity;
+        [SerializeField, Min(0.001f)] private float _mouseSensitivity;
 
         private IInput _input;
         private Camera _camera;
@@ -22,6 +25,23 @@ namespace YellowSquad.CashierSimulator.UserInput
         {
             _camera = Camera.main;
             _input = new StandaloneInput();
+            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        private void Update()
+        {
+            if (!_cursor.Enabled)
+                return;
+            
+            _cursor.Move(_input.AimDelta * _mouseSensitivity);
+            
+            if (_input.PointerDown)
+                _cursor.PointerDown();
+            
+            if (_input.PointerUp)
+                _cursor.PointerUp();
         }
 
         public void UpdateInput()
@@ -29,8 +49,8 @@ namespace YellowSquad.CashierSimulator.UserInput
             SetActiveCursor(_cashDesk.PaymentTerminal.Active);
 
             if (_cashDesk.PaymentTerminal.Active == false)
-                _cameraAim.RotateAim(_input.AimDelta * _sensitivity);
-            
+                _cameraAim.RotateAim(_input.AimDelta * _rotationSensitivity);
+
             if (_input.Apply)
                 _cashDesk.CashRegister.EndPayment();
 
@@ -64,8 +84,13 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         public void SetActiveCursor(bool value)
         {
-            Cursor.visible = value;
-            Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+            if (value == _cursor.Enabled)
+                return;
+            
+            if (value)
+                _cursor.Enable();
+            else
+                _cursor.Disable();
         }
 
         public void ResetCameraRotation()
