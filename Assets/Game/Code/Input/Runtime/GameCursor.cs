@@ -14,7 +14,6 @@ namespace YellowSquad.CashierSimulator.UserInput
         private Transform _canvasTransform;
         private RectTransform _rectTransform;
 
-        private GameObject _lastPointerDownObject;
         private PointerEventData _pointerEventData;
         private EventSystem _eventSystem;
 
@@ -23,7 +22,7 @@ namespace YellowSquad.CashierSimulator.UserInput
         private void Awake()
         {
             _canvasTransform = _icon.GetComponentInParent<Canvas>().transform;
-            _rectTransform = (RectTransform)_icon.transform;
+            _rectTransform = (RectTransform)transform;
             
             _eventSystem = EventSystem.current;
             _pointerEventData = new PointerEventData(_eventSystem);
@@ -32,23 +31,36 @@ namespace YellowSquad.CashierSimulator.UserInput
         internal void Move(Vector2 delta)
         {
             _rectTransform.anchoredPosition = ClampToScreen(_rectTransform.anchoredPosition + delta);
+
+            if (_pointerEventData.pointerDrag == null)
+                return;
+            
+            _pointerEventData.position = _rectTransform.position;
+            ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.dragHandler);
         }
 
         internal void PointerDown()
         {
             if (Enabled == false)
                 return;
-            
-            _raycastResults.Clear();
+
             _pointerEventData.position = _rectTransform.position;
 
             _eventSystem.RaycastAll(_pointerEventData, _raycastResults);
-            
-            if (_raycastResults.Count <= 0) 
+
+            if (_raycastResults.Count <= 0)
                 return;
-            
-            ExecuteEvents.Execute(_raycastResults[0].gameObject, _pointerEventData, ExecuteEvents.pointerDownHandler);
-            _lastPointerDownObject = _raycastResults[0].gameObject;
+
+            _pointerEventData.pointerPressRaycast = _raycastResults[0];
+            _pointerEventData.pointerPress = ExecuteEvents.ExecuteHierarchy(_raycastResults[0].gameObject,
+                _pointerEventData, ExecuteEvents.pointerDownHandler);
+            _pointerEventData.pointerDrag = ExecuteEvents.GetEventHandler<IDragHandler>(_raycastResults[0].gameObject);
+
+            if (_pointerEventData.pointerDrag == null) 
+                return;
+
+            _pointerEventData.dragging = true;
+            ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.beginDragHandler);
         }
 
         internal void PointerUp()
@@ -56,23 +68,26 @@ namespace YellowSquad.CashierSimulator.UserInput
             if (Enabled == false)
                 return;
             
-            _raycastResults.Clear();
             _pointerEventData.position = _rectTransform.position;
-
             _eventSystem.RaycastAll(_pointerEventData, _raycastResults);
-            
-            if (_lastPointerDownObject != null) 
-                ExecuteEvents.Execute(_lastPointerDownObject, _pointerEventData, ExecuteEvents.pointerUpHandler);
 
-            if (_raycastResults.Count <= 0) 
-                return;
-            
-            ExecuteEvents.Execute(_raycastResults[0].gameObject, _pointerEventData, ExecuteEvents.pointerUpHandler);
-            
-            if (_lastPointerDownObject == _raycastResults[0].gameObject)
-                ExecuteEvents.Execute(_raycastResults[0].gameObject, _pointerEventData, ExecuteEvents.pointerClickHandler);
+            if (_raycastResults.Count > 0)
+                _pointerEventData.pointerCurrentRaycast = _raycastResults[0];
 
-            _lastPointerDownObject = null;
+            if (_pointerEventData.pointerPress != null)
+            {
+                ExecuteEvents.Execute(_pointerEventData.pointerPress, _pointerEventData, ExecuteEvents.pointerUpHandler);
+                
+                if (_pointerEventData.pointerDrag != null)
+                    ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.endDragHandler);
+
+                if (_raycastResults.Count > 0 && _pointerEventData.pointerPress == _raycastResults[0].gameObject)
+                    ExecuteEvents.Execute(_raycastResults[0].gameObject, _pointerEventData, ExecuteEvents.pointerClickHandler);
+            }
+
+            _pointerEventData.pointerDrag = null;
+            _pointerEventData.dragging = false;
+            _pointerEventData.pointerPress = null;
         }
         
         internal void Enable()
