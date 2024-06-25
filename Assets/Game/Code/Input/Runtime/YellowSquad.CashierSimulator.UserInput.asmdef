@@ -2,7 +2,8 @@
     "name": "YellowSquad.CashierSimulator.UserInput",
     "rootNamespace": "YellowSquad.CashierSimulator.UserInput",
     "references": [
-        "GUID:959c76fd56692e0428fcb1bc9a8dfe5e"
+        "GUID:959c76fd56692e0428fcb1bc9a8dfe5e",
+        "GUID:35f7618033a6db8428fc682cccdef668"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

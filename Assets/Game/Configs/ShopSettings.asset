@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minCostumersPerDay: 0
   _maxCostumersPerHour: 0
-  _timeSpeed: 200
+  _timeSpeed: 300
   _productListFactory: {fileID: 11400000, guid: 069e408c16f6d454fabac831b68dd9ce, type: 2}
   _popularityUpgrade:
     _startValue: 10

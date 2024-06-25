@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
+using YellowSquad.WebFixes;
 
 namespace YellowSquad.CashierSimulator.UserInput
 {
@@ -32,6 +32,9 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         private void Update()
         {
+            if (WebCursor.LockState == CursorLockMode.None)
+                return;
+            
             if (!_cursor.Enabled)
                 return;
             
