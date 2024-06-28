@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
@@ -59,14 +61,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void OnBoostProductsPriceButtonClicked()
         {
-            ApplyBoost(_shopSettings.ProductsPriceBoost);
-            _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost);
+            ApplyBoost(_shopSettings.ProductsPriceBoost, 
+                onEnd: () => _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost));
         }
 
         private void OnBoostPopularityButtonClicked()
         {
-            ApplyBoost(_shopSettings.PopularityBoost);
-            _boostPopularityButton.Render(_shopSettings.PopularityBoost);
+            ApplyBoost(_shopSettings.PopularityBoost, 
+                onEnd: () => _boostPopularityButton.Render(_shopSettings.PopularityBoost));
         }
 
         private void OnUpgradeCartButtonClicked()
@@ -90,14 +92,18 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             upgrade.Upgrade();
         }
 
-        private void ApplyBoost(Boost boost)
+        private void ApplyBoost(Boost boost, Action onEnd)
         {
             if (boost.Active)
                 return;
 
-            // TODO: Play rewarded
-
-            boost.Activate();
+            GamePlatformSdkContext.Current.Advertisement.ShowRewarded(onEnd: result =>
+            {
+                if (result == Result.Success)
+                    boost.Activate();
+                
+                onEnd?.Invoke();
+            });
         }
 
         private void RenderUpgradeButton(UpgradeButton button, ShopUpgrade upgrade, string endSymbols = "")

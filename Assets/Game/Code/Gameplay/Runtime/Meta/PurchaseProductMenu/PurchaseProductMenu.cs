@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
@@ -69,11 +70,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
             if (targetProduct.PopularityBoost.Active)
                 return;
-            
-            // TODO: Play rewarded
-            
-            targetProduct.PopularityBoost.Activate();
-            _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
+
+            GamePlatformSdkContext.Current.Advertisement.ShowRewarded(onEnd: result =>
+            {
+                if (result == Result.Success)
+                    targetProduct.PopularityBoost.Activate();
+                
+                _productBuyMenuView.Render(targetProduct, _wallet, opened: true);
+            });
         }
 
         private void OnUpgradePriceButtonClicked()
