@@ -13,5 +13,6 @@ namespace YellowSquad.GamePlatformSdk
 
         public bool Initialized => true;
         public IAdvertisement Advertisement { get; } = new DefaultAdvertisement();
+        public ISave Save { get; } = new DefaultSave();
     }
 }
