@@ -2,7 +2,7 @@
 
 namespace YellowSquad.GamePlatformSdk
 {
-    public class DefaultGamePlatformSdk : IGamePlatformSdk
+    internal class DefaultGamePlatformSdk : IGamePlatformSdk
     {
         public IEnumerator Initialize()
         {

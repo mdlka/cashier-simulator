@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace YellowSquad.GamePlatformSdk
 {
-    public class YandexGamesSdk : IGamePlatformSdk
+    internal class YandexGamesSdk : IGamePlatformSdk
     {
         private readonly IAdvertisement _advertisement = new YandexGamesAdvertisement();
         

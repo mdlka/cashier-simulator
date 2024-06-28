@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
-    public class YandexGamesAdvertisement : IAdvertisement
+    internal class YandexGamesAdvertisement : IAdvertisement
     {
         public Result LastRewardedResult { get; private set; }
         public double LastInterstitialTime { get; private set; }

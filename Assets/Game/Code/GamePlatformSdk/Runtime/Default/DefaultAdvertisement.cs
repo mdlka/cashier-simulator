@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
-    public class DefaultAdvertisement : IAdvertisement
+    internal class DefaultAdvertisement : IAdvertisement
     {
         public Result LastRewardedResult => Result.Success;
         public double LastInterstitialTime { get; private set; }
