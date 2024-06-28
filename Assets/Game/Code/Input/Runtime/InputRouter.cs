@@ -34,18 +34,8 @@ namespace YellowSquad.CashierSimulator.UserInput
         {
             if (WebCursor.LockState == CursorLockMode.None)
                 return;
-            
-            if (!_cursor.Enabled)
-                return;
-            
+
             _cursor.Move(_input.AimDelta * _mouseSensitivity);
-            _cursor.Scroll(_input.ScrollDelta);
-            
-            if (_input.PointerDown)
-                _cursor.PointerDown();
-            
-            if (_input.PointerUp)
-                _cursor.PointerUp();
         }
 
         public void UpdateInput()

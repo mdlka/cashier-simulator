@@ -1,109 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace YellowSquad.CashierSimulator.UserInput
 {
     internal class GameCursor : MonoBehaviour
     {
-        private readonly List<RaycastResult> _raycastResults = new();
-        
         [SerializeField] private Image _icon;
 
         private Transform _canvasTransform;
         private RectTransform _rectTransform;
 
-        private PointerEventData _pointerEventData;
-        private EventSystem _eventSystem;
-
         public bool Enabled => _icon.enabled;
+        public Vector2 Position =>  Enabled ? _rectTransform.position : Vector2.zero;
 
         private void Awake()
         {
             _canvasTransform = _icon.GetComponentInParent<Canvas>().transform;
             _rectTransform = (RectTransform)transform;
-            
-            _eventSystem = EventSystem.current;
-            _pointerEventData = new PointerEventData(_eventSystem);
-        }
-
-        internal void Scroll(Vector2 delta)
-        {
-            _pointerEventData.scrollDelta = delta;
-
-            if (_pointerEventData.IsScrolling() == false)
-                return;
-            
-            var scrollHandler = ExecuteEvents.GetEventHandler<IScrollHandler>(_pointerEventData.pointerCurrentRaycast.gameObject);
-            ExecuteEvents.ExecuteHierarchy(scrollHandler, _pointerEventData, ExecuteEvents.scrollHandler);
-        }
-
-        internal void Move(Vector2 delta)
-        {
-            _rectTransform.anchoredPosition = ClampToScreen(_rectTransform.anchoredPosition + delta);
-
-            if (_pointerEventData.pointerDrag == null)
-                return;
-            
-            _pointerEventData.position = _rectTransform.position;
-            ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.dragHandler);
-        }
-
-        internal void PointerDown()
-        {
-            if (Enabled == false)
-                return;
-
-            _pointerEventData.position = _rectTransform.position;
-
-            _eventSystem.RaycastAll(_pointerEventData, _raycastResults);
-
-            if (_raycastResults.Count <= 0)
-                return;
-
-            _pointerEventData.pointerPressRaycast = _raycastResults[0];
-            _pointerEventData.pointerPress = ExecuteEvents.ExecuteHierarchy(_raycastResults[0].gameObject,
-                _pointerEventData, ExecuteEvents.pointerDownHandler);
-            _pointerEventData.pointerDrag = ExecuteEvents.GetEventHandler<IDragHandler>(_raycastResults[0].gameObject);
-
-            if (_pointerEventData.pointerDrag == null) 
-                return;
-
-            _pointerEventData.dragging = true;
-            ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.beginDragHandler);
-        }
-
-        internal void PointerUp()
-        {
-            if (Enabled == false)
-                return;
-            
-            _pointerEventData.position = _rectTransform.position;
-            _eventSystem.RaycastAll(_pointerEventData, _raycastResults);
-
-            if (_raycastResults.Count > 0)
-                _pointerEventData.pointerCurrentRaycast = _raycastResults[0];
-            
-            if (_pointerEventData.pointerDrag != null)
-                ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.endDragHandler);
-
-            if (_pointerEventData.pointerPress != null)
-            {
-                ExecuteEvents.Execute(_pointerEventData.pointerPress, _pointerEventData, ExecuteEvents.pointerUpHandler);
-
-                if (_raycastResults.Count > 0)
-                {
-                    var targetObject = ExecuteEvents.GetEventHandler<IPointerClickHandler>(_raycastResults[0].gameObject);
-
-                    if (_pointerEventData.pointerPress == targetObject)
-                        ExecuteEvents.Execute(targetObject, _pointerEventData, ExecuteEvents.pointerClickHandler);
-                }
-            }
-
-            _pointerEventData.pointerDrag = null;
-            _pointerEventData.dragging = false;
-            _pointerEventData.pointerPress = null;
         }
         
         internal void Enable()
@@ -118,7 +31,15 @@ namespace YellowSquad.CashierSimulator.UserInput
         {
             _icon.enabled = false;
         }
-        
+
+        internal void Move(Vector2 delta)
+        {
+            if (Enabled == false)
+                return;
+            
+            _rectTransform.anchoredPosition = ClampToScreen(_rectTransform.anchoredPosition + delta);
+        }
+
         private Vector2 ClampToScreen(Vector2 position)
         {
             float halfWidth = Screen.width / 2f / _canvasTransform.localScale.x;
