@@ -73,16 +73,21 @@ namespace YellowSquad.CashierSimulator.UserInput
 
             if (_raycastResults.Count > 0)
                 _pointerEventData.pointerCurrentRaycast = _raycastResults[0];
+            
+            if (_pointerEventData.pointerDrag != null)
+                ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.endDragHandler);
 
             if (_pointerEventData.pointerPress != null)
             {
                 ExecuteEvents.Execute(_pointerEventData.pointerPress, _pointerEventData, ExecuteEvents.pointerUpHandler);
-                
-                if (_pointerEventData.pointerDrag != null)
-                    ExecuteEvents.Execute(_pointerEventData.pointerDrag, _pointerEventData, ExecuteEvents.endDragHandler);
 
-                if (_raycastResults.Count > 0 && _pointerEventData.pointerPress == _raycastResults[0].gameObject)
-                    ExecuteEvents.Execute(_raycastResults[0].gameObject, _pointerEventData, ExecuteEvents.pointerClickHandler);
+                if (_raycastResults.Count > 0)
+                {
+                    var targetObject = ExecuteEvents.GetEventHandler<IPointerUpHandler>(_raycastResults[0].gameObject);
+
+                    if (_pointerEventData.pointerPress == targetObject)
+                        ExecuteEvents.Execute(targetObject, _pointerEventData, ExecuteEvents.pointerClickHandler);
+                }
             }
 
             _pointerEventData.pointerDrag = null;
