@@ -12,5 +12,6 @@ namespace YellowSquad.CashierSimulator.UserInput
         bool Apply { get; }
         
         Vector2 AimDelta { get; }
+        Vector2 ScrollDelta { get; }
     }
 }

@@ -15,5 +15,6 @@ namespace YellowSquad.CashierSimulator.UserInput
         public bool Apply => Input.GetKeyDown(KeyCode.Space);
         
         public Vector2 AimDelta => new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        public Vector2 ScrollDelta => Input.mouseScrollDelta;
     }
 }

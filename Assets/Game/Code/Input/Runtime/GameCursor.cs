@@ -28,6 +28,17 @@ namespace YellowSquad.CashierSimulator.UserInput
             _pointerEventData = new PointerEventData(_eventSystem);
         }
 
+        internal void Scroll(Vector2 delta)
+        {
+            _pointerEventData.scrollDelta = delta;
+
+            if (_pointerEventData.IsScrolling() == false)
+                return;
+            
+            var scrollHandler = ExecuteEvents.GetEventHandler<IScrollHandler>(_pointerEventData.pointerCurrentRaycast.gameObject);
+            ExecuteEvents.ExecuteHierarchy(scrollHandler, _pointerEventData, ExecuteEvents.scrollHandler);
+        }
+
         internal void Move(Vector2 delta)
         {
             _rectTransform.anchoredPosition = ClampToScreen(_rectTransform.anchoredPosition + delta);
@@ -83,7 +94,7 @@ namespace YellowSquad.CashierSimulator.UserInput
 
                 if (_raycastResults.Count > 0)
                 {
-                    var targetObject = ExecuteEvents.GetEventHandler<IPointerUpHandler>(_raycastResults[0].gameObject);
+                    var targetObject = ExecuteEvents.GetEventHandler<IPointerClickHandler>(_raycastResults[0].gameObject);
 
                     if (_pointerEventData.pointerPress == targetObject)
                         ExecuteEvents.Execute(targetObject, _pointerEventData, ExecuteEvents.pointerClickHandler);

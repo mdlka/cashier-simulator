@@ -39,6 +39,7 @@ namespace YellowSquad.CashierSimulator.UserInput
                 return;
             
             _cursor.Move(_input.AimDelta * _mouseSensitivity);
+            _cursor.Scroll(_input.ScrollDelta);
             
             if (_input.PointerDown)
                 _cursor.PointerDown();
