@@ -48,8 +48,8 @@ namespace YellowSquad.CashierSimulator.Application
                 
                 _shop.ShowStats();
                 yield return new WaitUntil(() => _shop.StatsShowing == false);
-                
-                // TODO: Play interstitial
+
+                yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
                 yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
