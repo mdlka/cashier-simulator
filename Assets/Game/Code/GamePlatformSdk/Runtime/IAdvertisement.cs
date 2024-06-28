@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace YellowSquad.GamePlatformSdk
 {
@@ -7,6 +8,9 @@ namespace YellowSquad.GamePlatformSdk
         Result LastRewardedResult { get; }
         double LastAdTime { get; }
 
+        void ShowInterstitial(Action onEnd);
+        void ShowRewarded(Action<Result> onEnd);
+        
         IEnumerator ShowInterstitial();
         IEnumerator ShowRewarded();
     }

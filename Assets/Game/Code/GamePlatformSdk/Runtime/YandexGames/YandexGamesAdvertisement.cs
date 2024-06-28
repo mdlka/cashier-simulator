@@ -1,36 +1,24 @@
 ﻿using System;
-using System.Collections;
 using Agava.YandexGames;
-using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
     internal class YandexGamesAdvertisement : BaseAdvertisement
     {
-        protected override IEnumerator OnShowInterstitial()
+        protected override void OnShowInterstitial(Action onEnd)
         {
-            bool ended = false;
-            
             InterstitialAd.Show(
-                onCloseCallback: _ => ended = true, 
-                onErrorCallback: _ => ended = true, 
-                onOfflineCallback: () => ended = true);
-
-            yield return new WaitUntil(() => ended == false);
+                onCloseCallback: _ => onEnd.Invoke(), 
+                onErrorCallback: _ => onEnd.Invoke(), 
+                onOfflineCallback: onEnd.Invoke);
         }
 
-        protected override IEnumerator OnShowRewarded(Action<Result> onEnd)
+        protected override void OnShowRewarded(Action<Result> onEnd)
         {
-            bool ended = false;
-            var rewardedResult = Result.Failure;
-            
             VideoAd.Show(
-                onRewardedCallback: () => { ended = true; rewardedResult = Result.Success; }, 
-                onCloseCallback: () => ended = true, 
-                onErrorCallback: _ => ended = true);
-
-            yield return new WaitUntil(() => ended == false);
-            onEnd.Invoke(rewardedResult);
+                onRewardedCallback: () => onEnd.Invoke(Result.Success), 
+                onCloseCallback: () => onEnd.Invoke(Result.Failure), 
+                onErrorCallback: _ => onEnd.Invoke(Result.Failure));
         }
     }
 }

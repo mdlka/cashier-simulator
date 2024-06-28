@@ -8,13 +8,33 @@ namespace YellowSquad.GamePlatformSdk
     {
         public Result LastRewardedResult { get; private set; }
         public double LastAdTime { get; private set; }
+        
+        public void ShowInterstitial(Action onEnd)
+        {
+            if (CanShowAds() == false)
+                return;
+            
+            OnShowInterstitial(onEnd);
+        }
+
+        public void ShowRewarded(Action<Result> onEnd)
+        {
+            if (CanShowAds() == false)
+                return;
+            
+            OnShowRewarded(onEnd);
+        }
 
         public IEnumerator ShowInterstitial()
         {
             if (CanShowAds() == false)
                 yield break;
+
+            bool ended = false;
             
-            yield return OnShowInterstitial();
+            OnShowInterstitial(onEnd: () => ended = true);
+            yield return new WaitUntil(() => ended == false);
+            
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }
 
@@ -23,7 +43,12 @@ namespace YellowSquad.GamePlatformSdk
             if (CanShowAds() == false)
                 yield break;
             
-            yield return OnShowRewarded(onEnd: result => LastRewardedResult = result);
+            bool ended = false;
+            LastRewardedResult = Result.Failure;
+            
+            OnShowRewarded(onEnd: result => { ended = true; LastRewardedResult = result; });
+            yield return new WaitUntil(() => ended == false);
+            
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }
 
@@ -32,7 +57,7 @@ namespace YellowSquad.GamePlatformSdk
             return Time.realtimeSinceStartupAsDouble - LastAdTime >= SdkSettings.IntervalBetweenAdsInSeconds;
         }
 
-        protected abstract IEnumerator OnShowInterstitial();
-        protected abstract IEnumerator OnShowRewarded(Action<Result> onEnd);
+        protected abstract void OnShowInterstitial(Action onEnd);
+        protected abstract void OnShowRewarded(Action<Result> onEnd);
     }
 }
