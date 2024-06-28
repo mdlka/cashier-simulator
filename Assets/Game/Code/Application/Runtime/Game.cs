@@ -3,6 +3,7 @@ using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Meta;
 using YellowSquad.CashierSimulator.UserInput;
+using YellowSquad.WebSdk;
 
 namespace YellowSquad.CashierSimulator.Application
 {
@@ -25,6 +26,8 @@ namespace YellowSquad.CashierSimulator.Application
 
         private IEnumerator Start()
         {
+            yield return GamePlatformSdkContext.Current.Initialize();
+            
             _needUpdate = true;
             
             _productsInventory.Initialize();

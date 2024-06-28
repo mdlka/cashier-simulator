@@ -1,7 +1,9 @@
 {
-    "name": "YellowSquad.CashierSimulator.Application",
-    "rootNamespace": "YellowSquad.CashierSimulator.Application",
-    "references": ["GUID:959c76fd56692e0428fcb1bc9a8dfe5e","GUID:c9e3c9bc065cd0048ba1c3ebd94438e2","GUID:9eff7665c6a04294397d2a716921d9c2"],
+    "name": "YellowSquad.WebSdk",
+    "rootNamespace": "YellowSquad.WebSdk",
+    "references": [
+        "GUID:ef7e0e3eb213f324c87b70a782844fb6"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
