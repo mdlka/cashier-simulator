@@ -1,23 +1,21 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
-    internal class DefaultAdvertisement : IAdvertisement
+    internal class DefaultAdvertisement : BaseAdvertisement
     {
-        public Result LastRewardedResult => Result.Success;
-        public double LastInterstitialTime { get; private set; }
-        public double LastAdTime { get; private set; }
-
-        public IEnumerator ShowInterstitial()
+        protected override IEnumerator OnShowInterstitial()
         {
-            LastInterstitialTime = LastAdTime = Time.realtimeSinceStartupAsDouble;
+            Debug.Log("Show Interstitial");
             yield break;
         }
 
-        public IEnumerator ShowRewarded()
+        protected override IEnumerator OnShowRewarded(Action<Result> onEnd)
         {
-            LastAdTime = Time.realtimeSinceStartupAsDouble;
+            Debug.Log("Show Rewarded");
+            onEnd.Invoke(Result.Success);
             yield break;
         }
     }

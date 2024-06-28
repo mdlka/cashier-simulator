@@ -5,7 +5,6 @@ namespace YellowSquad.GamePlatformSdk
     public interface IAdvertisement
     {
         Result LastRewardedResult { get; }
-        double LastInterstitialTime { get; }
         double LastAdTime { get; }
 
         IEnumerator ShowInterstitial();

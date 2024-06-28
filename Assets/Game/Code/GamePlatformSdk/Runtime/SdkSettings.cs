@@ -2,6 +2,6 @@
 {
     internal static class SdkSettings
     {
-        public static long IntervalBetweenAdsInSeconds = 120;
+        public const long IntervalBetweenAdsInSeconds = 120;
     }
 }

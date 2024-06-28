@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
@@ -6,6 +7,7 @@ namespace YellowSquad.GamePlatformSdk
     {
         public IEnumerator Initialize()
         {
+            Debug.Log("Sdk initialized");
             yield break;
         }
 
