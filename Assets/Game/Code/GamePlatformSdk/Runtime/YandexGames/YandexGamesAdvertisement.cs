@@ -2,7 +2,7 @@
 using Agava.YandexGames;
 using UnityEngine;
 
-namespace YellowSquad.WebSdk
+namespace YellowSquad.GamePlatformSdk
 {
     public class YandexGamesAdvertisement : IAdvertisement
     {

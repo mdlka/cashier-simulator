@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace YellowSquad.WebSdk
+namespace YellowSquad.GamePlatformSdk
 {
     public class DefaultAdvertisement : IAdvertisement
     {

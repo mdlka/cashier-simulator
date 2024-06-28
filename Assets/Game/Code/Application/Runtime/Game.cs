@@ -3,7 +3,7 @@ using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Meta;
 using YellowSquad.CashierSimulator.UserInput;
-using YellowSquad.WebSdk;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Application
 {

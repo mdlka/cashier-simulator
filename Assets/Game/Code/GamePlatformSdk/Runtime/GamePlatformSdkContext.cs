@@ -1,4 +1,4 @@
-﻿namespace YellowSquad.WebSdk
+﻿namespace YellowSquad.GamePlatformSdk
 {
     public static class GamePlatformSdkContext
     {

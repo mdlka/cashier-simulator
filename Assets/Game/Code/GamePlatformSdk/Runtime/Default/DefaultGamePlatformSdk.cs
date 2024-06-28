@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace YellowSquad.WebSdk
+namespace YellowSquad.GamePlatformSdk
 {
     public class DefaultGamePlatformSdk : IGamePlatformSdk
     {
