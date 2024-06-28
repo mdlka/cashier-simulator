@@ -7,7 +7,7 @@ namespace YellowSquad.GamePlatformSdk
     internal abstract class BaseAdvertisement : IAdvertisement
     {
         public Result LastRewardedResult { get; private set; }
-        public double LastAdTime { get; private set; }
+        public double LastAdTime { get; private set; } = -SdkSettings.IntervalBetweenAdsInSeconds;
         
         public void ShowInterstitial(Action onEnd)
         {
@@ -19,9 +19,6 @@ namespace YellowSquad.GamePlatformSdk
 
         public void ShowRewarded(Action<Result> onEnd)
         {
-            if (CanShowAds() == false)
-                return;
-            
             OnShowRewarded(onEnd);
         }
 
@@ -33,7 +30,7 @@ namespace YellowSquad.GamePlatformSdk
             bool ended = false;
             
             OnShowInterstitial(onEnd: () => ended = true);
-            yield return new WaitUntil(() => ended == false);
+            yield return new WaitUntil(() => ended);
             
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }
@@ -47,7 +44,7 @@ namespace YellowSquad.GamePlatformSdk
             LastRewardedResult = Result.Failure;
             
             OnShowRewarded(onEnd: result => { ended = true; LastRewardedResult = result; });
-            yield return new WaitUntil(() => ended == false);
+            yield return new WaitUntil(() => ended);
             
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }

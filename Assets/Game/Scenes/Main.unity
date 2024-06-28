@@ -9096,7 +9096,7 @@ MonoBehaviour:
   _cameraAim: {fileID: 681907732}
   _cashDesk: {fileID: 1367616285}
   _rotationSensitivity: 1
-  _mouseSensitivity: 15
+  _mouseSensitivity: 21.67
 --- !u!1 &523633185
 GameObject:
   m_ObjectHideFlags: 0
