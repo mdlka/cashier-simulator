@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
+using YellowSquad.GamePlatformSdk;
 using Random = UnityEngine.Random;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -13,31 +14,47 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private const int DefaultIndexesCountForRandom = 100;
         private const int PopularityBoostFactor = 2;
         
-        [NonSerialized] private readonly List<Product> _openedProducts = new();
+        [NonSerialized] private readonly HashSet<string> _openedProducts = new();
 
         [SerializeField] private ProductList _productList;
         [SerializeField] private Product _startOpenedProduct;
 
-        public IReadOnlyList<Product> OpenedProducts => _openedProducts;
+        private ISave _save;
+
+        public IReadOnlyCollection<string> OpenedProducts => _openedProducts;
 
         public void Initialize()
         {
-            _openedProducts.Add(_startOpenedProduct);
+            _save = GamePlatformSdkContext.Current.Save;
+
+            if (_save.HasKey(SaveConstants.OpenedProductsSaveKey))
+            {
+                var savedOpenedProducts = JsonConvert.DeserializeObject<HashSet<string>>(
+                    _save.GetString(SaveConstants.OpenedProductsSaveKey));
+
+                foreach (string openedProduct in savedOpenedProducts)
+                    _openedProducts.Add(openedProduct);
+            }
+            else
+            {
+                _openedProducts.Add(_startOpenedProduct.NameTag);
+            }
+            
+            _openedProducts.Add(_startOpenedProduct.NameTag);
         }
 
         public void Add(Product product)
         {
-            if (_openedProducts.Contains(product))
+            if (_openedProducts.Contains(product.NameTag))
                 throw new InvalidOperationException();
             
-            _openedProducts.Add(product);
+            _openedProducts.Add(product.NameTag);
+            _save.SetString(SaveConstants.OpenedProductsSaveKey, JsonConvert.SerializeObject(_openedProducts));
         }
 
         public void FillWithRandomOpenedProducts(Product[] buffer)
         {
-            HashSet<string> openedProductsTags = OpenedProducts.Select(product => product.NameTag).ToHashSet();
-            ProductInfo[] openedProducts = _productList.FindInfoBy(openedProductsTags);
-
+            ProductInfo[] openedProducts = _productList.FindInfoBy(_openedProducts);
             var openedProductsIndexes = new List<int>();
             
             for (int i = 0; i < openedProducts.Length; i++)

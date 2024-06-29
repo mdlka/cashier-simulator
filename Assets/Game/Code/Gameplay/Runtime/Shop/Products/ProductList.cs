@@ -45,7 +45,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             return _products.First(info => info.Product.NameTag == tag);
         }
 
-        internal ProductInfo[] FindInfoBy(HashSet<string> tags)
+        internal ProductInfo[] FindInfoBy(IReadOnlyCollection<string> tags)
         {
             return _products.Where(info => tags.Contains(info.Product.NameTag)).ToArray();
         }

@@ -37,7 +37,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
                 product.Clicked -= OnProductClick;
         }
         
-        internal void Render(IReadOnlyCollection<Product> openedProducts, Action onCloseButtonClick = null, Action<ProductInfo> onProductSelect = null)
+        internal void Render(IReadOnlyCollection<string> openedProducts, Action onCloseButtonClick = null, Action<ProductInfo> onProductSelect = null)
         {
             if (_rendered)
                 throw new InvalidOperationException("Before this you need to call " + nameof(Close));
@@ -52,7 +52,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
                 viewInstance.Clicked += OnProductClick;
                 viewInstance.Render(_productList.FindInfoBy(product.NameTag), 
-                    opened: openedProducts.Any(p => p.NameTag == product.NameTag));
+                    opened: openedProducts.Contains(product.NameTag));
                 
                 _purchaseProductsInstances.Add(viewInstance);
             }

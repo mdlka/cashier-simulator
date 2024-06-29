@@ -43,7 +43,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
                 onProductSelect: productInfo =>
                 {
                     _productBuyMenuView.Render(productInfo, _wallet, 
-                        _productsInventory.OpenedProducts.Contains(productInfo.Product));
+                        _productsInventory.OpenedProducts.Contains(productInfo.Product.NameTag));
                 });
         }
 
@@ -51,7 +51,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         {
             var targetProduct = _productBuyMenuView.LastRenderedProduct;
 
-            if (_productsInventory.OpenedProducts.Contains(targetProduct.Product))
+            if (_productsInventory.OpenedProducts.Contains(targetProduct.Product.NameTag))
                 return;
             
             if (_wallet.CanSpend(targetProduct.PurchasePrice) == false)
