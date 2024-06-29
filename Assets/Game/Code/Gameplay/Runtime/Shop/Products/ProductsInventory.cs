@@ -23,9 +23,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public IReadOnlyCollection<string> OpenedProducts => _openedProducts;
 
-        public void Initialize()
+        public void Initialize(ISave save)
         {
-            _save = GamePlatformSdkContext.Current.Save;
+            _save = save;
 
             if (_save.HasKey(SaveConstants.OpenedProductsSaveKey))
             {

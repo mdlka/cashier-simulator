@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -16,9 +17,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public bool WorkIsDone { get; private set; }
         public bool StatsShowing => _statsView.Opened;
 
-        public void Initialize()
+        public void Initialize(ISave save)
         {
-            _stats.Initialize();
+            _stats.Initialize(save);
             DeactivateBoosts();
         }
 

@@ -13,9 +13,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private ISave _save;
         public ShopStatsData CurrentDay { get; private set; }
 
-        public void Initialize()
+        public void Initialize(ISave save)
         {
-            _save = GamePlatformSdkContext.Current.Save;
+            _save = save;
             
             _shopStats = _save.HasKey(SaveConstants.ShopStatsSaveKey) 
                     ? JsonConvert.DeserializeObject<ShopStatsData>(_save.GetString(SaveConstants.ShopStatsSaveKey))

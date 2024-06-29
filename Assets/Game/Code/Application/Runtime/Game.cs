@@ -30,8 +30,8 @@ namespace YellowSquad.CashierSimulator.Application
             
             _needUpdate = true;
             
-            _productsInventory.Initialize();
-            _shop.Initialize();
+            _productsInventory.Initialize(GamePlatformSdkContext.Current.Save);
+            _shop.Initialize(GamePlatformSdkContext.Current.Save);
             
             while (true)
             {
