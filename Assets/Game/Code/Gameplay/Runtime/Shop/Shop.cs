@@ -20,6 +20,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void Initialize(ISave save)
         {
             _stats.Initialize(save);
+            _productList.Initialize(save);
             DeactivateBoosts();
         }
 
@@ -34,6 +35,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void ShowStats()
         {
             _statsView.Render(_stats.CurrentDay);
+        }
+
+        public void SaveProducts()
+        {
+            _productList.Save();
         }
 
         public void DeactivateBoosts()

@@ -55,6 +55,7 @@ namespace YellowSquad.CashierSimulator.Application
 
                 _purchaseProductMenu.Open();
                 yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
+                _shop.SaveProducts();
                 
                 _shopUpgradeMenu.Open();
                 yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);

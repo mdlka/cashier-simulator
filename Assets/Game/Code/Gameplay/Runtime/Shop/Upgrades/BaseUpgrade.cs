@@ -4,20 +4,29 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     internal abstract class BaseUpgrade
     {
-        [NonSerialized] private long _currentLevel;
+        [NonSerialized] private bool _initialized;
         
-        public long CurrentValue => ValueBy(_currentLevel);
-        public long AppendValue => ValueBy(_currentLevel + 1) - CurrentValue;
+        public long CurrentValue => ValueBy(CurrentLevel);
+        public long AppendValue => ValueBy(CurrentLevel + 1) - CurrentValue;
+        [field: NonSerialized] public long CurrentLevel { get; private set; }
+        
         public abstract bool Max { get; }
         public abstract Currency Price { get; }
 
-        protected long CurrentLevel => _currentLevel;
-
         public void Upgrade()
         {
-            _currentLevel += 1;
+            CurrentLevel += 1;
         }
 
         protected abstract long ValueBy(long level);
+
+        internal void Initialize(long startLevel = 0)
+        {
+            if (_initialized)
+                throw new InvalidOperationException();
+            
+            CurrentLevel = startLevel;
+            _initialized = true;
+        }
     }
 }
