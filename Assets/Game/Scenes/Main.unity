@@ -9056,6 +9056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shop: {fileID: 310511480}
+  _wallet: {fileID: 208422134}
   _productsInventory: {fileID: 11400000, guid: 691d0a292df4ce74db16cbf7ec4ee78b, type: 2}
   _purchaseProductMenu: {fileID: 1013001528}
   _shopUpgradeMenu: {fileID: 2132357854}

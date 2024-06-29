@@ -9,7 +9,10 @@ namespace YellowSquad.CashierSimulator.Application
 {
     public class Game : MonoBehaviour
     {
+        private const string LeaderboardName = "MainLeaderboard";
+        
         [SerializeField] private Shop _shop;
+        [SerializeField] private Wallet _wallet;
         [SerializeField] private ProductsInventory _productsInventory;
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private ShopUpgradeMenu _shopUpgradeMenu;
@@ -32,6 +35,7 @@ namespace YellowSquad.CashierSimulator.Application
             
             _productsInventory.Initialize(GamePlatformSdkContext.Current.Save);
             _shop.Initialize(GamePlatformSdkContext.Current.Save);
+            _wallet.Initialize(GamePlatformSdkContext.Current.Save);
             
             while (true)
             {
@@ -47,10 +51,10 @@ namespace YellowSquad.CashierSimulator.Application
                 _shop.DeactivateBoosts();
                 
                 _shop.ShowStats();
-                yield return new WaitUntil(() => _shop.StatsShowing == false);
-
+                UpdateLeaderboardScore();
                 GamePlatformSdkContext.Current.Save.Save();
                 
+                yield return new WaitUntil(() => _shop.StatsShowing == false);
                 yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
@@ -73,6 +77,17 @@ namespace YellowSquad.CashierSimulator.Application
                 return;
             
             _inputRouter.UpdateInput();
+        }
+
+        private void UpdateLeaderboardScore()
+        {
+            long bestScore = GamePlatformSdkContext.Current.Save.GetLeaderboardScore(LeaderboardName);
+            long currentScore = _wallet.CurrentValue.TotalCents;
+
+            if (currentScore <= bestScore)
+                return;
+            
+            GamePlatformSdkContext.Current.Save.SetLeaderboardScore(LeaderboardName, currentScore);
         }
     }
 }

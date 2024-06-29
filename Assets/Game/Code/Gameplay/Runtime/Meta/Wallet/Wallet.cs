@@ -14,9 +14,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public Currency CurrentValue { get; private set; }
 
-        private void Awake()
+        public void Initialize(ISave save)
         {
-            _save = GamePlatformSdkContext.Current.Save;
+            _save = save;
             
             CurrentValue = _save.HasKey(SaveConstants.WalletValueSaveKey) 
                 ? JsonConvert.DeserializeObject<Currency>(_save.GetString(SaveConstants.WalletValueSaveKey)) 

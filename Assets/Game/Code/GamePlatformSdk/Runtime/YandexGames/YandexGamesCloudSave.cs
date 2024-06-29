@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Agava.YandexGames;
 using UnityEngine;
 using PlayerPrefs = Agava.YandexGames.Utility.PlayerPrefs;
 
@@ -27,6 +28,19 @@ namespace YellowSquad.GamePlatformSdk
         public string GetString(string key, string defaultValue = "")
         {
             return PlayerPrefs.GetString(key, defaultValue);
+        }
+
+        public long GetLeaderboardScore(string leaderboardName)
+        {
+            return long.Parse(PlayerPrefs.GetString(leaderboardName));
+        }
+
+        public void SetLeaderboardScore(string leaderboardName, long value)
+        {
+            PlayerPrefs.SetString(leaderboardName, value.ToString());
+            
+            if (PlayerAccount.IsAuthorized)
+                Leaderboard.SetScore(leaderboardName, (int)value);
         }
 
         public void Save()
