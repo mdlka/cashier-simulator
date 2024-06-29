@@ -1,5 +1,7 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -8,11 +10,18 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField, Min(0)] private long _startValueInCents;
         [SerializeField] private WalletView _view;
         
+        private ISave _save;
+
         public Currency CurrentValue { get; private set; }
 
         private void Awake()
         {
-            CurrentValue = _startValueInCents;
+            _save = GamePlatformSdkContext.Current.Save;
+            
+            CurrentValue = _save.HasKey(SaveConstants.WalletValueSaveKey) 
+                ? JsonConvert.DeserializeObject<Currency>(_save.GetString(SaveConstants.WalletValueSaveKey)) 
+                : _startValueInCents;
+            
             _view.Render(CurrentValue, Currency.Zero);
         }
 
@@ -22,6 +31,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 throw new ArgumentOutOfRangeException();
             
             CurrentValue += value;
+            
+            _save.SetString(SaveConstants.WalletValueSaveKey, JsonConvert.SerializeObject(CurrentValue));
             _view.Render(CurrentValue, value);
         }
 
@@ -31,6 +42,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 throw new InvalidOperationException();
 
             CurrentValue -= value;
+            
+            _save.SetString(SaveConstants.WalletValueSaveKey, JsonConvert.SerializeObject(CurrentValue));
             _view.Render(CurrentValue, value, Sign.Minus);
         }
 

@@ -50,6 +50,7 @@ namespace YellowSquad.CashierSimulator.Application
                 yield return new WaitUntil(() => _shop.StatsShowing == false);
 
                 GamePlatformSdkContext.Current.Save.Save();
+                
                 yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
@@ -57,6 +58,8 @@ namespace YellowSquad.CashierSimulator.Application
                 
                 _shopUpgradeMenu.Open();
                 yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
+                
+                GamePlatformSdkContext.Current.Save.Save();
                 
                 _needUpdate = true;
             }

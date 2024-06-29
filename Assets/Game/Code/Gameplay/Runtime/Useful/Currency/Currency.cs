@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
+    [Serializable]
     public readonly struct Currency
     {
         public static Currency Zero { get; } = new(0);
@@ -19,9 +21,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
             TotalCents = cents;
         }
 
-        public long TotalCents { get; }
-        public long Dollars => TotalCents / 100;
-        public long Cents => TotalCents % 100;
+        [JsonProperty("TotalCents")] public long TotalCents { get; init; }
+        [JsonIgnore] public long Dollars => TotalCents / 100;
+        [JsonIgnore] public long Cents => TotalCents % 100;
 
         public override string ToString()
         {
