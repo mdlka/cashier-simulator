@@ -6,7 +6,7 @@ namespace YellowSquad.GamePlatformSdk
 {
     internal class YandexGamesCloudSave : ISave
     {
-        public IEnumerator Initialize()
+        public IEnumerator Load()
         {
             bool saveLoadEnded = false;
             
@@ -19,15 +19,19 @@ namespace YellowSquad.GamePlatformSdk
             return PlayerPrefs.HasKey(key);
         }
 
-        public void Save(string key, string value)
+        public void SetString(string key, string value)
         {
             PlayerPrefs.SetString(key, value);
-            PlayerPrefs.Save();
         }
 
-        public string Load(string key)
+        public string GetString(string key, string defaultValue = "")
         {
-            return PlayerPrefs.GetString(key);
+            return PlayerPrefs.GetString(key, defaultValue);
+        }
+
+        public void Save()
+        {
+            PlayerPrefs.Save();
         }
     }
 }

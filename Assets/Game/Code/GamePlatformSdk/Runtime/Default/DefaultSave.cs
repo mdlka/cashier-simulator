@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace YellowSquad.GamePlatformSdk
 {
     internal class DefaultSave : ISave
     {
-        public IEnumerator Initialize()
+        public IEnumerator Load()
         {
             yield break;
         }
@@ -16,18 +15,19 @@ namespace YellowSquad.GamePlatformSdk
             return PlayerPrefs.HasKey(key);
         }
 
-        public void Save(string key, string value)
+        public void SetString(string key, string value)
         {
             PlayerPrefs.SetString(key, value);
-            PlayerPrefs.Save();
         }
 
-        public string Load(string key)
+        public string GetString(string key, string defaultValue = "")
         {
-            if (HasKey(key) == false)
-                throw new InvalidOperationException("Key doesn't exist");
+            return PlayerPrefs.GetString(key, defaultValue);
+        }
 
-            return PlayerPrefs.GetString(key);
+        public void Save()
+        {
+            PlayerPrefs.Save();
         }
     }
 }

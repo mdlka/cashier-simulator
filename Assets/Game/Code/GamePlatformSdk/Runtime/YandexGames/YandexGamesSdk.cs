@@ -11,7 +11,7 @@ namespace YellowSquad.GamePlatformSdk
         public IEnumerator Initialize()
         {
             yield return Agava.YandexGames.YandexGamesSdk.Initialize();
-            yield return _save.Initialize();
+            yield return _save.Load();
 
             Initialized = true;
         }

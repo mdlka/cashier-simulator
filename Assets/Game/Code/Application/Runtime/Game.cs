@@ -49,6 +49,7 @@ namespace YellowSquad.CashierSimulator.Application
                 _shop.ShowStats();
                 yield return new WaitUntil(() => _shop.StatsShowing == false);
 
+                GamePlatformSdkContext.Current.Save.Save();
                 yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
