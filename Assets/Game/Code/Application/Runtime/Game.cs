@@ -59,6 +59,7 @@ namespace YellowSquad.CashierSimulator.Application
                 
                 _shopUpgradeMenu.Open();
                 yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
+                _shop.SaveShopUpgrades();
                 
                 GamePlatformSdkContext.Current.Save.Save();
                 

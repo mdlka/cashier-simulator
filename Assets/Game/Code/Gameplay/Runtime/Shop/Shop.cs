@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Newtonsoft.Json;
 using UnityEngine;
 using YellowSquad.GamePlatformSdk;
+using Random = UnityEngine.Random;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -14,14 +17,35 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private ProductList _productList;
         [SerializeField] private ShopStats _stats;
 
+        private ISave _save;
+
         public bool WorkIsDone { get; private set; }
         public bool StatsShowing => _statsView.Opened;
 
         public void Initialize(ISave save)
         {
+            if (_save != null)
+                throw new InvalidOperationException("Already initialized");
+            
+            _save = save;
+            
             _stats.Initialize(save);
             _productList.Initialize(save);
             DeactivateBoosts();
+
+            if (_save.HasKey(SaveConstants.ShopUpgradesSaveKey))
+            {
+                var shopUpgradesSave = JsonConvert.DeserializeObject<ShopUpgradesSave>(
+                    _save.GetString(SaveConstants.ShopUpgradesSaveKey));
+                
+                _settings.PopularityUpgrade.Initialize(shopUpgradesSave.PopularityUpgradeLevel);
+                _settings.CartCapacityUpgrade.Initialize(shopUpgradesSave.CartCapacityUpgradeLevel);
+            }
+            else
+            {
+                _settings.PopularityUpgrade.Initialize();
+                _settings.CartCapacityUpgrade.Initialize();
+            }
         }
 
         public void StartDay()
@@ -40,6 +64,17 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void SaveProducts()
         {
             _productList.Save();
+        }
+
+        public void SaveShopUpgrades()
+        {
+            var shopUpgradesSave = new ShopUpgradesSave
+            {
+                PopularityUpgradeLevel = _settings.PopularityUpgrade.CurrentLevel,
+                CartCapacityUpgradeLevel = _settings.CartCapacityUpgrade.CurrentLevel
+            };
+            
+            _save.SetString(SaveConstants.ShopUpgradesSaveKey, JsonConvert.SerializeObject(shopUpgradesSave));
         }
 
         public void DeactivateBoosts()
@@ -92,5 +127,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                        _watch.ElapsedHours >= createCustomersHoursInterval * (createdCustomers + 1);
             }
         }
+    }
+
+    [Serializable]
+    internal class ShopUpgradesSave
+    {
+        [JsonProperty] public long PopularityUpgradeLevel { get; init; }
+        [JsonProperty] public long CartCapacityUpgradeLevel { get; init; }
     }
 }

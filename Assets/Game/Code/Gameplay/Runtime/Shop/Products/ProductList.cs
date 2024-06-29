@@ -42,10 +42,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _save = save;
 
-            if (_save.HasKey(SaveConstants.ProductsLevelsSaveKey))
+            if (_save.HasKey(SaveConstants.ProductsPriceUpgradeLevelsSaveKey))
             {
                 var levels = JsonConvert.DeserializeObject<Dictionary<string, long>>(
-                        _save.GetString(SaveConstants.ProductsLevelsSaveKey));
+                        _save.GetString(SaveConstants.ProductsPriceUpgradeLevelsSaveKey));
 
                 foreach (var product in _products)
                 {
@@ -69,7 +69,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             foreach (var product in _products)
                 levels.TryAdd(product.Product.NameTag, product.PriceUpgrade.CurrentLevel);
 
-            _save.SetString(SaveConstants.ProductsLevelsSaveKey, JsonConvert.SerializeObject(levels));
+            _save.SetString(SaveConstants.ProductsPriceUpgradeLevelsSaveKey, JsonConvert.SerializeObject(levels));
         }
 
         internal void DeactivateBoosts()
