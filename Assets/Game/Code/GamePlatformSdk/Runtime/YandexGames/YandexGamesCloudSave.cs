@@ -40,7 +40,7 @@ namespace YellowSquad.GamePlatformSdk
             PlayerPrefs.SetString(leaderboardName, value.ToString());
             
             if (PlayerAccount.IsAuthorized)
-                Leaderboard.SetScore(leaderboardName, (int)value);
+                Leaderboard.SetScore(leaderboardName, value);
         }
 
         public void Save()
