@@ -34,11 +34,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);
         }
 
-        public void Render(ShopStatsData stats, int day)
+        public void Render(ShopStatsData stats)
         {
             Opened = true;
             
-            _dayText.Render(day.ToString());
+            _dayText.Render(stats.LastDayNumber.ToString());
 
             int satisfiedCustomers = stats.Costumers.TotalCount - stats.Costumers.CheatedWithChange;
             _satisfiedCustomersText.Render(satisfiedCustomers.ToString(), satisfiedCustomers > 0);

@@ -5,8 +5,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class Shop : MonoBehaviour
     {
-        private int _currentDay;
-        
         [SerializeField] private JobWatch _watch;
         [SerializeField] private CustomersQueue _customersQueue;
         [SerializeField] private ShopStatsView _statsView;
@@ -26,7 +24,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void StartDay()
         {
-            _currentDay += 1;
             _stats.StartDay();
 
             WorkIsDone = false;
@@ -35,7 +32,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void ShowStats()
         {
-            _statsView.Render(_stats.CurrentDay, _currentDay);
+            _statsView.Render(_stats.CurrentDay);
         }
 
         public void DeactivateBoosts()

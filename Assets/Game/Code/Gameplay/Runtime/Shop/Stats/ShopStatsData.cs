@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
+    [Serializable]
     public class ShopStatsData
     {
-        public ShopStatsData() : this(new CostumersData(), new ProductData()) { }
+        public ShopStatsData(long lastDayNumber = 0) : this(lastDayNumber, new CostumersData(), new ProductData()) { }
 
-        private ShopStatsData(CostumersData costumers, ProductData products)
+        private ShopStatsData(long lastDayNumber, CostumersData costumers, ProductData products)
         {
+            LastDayNumber = lastDayNumber;
             Costumers = costumers;
             Products = products;
         }
         
-        public CostumersData Costumers { get; }
-        public ProductData Products { get; }
-        public Currency TotalProfit => Costumers.ProfitFromCheatingWithChange + Products.TotalProfit;
+        [JsonProperty] public long LastDayNumber { get; init; }
+        [JsonProperty] public CostumersData Costumers { get; init; }
+        [JsonProperty] public ProductData Products { get; init; }
+        [JsonIgnore] public Currency TotalProfit => Costumers.ProfitFromCheatingWithChange + Products.TotalProfit;
         
         public static ShopStatsData operator +(ShopStatsData first, ShopStatsData second)
         {
-            return new ShopStatsData(first.Costumers + second.Costumers, first.Products + second.Products);
+            return new ShopStatsData(Math.Max(first.LastDayNumber, second.LastDayNumber), 
+                first.Costumers + second.Costumers, first.Products + second.Products);
         }
         
+        [Serializable]
         public class CostumersData
         {
-            public int TotalCount { get; private set; }
-            public int CheatedWithChange { get; private set; }
-            public Currency ProfitFromCheatingWithChange { get; private set; }
+            [JsonProperty] public int TotalCount { get; private set; }
+            [JsonProperty] public int CheatedWithChange { get; private set; }
+            [JsonProperty] public Currency ProfitFromCheatingWithChange { get; private set; }
 
             public void AddCostumer()
             {
@@ -50,9 +57,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
         }
 
+        [Serializable]
         public class ProductData
         {
-            private readonly Dictionary<string, ProductInfo> _productsInfo;
+            [JsonProperty] private readonly Dictionary<string, ProductInfo> _productsInfo;
 
             public ProductData() : this(new Dictionary<string, ProductInfo>()) { }
             
@@ -61,12 +69,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 _productsInfo = productsInfo;
             }
             
-            public string MostPopularProductTag => _productsInfo.Count == 0 ? "" : _productsInfo.Aggregate((fPair, sPair) => fPair.Key == sPair.Key ? fPair 
-                : fPair.Value.SalesCount > sPair.Value.SalesCount ? fPair : sPair).Key;
-            public string BiggestProfitProductTag => _productsInfo.Count == 0 ? "" : _productsInfo.Aggregate((fPair, sPair) => fPair.Key == sPair.Key ? fPair
-                : fPair.Value.Profit.TotalCents > sPair.Value.Profit.TotalCents ? fPair : sPair).Key ?? string.Empty;
-            public Currency BiggestProfit => _productsInfo.Count == 0 ? Currency.Zero :  _productsInfo[BiggestProfitProductTag].Profit;
-            public Currency TotalProfit => _productsInfo.Sum(pair => pair.Value.Profit.TotalCents);
+            [JsonIgnore] public string MostPopularProductTag => _productsInfo.Count == 0 ? "" : _productsInfo.Aggregate((fPair, sPair) => 
+                fPair.Key == sPair.Key ? fPair : fPair.Value.SalesCount > sPair.Value.SalesCount ? fPair : sPair).Key;
+            [JsonIgnore] public string BiggestProfitProductTag => _productsInfo.Count == 0 ? "" : _productsInfo.Aggregate((fPair, sPair) => 
+                fPair.Key == sPair.Key ? fPair : fPair.Value.Profit.TotalCents > sPair.Value.Profit.TotalCents ? fPair : sPair).Key ?? string.Empty;
+            [JsonIgnore] public Currency BiggestProfit => _productsInfo.Count == 0 ? Currency.Zero :  _productsInfo[BiggestProfitProductTag].Profit;
+            [JsonIgnore] public Currency TotalProfit => _productsInfo.Sum(pair => pair.Value.Profit.TotalCents);
 
             public void Add(string productTag, Currency price)
             {
@@ -94,10 +102,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 return new ProductData(productsInfo);
             }
 
+            [Serializable]
             private class ProductInfo
             {
-                public int SalesCount;
-                public Currency Profit;
+                [JsonProperty] public int SalesCount;
+                [JsonProperty] public Currency Profit;
 
                 public static ProductInfo operator +(ProductInfo first, ProductInfo second)
                 {
