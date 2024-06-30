@@ -20,6 +20,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void Return(Cash cash)
         {
+            cash.transform.DOKill();
+            
             cash.transform.DORotate(Vector3.zero, 0.3f);
             cash.transform.DOJump(transform.position, 0.1f, 1, 0.3f).OnComplete(() => Destroy(cash.gameObject));
         }

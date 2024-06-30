@@ -22,12 +22,18 @@ namespace YellowSquad.CashierSimulator.Gameplay
             var productPrice = _productsMonitor.Add(product, _shopSettings.ProductsPriceFactor);
             _shopStats.CurrentDay.Products.Add(product.NameTag, productPrice);
 
+            product.transform.DOKill();
+
             var sequence = DOTween.Sequence();
             sequence.Append(product.transform.DOMove(_jumpPoint.position, _moveDuration));
             sequence.AppendCallback(() => product.transform.DOJump(_scannedProductsPoint.position, 0.6f, 1, _jumpDuration));
             sequence.AppendCallback(() => product.transform.DOScale(Vector3.zero, _jumpDuration));
             sequence.AppendInterval(_jumpDuration);
-            sequence.AppendCallback(() => Destroy(product.gameObject));
+            sequence.OnComplete(() =>
+            {
+                product.transform.DOComplete();
+                Destroy(product.gameObject);
+            });
         }
 
         public void Clear()

@@ -106,7 +106,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _paymentEnded = true;
 
             foreach (var cash in _cash)
+            {
+                cash.transform.DOComplete();
                 Destroy(cash.gameObject);
+            }
             
             _cash.Clear();
             _slots.ForEach(slot => slot.Disable());
