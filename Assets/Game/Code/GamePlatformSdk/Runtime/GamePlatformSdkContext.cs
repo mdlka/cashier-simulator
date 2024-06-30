@@ -4,7 +4,7 @@
     {
         static GamePlatformSdkContext()
         {
-#if YANDEX
+#if YANDEX && !UNITY_EDITOR
             Current = new YandexGamesSdk();
 #else
             Current = new DefaultGamePlatformSdk();
