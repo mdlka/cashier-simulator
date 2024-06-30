@@ -39,7 +39,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         
         public IEnumerator AcceptCustomer(Customer customer)
         {
-            _shopStats.CurrentDay.Costumers.AddCostumer();
+            _shopStats.CurrentDay.Customers.AddCustomer();
 
             _currentPaymentObject = null;
             
@@ -67,7 +67,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 var targetChange = givingCash - _productScanner.ScannedProductsPrice;
                 
                 if (targetChange != _cashRegister.CurrentChange)
-                    _shopStats.CurrentDay.Costumers.AddCheatedWithChange(targetChange - _cashRegister.CurrentChange);
+                    _shopStats.CurrentDay.Customers.AddCheatedWithChange(targetChange - _cashRegister.CurrentChange);
 
                 _wallet.Add(givingCash - _cashRegister.CurrentChange);
             }

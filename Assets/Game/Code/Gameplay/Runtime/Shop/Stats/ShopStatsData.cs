@@ -8,34 +8,34 @@ namespace YellowSquad.CashierSimulator.Gameplay
     [Serializable]
     public class ShopStatsData
     {
-        public ShopStatsData(long lastDayNumber = 0) : this(lastDayNumber, new CostumersData(), new ProductData()) { }
+        public ShopStatsData(long lastDayNumber = 0) : this(lastDayNumber, new CustomersData(), new ProductData()) { }
 
-        private ShopStatsData(long lastDayNumber, CostumersData costumers, ProductData products)
+        private ShopStatsData(long lastDayNumber, CustomersData customers, ProductData products)
         {
             LastDayNumber = lastDayNumber;
-            Costumers = costumers;
+            Customers = customers;
             Products = products;
         }
         
         [JsonProperty] public long LastDayNumber { get; init; }
-        [JsonProperty] public CostumersData Costumers { get; init; }
+        [JsonProperty] public CustomersData Customers { get; init; }
         [JsonProperty] public ProductData Products { get; init; }
-        [JsonIgnore] public Currency TotalProfit => Costumers.ProfitFromCheatingWithChange + Products.TotalProfit;
+        [JsonIgnore] public Currency TotalProfit => Customers.ProfitFromCheatingWithChange + Products.TotalProfit;
         
         public static ShopStatsData operator +(ShopStatsData first, ShopStatsData second)
         {
             return new ShopStatsData(Math.Max(first.LastDayNumber, second.LastDayNumber), 
-                first.Costumers + second.Costumers, first.Products + second.Products);
+                first.Customers + second.Customers, first.Products + second.Products);
         }
         
         [Serializable]
-        public class CostumersData
+        public class CustomersData
         {
             [JsonProperty] public int TotalCount { get; private set; }
             [JsonProperty] public int CheatedWithChange { get; private set; }
             [JsonProperty] public Currency ProfitFromCheatingWithChange { get; private set; }
 
-            public void AddCostumer()
+            public void AddCustomer()
             {
                 TotalCount += 1;
             }
@@ -46,9 +46,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 ProfitFromCheatingWithChange += profit;
             }
             
-            public static CostumersData operator +(CostumersData first, CostumersData second)
+            public static CustomersData operator +(CustomersData first, CustomersData second)
             {
-                return new CostumersData
+                return new CustomersData
                 {
                     TotalCount = first.TotalCount + second.TotalCount,
                     CheatedWithChange = first.CheatedWithChange + second.CheatedWithChange,

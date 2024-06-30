@@ -40,10 +40,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _dayText.Render(stats.LastDayNumber.ToString());
 
-            int satisfiedCustomers = stats.Costumers.TotalCount - stats.Costumers.CheatedWithChange;
+            int satisfiedCustomers = stats.Customers.TotalCount - stats.Customers.CheatedWithChange;
             _satisfiedCustomersText.Render(satisfiedCustomers.ToString(), satisfiedCustomers > 0);
-            _costumersCheatedWithChangeText.Render(stats.Costumers.CheatedWithChange.ToString(), stats.Costumers.CheatedWithChange > 0);
-            _totalCostumersText.Render(stats.Costumers.TotalCount.ToString());
+            _costumersCheatedWithChangeText.Render(stats.Customers.CheatedWithChange.ToString(), stats.Customers.CheatedWithChange > 0);
+            _totalCostumersText.Render(stats.Customers.TotalCount.ToString());
 
             bool mostPopularProductNotExist = string.IsNullOrEmpty(stats.Products.MostPopularProductTag);
             bool biggestProfitProductNotExist = string.IsNullOrEmpty(stats.Products.BiggestProfitProductTag);
