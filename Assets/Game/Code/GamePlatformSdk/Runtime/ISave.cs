@@ -7,6 +7,8 @@ namespace YellowSquad.GamePlatformSdk
         IEnumerator Load();
         void Save();
 
+        void DeleteAll();
+
         bool HasKey(string key);
 
         void SetString(string key, string value);

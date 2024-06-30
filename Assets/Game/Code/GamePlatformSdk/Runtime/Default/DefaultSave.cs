@@ -10,6 +10,11 @@ namespace YellowSquad.GamePlatformSdk
             yield break;
         }
 
+        public void DeleteAll()
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
         public bool HasKey(string key)
         {
             return PlayerPrefs.HasKey(key);

@@ -29,7 +29,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             if (_save.HasKey(SaveConstants.OpenedProductsSaveKey))
             {
-                var savedOpenedProducts = JsonConvert.DeserializeObject<HashSet<string>>(
+                var savedOpenedProducts = JsonConvert.DeserializeObject<List<string>>(
                     _save.GetString(SaveConstants.OpenedProductsSaveKey));
 
                 foreach (string openedProduct in savedOpenedProducts)

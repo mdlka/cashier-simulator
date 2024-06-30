@@ -15,6 +15,11 @@ namespace YellowSquad.GamePlatformSdk
             yield return new WaitUntil(() => saveLoadEnded);
         }
 
+        public void DeleteAll()
+        {
+            PlayerPrefs.DeleteAll();
+        }
+
         public bool HasKey(string key)
         {
             return PlayerPrefs.HasKey(key);

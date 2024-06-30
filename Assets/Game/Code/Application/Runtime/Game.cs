@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Meta;
+using YellowSquad.CashierSimulator.Gameplay.Useful;
 using YellowSquad.CashierSimulator.UserInput;
 using YellowSquad.GamePlatformSdk;
 
@@ -10,13 +12,14 @@ namespace YellowSquad.CashierSimulator.Application
     public class Game : MonoBehaviour
     {
         private const string LeaderboardName = "MainLeaderboard";
-        
+
         [SerializeField] private Shop _shop;
         [SerializeField] private Wallet _wallet;
         [SerializeField] private ProductsInventory _productsInventory;
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private ShopUpgradeMenu _shopUpgradeMenu;
         [SerializeField] private InputRouter _inputRouter;
+        [SerializeField] private CanvasGroup _blackScreenCanvasGroup;
 
         private bool _needUpdate = true;
 
@@ -29,7 +32,11 @@ namespace YellowSquad.CashierSimulator.Application
 
         private IEnumerator Start()
         {
+            _blackScreenCanvasGroup.Enable();
+            
             yield return GamePlatformSdkContext.Current.Initialize();
+            
+            _blackScreenCanvasGroup.Disable(0.5f);
             
             _needUpdate = true;
             
@@ -58,6 +65,10 @@ namespace YellowSquad.CashierSimulator.Application
                 yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
+                
+                yield return new WaitForSeconds(0.3f);
+                _inputRouter.ResetCameraRotation();
+                
                 yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
                 _shop.SaveProducts();
                 
