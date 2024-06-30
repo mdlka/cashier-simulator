@@ -32,7 +32,7 @@ namespace YellowSquad.GamePlatformSdk
 
         public long GetLeaderboardScore(string leaderboardName)
         {
-            return long.Parse(PlayerPrefs.GetString(leaderboardName));
+            return long.Parse(PlayerPrefs.GetString(leaderboardName, "0"));
         }
 
         public void SetLeaderboardScore(string leaderboardName, long value)
