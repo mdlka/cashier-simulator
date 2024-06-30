@@ -233,17 +233,22 @@ namespace QuickOutline
             foreach (IGrouping<Vector3, KeyValuePair<Vector3, int>> group in groups)
             {
                 // Skip single vertices
-                if (group.Count() == 1) continue;
+                if (group.Count() == 1) 
+                    continue;
 
                 // Calculate the average normal
                 Vector3 smoothNormal = Vector3.zero;
 
-                foreach (KeyValuePair<Vector3, int> pair in group) smoothNormal += smoothNormals[pair.Value];
+                foreach (KeyValuePair<Vector3, int> pair in group) 
+                    if (pair.Value >= 0 && pair.Value < smoothNormals.Count)
+                        smoothNormal += smoothNormals[pair.Value];
 
                 smoothNormal.Normalize();
 
                 // Assign smooth normal to each vertex
-                foreach (KeyValuePair<Vector3, int> pair in group) smoothNormals[pair.Value] = smoothNormal;
+                foreach (KeyValuePair<Vector3, int> pair in group) 
+                    if (pair.Value >= 0 && pair.Value < smoothNormals.Count)
+                        smoothNormals[pair.Value] = smoothNormal;
             }
 
             return smoothNormals;
