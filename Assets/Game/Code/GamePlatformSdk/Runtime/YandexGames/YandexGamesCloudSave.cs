@@ -35,14 +35,14 @@ namespace YellowSquad.GamePlatformSdk
             return PlayerPrefs.GetString(key, defaultValue);
         }
 
-        public long GetLeaderboardScore(string leaderboardName)
+        public int GetLeaderboardScore(string leaderboardName)
         {
-            return long.Parse(PlayerPrefs.GetString(leaderboardName, "0"));
+            return PlayerPrefs.GetInt(leaderboardName, 0);
         }
 
-        public void SetLeaderboardScore(string leaderboardName, long value)
+        public void SetLeaderboardScore(string leaderboardName, int value)
         {
-            PlayerPrefs.SetString(leaderboardName, value.ToString());
+            PlayerPrefs.SetInt(leaderboardName, value);
             
             if (PlayerAccount.IsAuthorized)
                 Leaderboard.SetScore(leaderboardName, value);

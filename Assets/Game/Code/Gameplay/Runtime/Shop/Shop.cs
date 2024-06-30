@@ -21,6 +21,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public bool WorkIsDone { get; private set; }
         public bool StatsShowing => _statsView.Opened;
+        public int CurrentDay => (int)_stats.CurrentDay.LastDayNumber;
 
         public void Initialize(ISave save)
         {

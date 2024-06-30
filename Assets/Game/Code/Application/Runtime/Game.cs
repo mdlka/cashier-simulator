@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Meta;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
@@ -92,8 +91,8 @@ namespace YellowSquad.CashierSimulator.Application
 
         private void UpdateLeaderboardScore()
         {
-            long bestScore = GamePlatformSdkContext.Current.Save.GetLeaderboardScore(LeaderboardName);
-            long currentScore = _wallet.CurrentValue.TotalCents;
+            int bestScore = GamePlatformSdkContext.Current.Save.GetLeaderboardScore(LeaderboardName);
+            int currentScore = _shop.CurrentDay;
 
             if (currentScore <= bestScore)
                 return;

@@ -14,7 +14,7 @@ namespace YellowSquad.GamePlatformSdk
         void SetString(string key, string value);
         string GetString(string key, string defaultValue = "");
 
-        long GetLeaderboardScore(string leaderboardName);
-        void SetLeaderboardScore(string leaderboardName, long value);
+        int GetLeaderboardScore(string leaderboardName);
+        void SetLeaderboardScore(string leaderboardName, int value);
     }
 }

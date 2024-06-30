@@ -25,7 +25,7 @@ namespace Agava.YandexGames
         /// <para />If user did not give <see cref="PlayerAccount.HasPersonalProfileDataPermission"/> or rejected it, the result will be posted anonymously.
         /// <para />Requires authorization. Use <see cref="PlayerAccount.IsAuthorized"/> and <see cref="PlayerAccount.Authorize"/>.
         /// </remarks>
-        public static void SetScore(string leaderboardName, long score, Action onSuccessCallback = null, Action<string> onErrorCallback = null, string extraData = "")
+        public static void SetScore(string leaderboardName, int score, Action onSuccessCallback = null, Action<string> onErrorCallback = null, string extraData = "")
         {
             if (leaderboardName == null)
                 throw new ArgumentNullException(nameof(leaderboardName));
@@ -40,7 +40,7 @@ namespace Agava.YandexGames
         }
 
         [DllImport("__Internal")]
-        private static extern void LeaderboardSetScore(string leaderboardName, long score, Action successCallback, Action<string> errorCallback, string extraData);
+        private static extern void LeaderboardSetScore(string leaderboardName, int score, Action successCallback, Action<string> errorCallback, string extraData);
 
         [MonoPInvokeCallback(typeof(Action))]
         private static void OnSetScoreSuccessCallback()
