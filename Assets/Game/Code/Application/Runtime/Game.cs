@@ -31,6 +31,7 @@ namespace YellowSquad.CashierSimulator.Application
 
         private IEnumerator Start()
         {
+            _inputRouter.SetActiveCursor(false);
             _blackScreenCanvasGroup.Enable();
             
             yield return GamePlatformSdkContext.Current.Initialize();
@@ -55,8 +56,8 @@ namespace YellowSquad.CashierSimulator.Application
                 _inputRouter.SetActiveCursor(true);
                 
                 _shop.DeactivateBoosts();
-                
                 _shop.ShowStats();
+                
                 UpdateLeaderboardScore();
                 GamePlatformSdkContext.Current.Save.Save();
                 
@@ -73,10 +74,11 @@ namespace YellowSquad.CashierSimulator.Application
                 
                 _shopUpgradeMenu.Open();
                 yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
-                _shop.SaveShopUpgrades();
                 
+                _shop.SaveShopUpgrades();
                 GamePlatformSdkContext.Current.Save.Save();
                 
+                _inputRouter.SetActiveCursor(false);
                 _needUpdate = true;
             }
         }

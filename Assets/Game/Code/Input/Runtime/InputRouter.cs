@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
-using YellowSquad.WebFixes;
 
 namespace YellowSquad.CashierSimulator.UserInput
 {
@@ -25,9 +24,6 @@ namespace YellowSquad.CashierSimulator.UserInput
         {
             _camera = Camera.main;
             _input = new StandaloneInput();
-            
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         private void Update()
@@ -37,7 +33,7 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         public void UpdateInput()
         {
-            SetActiveCursor(_cashDesk.PaymentTerminal.Active);
+            SetActiveGameCursor(_cashDesk.PaymentTerminal.Active);
 
             if (_cashDesk.PaymentTerminal.Active == false)
                 _cameraAim.RotateAim(_input.AimDelta * _rotationSensitivity);
@@ -75,6 +71,20 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         public void SetActiveCursor(bool value)
         {
+            if (value)
+                SetActiveGameCursor(false);
+            
+            Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = value;
+        }
+
+        public void ResetCameraRotation()
+        {
+            _cameraAim.ResetRotation();
+        }
+
+        private void SetActiveGameCursor(bool value)
+        {
             if (value == _cursor.Enabled)
                 return;
             
@@ -82,11 +92,6 @@ namespace YellowSquad.CashierSimulator.UserInput
                 _cursor.Enable();
             else
                 _cursor.Disable();
-        }
-
-        public void ResetCameraRotation()
-        {
-            _cameraAim.ResetRotation();
         }
 
         private bool IsPointerOverUIObject(Vector2 inputPosition)

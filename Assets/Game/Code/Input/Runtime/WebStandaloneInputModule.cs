@@ -20,9 +20,9 @@ namespace YellowSquad.CashierSimulator.UserInput
             leftData.Reset();
 
             if (created)
-                leftData.position = _cursor.Position;
+                leftData.position = _cursor.Enabled ? _cursor.Position : input.mousePosition;
             
-            Vector2 pos = _cursor.Position;
+            Vector2 pos = _cursor.Enabled ? _cursor.Position : input.mousePosition;
             leftData.delta = pos - leftData.position;
             leftData.position = pos;
             leftData.scrollDelta = input.mouseScrollDelta;
