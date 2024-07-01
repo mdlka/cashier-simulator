@@ -9099,6 +9099,7 @@ MonoBehaviour:
   _cashDesk: {fileID: 1367616285}
   _rotationSensitivity: 1
   _mouseSensitivity: 21.67
+  _mouseSensitivityFactor: 1
 --- !u!1 &523633185
 GameObject:
   m_ObjectHideFlags: 0

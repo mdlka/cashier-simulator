@@ -14,8 +14,9 @@ namespace YellowSquad.CashierSimulator.UserInput
         [SerializeField] private GameCursor _cursor;
         [SerializeField] private CameraAim _cameraAim;
         [SerializeField] private CashDesk _cashDesk;
-        [SerializeField, Min(0.001f)] private float _rotationSensitivity;
         [SerializeField, Min(0.001f)] private float _mouseSensitivity;
+        [SerializeField, Min(0.001f)] private float _mouseSensitivityFactor;
+        [SerializeField, Min(0.001f)] private float _rotationSensitivity;
 
         private IInput _input;
         private Camera _camera;
@@ -28,7 +29,7 @@ namespace YellowSquad.CashierSimulator.UserInput
 
         private void Update()
         {
-            _cursor.Move(_input.AimDelta * _mouseSensitivity);
+            _cursor.Move(_input.AimDelta * _mouseSensitivity * _mouseSensitivityFactor);
         }
 
         public void UpdateInput()
