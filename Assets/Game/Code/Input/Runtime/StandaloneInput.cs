@@ -10,7 +10,9 @@ namespace YellowSquad.CashierSimulator.UserInput
         public bool Use => Input.GetMouseButtonDown(LeftMouseButton);
         public bool Undo => Input.GetMouseButtonDown(RightMouseButton);
         public bool Apply => Input.GetKeyDown(KeyCode.Space);
-        
+
+        public bool OpenSettings => Input.GetKeyDown(KeyCode.S);
+
         public Vector2 AimDelta => new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
 }

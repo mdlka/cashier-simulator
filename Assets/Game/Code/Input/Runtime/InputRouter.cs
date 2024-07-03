@@ -14,30 +14,41 @@ namespace YellowSquad.CashierSimulator.UserInput
         [SerializeField] private GameCursor _cursor;
         [SerializeField] private CameraAim _cameraAim;
         [SerializeField] private CashDesk _cashDesk;
-        [SerializeField, Min(0.001f)] private float _mouseSensitivity;
-        [SerializeField, Min(0.001f)] private float _mouseSensitivityFactor;
-        [SerializeField, Min(0.001f)] private float _rotationSensitivity;
+        [SerializeField] private Settings _settings;
+        [SerializeField, Min(0.001f)] private float _baseMouseSensitivity = 21.67f;
 
         private IInput _input;
         private Camera _camera;
-        
+        private InputSettings _inputSettings;
+
         private void Awake()
         {
             _camera = Camera.main;
             _input = new StandaloneInput();
+            _inputSettings = _settings.InputSettings;
         }
 
         private void Update()
         {
-            _cursor.Move(_input.AimDelta * _mouseSensitivity * _mouseSensitivityFactor);
+            _cursor.Move(_input.AimDelta * _baseMouseSensitivity * _inputSettings.MouseSensitivity);
         }
 
         public void UpdateInput()
         {
+            if (_settings.Opened)
+                return;
+
+            if (_input.OpenSettings)
+            {
+                _settings.Open();
+                SetActiveCursor(true);
+                return;
+            }
+            
             SetActiveGameCursor(_cashDesk.PaymentTerminal.Active);
 
             if (_cashDesk.PaymentTerminal.Active == false)
-                _cameraAim.RotateAim(_input.AimDelta * _rotationSensitivity);
+                _cameraAim.RotateAim(_input.AimDelta * _inputSettings.RotationSensitivity);
 
             if (_input.Apply)
                 _cashDesk.CashRegister.EndPayment();

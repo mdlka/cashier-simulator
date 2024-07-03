@@ -8,6 +8,8 @@ namespace YellowSquad.CashierSimulator.UserInput
         bool Undo { get; }
         bool Apply { get; }
         
+        bool OpenSettings { get; }
+        
         Vector2 AimDelta { get; }
     }
 }
