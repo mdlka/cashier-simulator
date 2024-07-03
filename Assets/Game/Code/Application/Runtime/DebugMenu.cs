@@ -9,6 +9,8 @@ namespace YellowSquad.CashierSimulator.Application
         {
             if (Input.GetKeyDown(KeyCode.Alpha9))
                 DeleteSave();
+            else if (Input.GetKeyDown(KeyCode.P))
+                AudioListener.pause = !AudioListener.pause;
         }
 
         private void DeleteSave()
