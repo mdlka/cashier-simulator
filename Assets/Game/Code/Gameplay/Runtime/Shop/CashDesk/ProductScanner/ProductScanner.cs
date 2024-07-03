@@ -13,6 +13,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Transform _jumpPoint;
         [SerializeField, Min(0f)] private float _moveDuration;
         [SerializeField, Min(0f)] private float _jumpDuration;
+        [Header("Audio")] 
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _audioClip;
 
         public Currency ScannedProductsPrice => _productsMonitor.ScannedProductsPrice;
         
@@ -21,6 +24,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _tape.Remove(product);
             var productPrice = _productsMonitor.Add(product, _shopSettings.ProductsPriceFactor);
             _shopStats.CurrentDay.Products.Add(product.NameTag, productPrice);
+            
+            _audioSource.PlayOneShot(_audioClip);
 
             product.transform.DOKill();
 

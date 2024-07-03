@@ -15,6 +15,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private CashRegister _cashRegister;
         [SerializeField] private PaymentTerminal _paymentTerminal;
         [SerializeField] private GameObject _paperboard;
+        [Header("Audio")] 
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _endPaymentClip;
         [Header("Tutorial")] 
         [SerializeField] private CashDeskHelpBox _helpBox;
 
@@ -82,6 +85,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 _cameraMovement.ReturnToBase();
                 _wallet.Add(_productScanner.ScannedProductsPrice);
             }
+            
+            _audioSource.PlayOneShot(_endPaymentClip);
             
             _productScanner.Clear();
             _paperboard.SetActive(false);

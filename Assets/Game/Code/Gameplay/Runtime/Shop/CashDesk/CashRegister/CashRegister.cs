@@ -19,6 +19,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Transform _cashBox;
         [SerializeField] private Vector3 _cashBoxCloseLocalPosition;
         [SerializeField] private Vector3 _cashBoxOpenLocalPosition;
+        [Header("Audio")] 
+        [SerializeField] private AudioSource _audioSource;
 
         private bool _paymentEnded = true;
         private bool _canEnd;
@@ -62,6 +64,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _slots.ForEach(slot => slot.Enable());
             _cashBox.DOLocalMove(_cashBoxOpenLocalPosition, 0.2f);
+            _audioSource.Play();
 
             while (_paymentEnded == false)
             {
