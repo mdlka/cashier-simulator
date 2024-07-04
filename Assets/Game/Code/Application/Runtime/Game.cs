@@ -18,6 +18,7 @@ namespace YellowSquad.CashierSimulator.Application
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private ShopUpgradeMenu _shopUpgradeMenu;
         [SerializeField] private InputRouter _inputRouter;
+        [SerializeField] private GameSettings _settings;
         [SerializeField] private CanvasGroup _blackScreenCanvasGroup;
 
         private bool _needUpdate = true;
@@ -51,7 +52,10 @@ namespace YellowSquad.CashierSimulator.Application
                 
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
-                
+
+                while (_settings.Opened)
+                    yield return new WaitForSeconds(1);
+
                 _needUpdate = false;
                 _inputRouter.SetActiveCursor(true);
                 

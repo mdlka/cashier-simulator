@@ -6,20 +6,23 @@ namespace YellowSquad.CashierSimulator.Gameplay
     [CreateAssetMenu(menuName = "Cashier Simulator/Create InputSettings", fileName = "InputSettings", order = 56)]
     public class InputSettings : ScriptableObject
     {
+        [Header("Default settings")] 
+        [SerializeField, Min(0.0001f)] private float _defaultMouseSensitivity = 1f;
+        [SerializeField, Min(0.0001f)] private float _defaultRotationSensitivity = 1f;
+        
         [field: NonSerialized] public float MouseSensitivity { get; private set; }
         [field: NonSerialized] public float RotationSensitivity { get; private set; }
         
+        [field: Header("Clamp settings")]
         [field: SerializeField, Min(0.0001f)] internal float MinMouseSensitivity { get; private set; } = 0.5f;
         [field: SerializeField, Min(0.0001f)] internal float MaxMouseSensitivity { get; private set; } = 3f;
-        [field: SerializeField, Min(0.0001f)] internal float DefaultMouseSensitivity { get; private set; } = 1f;
         [field: SerializeField, Min(0.0001f)] internal float MinRotationSensitivity { get; private set; } = 0.5f;
         [field: SerializeField, Min(0.0001f)] internal float MaxRotationSensitivity { get; private set; } = 2f;
-        [field: SerializeField, Min(0.0001f)] internal float DefaultRotationSensitivity { get; private set; } = 1f;
 
-        private void Awake()
+        internal void Initialize()
         {
-            ChangeMouseSensitivity(DefaultMouseSensitivity);
-            ChangeRotationSensitivity(DefaultRotationSensitivity);
+            ChangeMouseSensitivity(_defaultMouseSensitivity);
+            ChangeRotationSensitivity(_defaultRotationSensitivity);
         }
 
         internal void ChangeMouseSensitivity(float value)

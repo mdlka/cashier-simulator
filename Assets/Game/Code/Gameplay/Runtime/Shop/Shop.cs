@@ -13,7 +13,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private CustomersQueue _customersQueue;
         [SerializeField] private ShopStatsView _statsView;
         [SerializeField] private CustomerFactory _customerFactory;
-        [SerializeField] private ShopSettings _settings;
+        [SerializeField] private GameSettings _gameSettings;
+        [SerializeField] private ShopSettings _shopSettings;
         [SerializeField] private ProductList _productList;
         [SerializeField] private ShopStats _stats;
 
@@ -32,6 +33,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _stats.Initialize(save);
             _productList.Initialize(save);
+            _gameSettings.Initialize(save, _watch);
             DeactivateBoosts();
 
             if (_save.HasKey(SaveConstants.ShopUpgradesSaveKey))
@@ -39,13 +41,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 var shopUpgradesSave = JsonConvert.DeserializeObject<ShopUpgradesSave>(
                     _save.GetString(SaveConstants.ShopUpgradesSaveKey));
                 
-                _settings.PopularityUpgrade.Initialize(shopUpgradesSave.PopularityUpgradeLevel);
-                _settings.CartCapacityUpgrade.Initialize(shopUpgradesSave.CartCapacityUpgradeLevel);
+                _shopSettings.PopularityUpgrade.Initialize(shopUpgradesSave.PopularityUpgradeLevel);
+                _shopSettings.CartCapacityUpgrade.Initialize(shopUpgradesSave.CartCapacityUpgradeLevel);
             }
             else
             {
-                _settings.PopularityUpgrade.Initialize();
-                _settings.CartCapacityUpgrade.Initialize();
+                _shopSettings.PopularityUpgrade.Initialize();
+                _shopSettings.CartCapacityUpgrade.Initialize();
             }
         }
 
@@ -71,8 +73,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             var shopUpgradesSave = new ShopUpgradesSave
             {
-                PopularityUpgradeLevel = _settings.PopularityUpgrade.CurrentLevel,
-                CartCapacityUpgradeLevel = _settings.CartCapacityUpgrade.CurrentLevel
+                PopularityUpgradeLevel = _shopSettings.PopularityUpgrade.CurrentLevel,
+                CartCapacityUpgradeLevel = _shopSettings.CartCapacityUpgrade.CurrentLevel
             };
             
             _save.SetString(SaveConstants.ShopUpgradesSaveKey, JsonConvert.SerializeObject(shopUpgradesSave));
@@ -81,36 +83,38 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public void DeactivateBoosts()
         {
             _productList.DeactivateBoosts();
-            _settings.PopularityBoost.Deactivate();
-            _settings.ProductsPriceBoost.Deactivate();
+            _shopSettings.PopularityBoost.Deactivate();
+            _shopSettings.ProductsPriceBoost.Deactivate();
         }
 
         private IEnumerator Working()
         {
-            _watch.Run(_settings.TimeSpeed);
+            _watch.Run(_shopSettings.TimeSpeed);
             
             int createdCustomers = 0;
-            int createCustomersHoursInterval = _settings.MinCostumersPerDay > 0 ? _watch.WorkingHours / (_settings.MinCostumersPerDay + 1) : -1;
+            int createCustomersHoursInterval = _shopSettings.MinCostumersPerDay > 0 ? _watch.WorkingHours / (_shopSettings.MinCostumersPerDay + 1) : -1;
             
             while (_watch.EndTimeReached == false)
             {
-                yield return new WaitUntil(() => _customersQueue.HasPlace);
+                yield return new WaitUntil(() => _customersQueue.HasPlace && _watch.Stopped == false);
                 
                 if (_watch.EndTimeReached)
                     break;
                 
                 if (!NeedCreateCostumer())
                 {
-                    if (_settings.MaxCostumersPerHour == 0)
+                    if (_shopSettings.MaxCostumersPerHour == 0)
                         continue;
 
-                    yield return new WaitForSeconds(_watch.HourDuration / _settings.MaxCostumersPerHour);
+                    yield return new WaitForSeconds(_watch.HourDuration / _shopSettings.MaxCostumersPerHour);
                 
-                    if (Random.Range(0f, 1f) > _settings.Popularity)
+                    if (Random.Range(0f, 1f) > _shopSettings.Popularity)
                         continue;
                 }
 
-                _customersQueue.Add(_customerFactory.CreateRandomCustomer(_settings.ProductListFactory, _settings.MaxCartCapacity));
+                yield return new WaitUntil(() => _watch.Stopped == false);
+
+                _customersQueue.Add(_customerFactory.CreateRandomCustomer(_shopSettings.ProductListFactory, _shopSettings.MaxCartCapacity));
                 createdCustomers += 1;
             }
 
@@ -124,7 +128,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 if (createCustomersHoursInterval == -1)
                     return false;
                 
-                return createdCustomers < _settings.MinCostumersPerDay &&
+                return createdCustomers < _shopSettings.MinCostumersPerDay &&
                        _watch.ElapsedHours >= createCustomersHoursInterval * (createdCustomers + 1);
             }
         }

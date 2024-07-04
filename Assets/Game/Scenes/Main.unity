@@ -5230,7 +5230,8 @@ MonoBehaviour:
   _customersQueue: {fileID: 1965843646}
   _statsView: {fileID: 761050092}
   _customerFactory: {fileID: 11400000, guid: 3af645b3c2c593d46bedffe16dfd8117, type: 2}
-  _settings: {fileID: 11400000, guid: fd61091bdc344b243b739b22571dba1a, type: 2}
+  _gameSettings: {fileID: 1544873234}
+  _shopSettings: {fileID: 11400000, guid: fd61091bdc344b243b739b22571dba1a, type: 2}
   _productList: {fileID: 11400000, guid: dab4bb682301c944391b9781400fb085, type: 2}
   _stats: {fileID: 11400000, guid: 1a28086044f0f7a4bbdcaa07aaaa1d06, type: 2}
 --- !u!114 &310511481
@@ -9359,6 +9360,7 @@ MonoBehaviour:
   _purchaseProductMenu: {fileID: 1013001528}
   _shopUpgradeMenu: {fileID: 2132357854}
   _inputRouter: {fileID: 507160281}
+  _settings: {fileID: 1544873234}
   _blackScreenCanvasGroup: {fileID: 1194973355}
 --- !u!4 &507160280
 Transform:
@@ -9396,7 +9398,7 @@ MonoBehaviour:
   _cursor: {fileID: 1194031372}
   _cameraAim: {fileID: 681907732}
   _cashDesk: {fileID: 1367616285}
-  _settings: {fileID: 1544873234}
+  _gameSettings: {fileID: 1544873234}
   _baseMouseSensitivity: 21.67
 --- !u!1 &523633185
 GameObject:
@@ -27346,7 +27348,7 @@ GameObject:
   - component: {fileID: 1544873234}
   - component: {fileID: 1544873233}
   m_Layer: 0
-  m_Name: Settings
+  m_Name: GameSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
