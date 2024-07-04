@@ -1,5 +1,6 @@
 using QuickOutline;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -21,7 +22,16 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private void OnMouseEnter()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+            
             _outline.enabled = _needOutline;
+        }
+        
+        private void OnMouseOver()
+        {
+            if (_outline.enabled && EventSystem.current.IsPointerOverGameObject())
+                _outline.enabled = false;
         }
 
         private void OnMouseExit()
