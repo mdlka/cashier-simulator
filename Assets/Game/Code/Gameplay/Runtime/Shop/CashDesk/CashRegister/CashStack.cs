@@ -31,5 +31,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             for (int i = index; i < _cash.Count; i++)
                 _cash[i].transform.DOMove(_content.position + Vector3.up * _offsetY * (i+1), 0.01f);
         }
+
+        public void Clear()
+        {
+            _cash.Clear();
+        }
     }
 }

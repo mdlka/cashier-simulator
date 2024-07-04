@@ -117,6 +117,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _cash.Clear();
             _slots.ForEach(slot => slot.Disable());
             _cashBox.DOLocalMove(_cashBoxCloseLocalPosition, 0.2f);
+            _centsStack.Clear();
+            _dollarsStack.Clear();
             
             _monitor.UpdateInfo();
         }
