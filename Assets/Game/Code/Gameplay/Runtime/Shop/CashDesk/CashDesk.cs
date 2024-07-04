@@ -19,7 +19,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip _endPaymentClip;
         [Header("Tutorial")] 
-        [SerializeField] private CashDeskHelpBox _helpBox;
+        [SerializeField] private HelpBox _helpBox;
 
         private PaymentObject _currentPaymentObject;
 
@@ -32,7 +32,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _productScanner.Clear();
             _paperboard.SetActive(false);
             
-            _helpBox.Switch(CashDeskHelpBox.State.Idle);
+            _helpBox.Initialize();
+            _helpBox.Switch(HelpBox.State.Idle);
         }
 
         public void AcceptPaymentObject(PaymentObject paymentObject)
@@ -47,13 +48,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _currentPaymentObject = null;
             
             _paperboard.SetActive(true);
-            _helpBox.Switch(CashDeskHelpBox.State.Scan);
+            _helpBox.Switch(HelpBox.State.Scan);
 
             yield return customer.PlaceProducts(_productTape);
             yield return new WaitUntil(() => _productTape.HasProducts == false);
 
             customer.StartPayment();
-            _helpBox.Switch(CashDeskHelpBox.State.AcceptPayment);
+            _helpBox.Switch(HelpBox.State.AcceptPayment);
 
             yield return new WaitUntil(() => _currentPaymentObject != null);
             
@@ -61,7 +62,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             if (customer.PaymentMethod == PaymentMethod.Cash)
             {
-                _helpBox.Switch(CashDeskHelpBox.State.CashRegister);
+                _helpBox.Switch(HelpBox.State.CashRegister);
 
                 var givingCash = _cashPaymentCalculator.Calculate(_productScanner.ScannedProductsPrice);
                 
@@ -76,7 +77,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             }
             else if (customer.PaymentMethod == PaymentMethod.Card)
             {
-                _helpBox.Switch(CashDeskHelpBox.State.PaymentTerminal);
+                _helpBox.Switch(HelpBox.State.PaymentTerminal);
                 
                 _cameraMovement.MoveTo(_paymentTerminal.CameraPoint);
                 
@@ -91,7 +92,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _productScanner.Clear();
             _paperboard.SetActive(false);
             
-            _helpBox.Switch(CashDeskHelpBox.State.Idle);
+            _helpBox.Switch(HelpBox.State.Idle);
         }
     }
 }

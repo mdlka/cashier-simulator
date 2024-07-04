@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
-    public class CashDeskHelpBox : MonoBehaviour
+    public class HelpBox : MonoBehaviour
     {
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Pair[] _helpsObjects;
@@ -21,7 +21,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             PaymentTerminal
         }
 
-        private void Awake()
+        public void Initialize()
         {
             foreach (var helpObject in _helpsObjects)
                 foreach (var targetObject in helpObject.TargetObjects)
