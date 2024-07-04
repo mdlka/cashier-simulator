@@ -95,6 +95,21 @@ namespace YellowSquad.CashierSimulator.Gameplay
             
             _canvasGroup.Enable(0.2f);
             _watch.Stop();
+            Time.timeScale = 0;
+        }
+        
+        private void Close()
+        {
+            if (Opened == false)
+                return;
+
+            Opened = false;
+            _canvasGroup.Disable(0.2f);
+            _watch.Continue();
+            
+            _save.SetString(SaveConstants.GameSettingsSaveKey, JsonConvert.SerializeObject(_currentSettingsSave));
+            _save.Save();
+            Time.timeScale = 1;
         }
         
         private void ChangeCursorSensitivity(float value)
@@ -129,19 +144,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _audioMixer.SetFloat(GameVolumeParam, isOn ? GameMaxVolume : -80f);
             _currentSettingsSave.AudioIsOn = isOn;
-        }
-
-        private void Close()
-        {
-            if (Opened == false)
-                return;
-
-            Opened = false;
-            _canvasGroup.Disable(0.2f);
-            _watch.Continue();
-            
-            _save.SetString(SaveConstants.GameSettingsSaveKey, JsonConvert.SerializeObject(_currentSettingsSave));
-            _save.Save();
         }
     }
 

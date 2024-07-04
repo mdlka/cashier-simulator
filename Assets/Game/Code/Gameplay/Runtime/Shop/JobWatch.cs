@@ -11,6 +11,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private float _timeSpeed;
         private double _runTime;
+        private double _startPauseTime;
+        private double _pauseDuration;
 
         public bool Stopped { get; private set; }
         public bool EndTimeReached { get; private set; }
@@ -22,6 +24,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         {
             _timeSpeed = timeSpeed;
             _runTime = Time.realtimeSinceStartupAsDouble * 100;
+            _pauseDuration = 0;
 
             Stopped = false;
             EndTimeReached = false;
@@ -32,12 +35,20 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         public void Stop()
         {
+            if (Stopped)
+                return;
+            
             Stopped = true;
+            _startPauseTime = Time.realtimeSinceStartupAsDouble * 100;
         }
 
         public void Continue()
         {
+            if (Stopped == false)
+                return;
+            
             Stopped = false;
+            _pauseDuration += Time.realtimeSinceStartupAsDouble * 100 - _startPauseTime;
         }
 
         private void Update()
@@ -45,7 +56,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (EndTimeReached || Stopped)
                 return;
 
-            double elapsedTimeInMinutes = (Time.realtimeSinceStartupAsDouble * 100 - _runTime) * _timeSpeed / 60;
+            double elapsedTimeInMinutes = (Time.realtimeSinceStartupAsDouble * 100 - _runTime - _pauseDuration) * _timeSpeed / 60;
             ElapsedHours = (int)(elapsedTimeInMinutes / 60);
             
             int hours = _startHours + ElapsedHours;
@@ -56,7 +67,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             else
                 RenderTime(hours, minutes);
 
-            EndTimeReached = hours == _endHours;
+            EndTimeReached = hours >= _endHours;
         }
 
         private void RenderTime(int hours, int minutes = 0)
