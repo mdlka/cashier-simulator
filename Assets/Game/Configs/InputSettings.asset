@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e8f38aa48541609dca1547118511a3, type: 3}
   m_Name: InputSettings
   m_EditorClassIdentifier: 
-  <MinMouseSensitivity>k__BackingField: 0.5
+  _defaultMouseSensitivity: 1
+  _defaultRotationSensitivity: 1
+  <MinMouseSensitivity>k__BackingField: 0.1
   <MaxMouseSensitivity>k__BackingField: 3
-  <DefaultMouseSensitivity>k__BackingField: 1
-  <MinRotationSensitivity>k__BackingField: 0.5
+  <MinRotationSensitivity>k__BackingField: 0.1
   <MaxRotationSensitivity>k__BackingField: 2
-  <DefaultRotationSensitivity>k__BackingField: 1
