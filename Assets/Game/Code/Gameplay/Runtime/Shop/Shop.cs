@@ -105,9 +105,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 {
                     if (_shopSettings.MaxCostumersPerHour == 0)
                         continue;
-
-                    yield return new WaitForSeconds(_watch.HourDuration / _shopSettings.MaxCostumersPerHour);
-                
+                    
                     if (Random.Range(0f, 1f) > _shopSettings.Popularity)
                         continue;
                 }
@@ -116,6 +114,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
                 _customersQueue.Add(_customerFactory.CreateRandomCustomer(_shopSettings.ProductListFactory, _shopSettings.MaxCartCapacity));
                 createdCustomers += 1;
+                
+                yield return new WaitForSeconds(_watch.HourDuration / _shopSettings.MaxCostumersPerHour);
             }
 
             yield return new WaitUntil(() => _watch.EndTimeReached && _customersQueue.HasCustomers == false);
