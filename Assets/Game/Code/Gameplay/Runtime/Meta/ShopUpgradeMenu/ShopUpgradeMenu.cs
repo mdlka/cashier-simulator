@@ -108,7 +108,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void RenderUpgradeButton(UpgradeButton button, ShopUpgrade upgrade, string endSymbols = "")
         {
-            button.Render(upgrade, _wallet, $"{upgrade.CurrentValue}{endSymbols}", $"{upgrade.AppendValue}{endSymbols}");
+            button.Render(upgrade, _wallet, $"{upgrade.CurrentValue}{endSymbols}", $"{upgrade.NextValue}{endSymbols}");
         }
     }
 }

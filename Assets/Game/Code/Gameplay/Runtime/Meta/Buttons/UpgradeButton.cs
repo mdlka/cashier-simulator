@@ -37,11 +37,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _button.onClick.RemoveListener(OnButtonClick);
         }
 
-        public void Render(BaseUpgrade upgrade, IReadOnlyWallet wallet, string currentValue, string appendValue)
+        public void Render(BaseUpgrade upgrade, IReadOnlyWallet wallet, string currentValue, string nextValue)
         {
             if (upgrade.Max)
             {
-                _statsText.text = $"{_statsHeader}\n<size=80%>{currentValue}";
+                _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue}";
                 _priceText.text = MaxUpgradesText;
                 _button.image.color = _defaultColor;
                 _button.interactable = false;
@@ -50,11 +50,16 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             {
                 bool canBuy = wallet.CanSpend(upgrade.Price);
             
-                _statsText.text = $"{_statsHeader}\n<size=80%>{currentValue} <color={_defaultColorHtml}>+{appendValue}</color>";
+                _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue} -> <color={_defaultColorHtml}>{nextValue}</color>";
                 _priceText.text = canBuy ? $"{upgrade.Price.ToPriceTag()}\n{_defaultText}" : $"{upgrade.Price.ToPriceTag()}\n{_cantBuyText}";
                 _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
                 _button.interactable = true;
             }
+        }
+
+        private string StatsHeader(long currentLevel)
+        {
+            return currentLevel == 0 ? _statsHeader : $"{_statsHeader} <b>({currentLevel})</b>";
         }
 
         private void OnButtonClick()

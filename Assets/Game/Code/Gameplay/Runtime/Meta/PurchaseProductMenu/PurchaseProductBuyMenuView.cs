@@ -48,7 +48,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _buyButton.Render(productInfo.PurchasePrice, wallet);
             _upgradePriceButton.Render(productInfo.PriceUpgrade, wallet, 
                 new Currency(productInfo.PriceUpgrade.CurrentValue).ToPriceTag(), 
-                new Currency(productInfo.PriceUpgrade.AppendValue).ToPriceTag());
+                new Currency(productInfo.PriceUpgrade.NextValue).ToPriceTag());
             _boostPopularityButton.Render(productInfo.PopularityBoost);
 
             _buyButton.gameObject.SetActive(!opened);

@@ -7,7 +7,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [NonSerialized] private bool _initialized;
         
         public long CurrentValue => ValueBy(CurrentLevel);
-        public long AppendValue => ValueBy(CurrentLevel + 1) - CurrentValue;
+        public long NextValue => ValueBy(CurrentLevel + 1);
+        public long AppendValue => NextValue - CurrentValue;
         [field: NonSerialized] public long CurrentLevel { get; private set; }
         
         public abstract bool Max { get; }
