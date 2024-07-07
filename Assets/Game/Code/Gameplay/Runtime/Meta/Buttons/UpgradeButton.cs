@@ -8,7 +8,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
     internal class UpgradeButton : MonoBehaviour
     {
         private const string MaxUpgradesText = "Макс";
-        
+
+        [SerializeField] private bool _needShowCurrentLevel;
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private TMP_Text _statsText;
         [SerializeField] private Button _button;
@@ -59,7 +60,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private string StatsHeader(long currentLevel)
         {
-            return currentLevel == 0 ? _statsHeader : $"{_statsHeader} <b>({currentLevel})</b>";
+            return currentLevel == 0 || !_needShowCurrentLevel ? _statsHeader : $"{_statsHeader} <b>({currentLevel})</b>";
         }
 
         private void OnButtonClick()

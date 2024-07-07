@@ -7,7 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashRegister : MonoBehaviour
     {
-        private const float ChangePercentDifferenceForCanEnd = 20;
+        private const float ChangePercentDifferenceForCanEnd = 50;
         
         private readonly Queue<(SlotAction, CashSlot)> _slotsQueue = new();
         private readonly List<Cash> _cash = new();
@@ -131,7 +131,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (targetChange.TotalCents - CurrentChange.TotalCents < 0)
                 return false;
             
-            return Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 < ChangePercentDifferenceForCanEnd;
+            return Mathf.Abs(targetChange.TotalCents - CurrentChange.TotalCents) / targetChange.TotalCents * 100 <= ChangePercentDifferenceForCanEnd;
         }
 
         private CashStack TargetStack(long cents)

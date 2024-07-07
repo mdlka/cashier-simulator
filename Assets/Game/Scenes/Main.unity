@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b9febd438f49508bb84f1d4586431d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _needShowCurrentLevel: 0
   _priceText: {fileID: 1259037054}
   _statsText: {fileID: 270072546}
   _button: {fileID: 771483912}
@@ -3734,7 +3735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db226180ece97b4db4138190a73c09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startValueInCents: 10000
+  _startValueInCents: 100000000
   _view: {fileID: 585131349}
 --- !u!1 &218956977
 GameObject:
@@ -17215,6 +17216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b9febd438f49508bb84f1d4586431d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _needShowCurrentLevel: 0
   _priceText: {fileID: 2026600250}
   _statsText: {fileID: 1177292196}
   _button: {fileID: 1312989520}
@@ -19745,6 +19747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b9febd438f49508bb84f1d4586431d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _needShowCurrentLevel: 1
   _priceText: {fileID: 1479753981}
   _statsText: {fileID: 555531866}
   _button: {fileID: 1520474289}
