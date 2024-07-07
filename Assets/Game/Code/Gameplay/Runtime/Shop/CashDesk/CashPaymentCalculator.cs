@@ -6,7 +6,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     internal class CashPaymentCalculator
     {
-        private const float ExactChangeChance = 0.15f;
+        private const float ExactChangeChance = 0.05f;
         private const int BillsOffset = 2;
         
         private readonly Currency[] _bills = 
@@ -25,15 +25,21 @@ namespace YellowSquad.CashierSimulator.Gameplay
             new Currency(5000),
             new Currency(7500),
             new Currency(10000),
+            new Currency(25000),
+            new Currency(50000),
+            new Currency(100000),
         };
         
         public Currency Calculate(Currency targetPrice)
         {
             if (Random.Range(0f, 1f) <= ExactChangeChance)
                 return targetPrice;
-            
+
             if (targetPrice.TotalCents > _bills[^1].TotalCents)
-                return (long)(Mathf.Ceil(targetPrice.TotalCents / 100f) * 100);
+            {
+                float roundValue = Random.Range(0f, 1f) > 0.5f ? 10000f : 100000f;
+                return (long)(Mathf.Ceil(targetPrice.TotalCents / roundValue) * roundValue);
+            }
 
             int index = IndexMinSuitableBills(targetPrice);
             return _bills[Random.Range(index, Math.Min(index + BillsOffset, _bills.Length))];
