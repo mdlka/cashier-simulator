@@ -11,7 +11,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private TMP_Text _timeText;
 
         private float _timeSpeed;
-        private float _speedUpFactor;
+        private float _acceleratedTimeSpeed;
         private Func<bool> _needSpeedUp;
 
         public bool Stopped { get; private set; }
@@ -21,13 +21,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public int WorkingHours => _endHours - _startHours;
         public float HourDuration => 60f / CurrentTimeSpeed;
         
-        private float CurrentTimeSpeed => NeedSpeedUp ? _timeSpeed * _speedUpFactor : _timeSpeed;
+        private float CurrentTimeSpeed => NeedSpeedUp ? _acceleratedTimeSpeed : _timeSpeed;
         private bool NeedSpeedUp => _needSpeedUp?.Invoke() ?? false;
 
-        public void Run(float timeSpeed, float speedUpFactor, Func<bool> needSpeedUp)
+        public void Run(float timeSpeed, float acceleratedTimeSpeed, Func<bool> needSpeedUp)
         {
             _timeSpeed = timeSpeed;
-            _speedUpFactor = speedUpFactor;
+            _acceleratedTimeSpeed = acceleratedTimeSpeed;
             _needSpeedUp = needSpeedUp;
 
             Stopped = false;

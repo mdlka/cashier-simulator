@@ -89,7 +89,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private IEnumerator Working()
         {
-            _watch.Run(_shopSettings.TimeSpeed, _shopSettings.TimeFactorWhenNoCustomers, needSpeedUp: () => _customersQueue.HasCustomers == false);
+            _watch.Run(_shopSettings.TimeSpeed, _shopSettings.TimeSpeedWhenNoCustomers, needSpeedUp: () => _customersQueue.HasCustomers == false);
 
             int totalCustomers = 0;
             int createdCustomers = 0;

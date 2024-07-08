@@ -11,13 +11,13 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField, Min(0)] private int _minCostumersPerDay;
         [SerializeField, Min(0)] private int _maxCostumersPerHour;
         [SerializeField, Min(1f)] private float _timeSpeed;
-        [SerializeField, Min(1f)] private float _timeFactorWhenNoCustomers;
+        [SerializeField, Min(1f)] private float _timeSpeedWhenNoCustomers;
         [SerializeField] private CustomerProductListFactory _productListFactory;
         [SerializeField] private ShopUpgrade _popularityUpgrade;
         [SerializeField] private ShopUpgrade _cartCapacityUpgrade;
 
         public float TimeSpeed => _timeSpeed;
-        public float TimeFactorWhenNoCustomers => _timeFactorWhenNoCustomers;
+        public float TimeSpeedWhenNoCustomers => _timeSpeedWhenNoCustomers;
         public int MinCostumersPerDay => _minCostumersPerDay;
         public int MaxCostumersPerHour => _popularityBoost.Active ? _maxCostumersPerHour * 2 : _maxCostumersPerHour;
         public long ProductsPriceFactor => _productsPriceBoost.Active ? 2 : 1;
