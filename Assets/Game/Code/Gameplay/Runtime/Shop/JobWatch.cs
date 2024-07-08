@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace YellowSquad.CashierSimulator.Gameplay
@@ -10,45 +11,40 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private TMP_Text _timeText;
 
         private float _timeSpeed;
-        private double _runTime;
-        private double _startPauseTime;
-        private double _pauseDuration;
+        private float _speedUpFactor;
+        private Func<bool> _needSpeedUp;
 
         public bool Stopped { get; private set; }
         public bool EndTimeReached { get; private set; }
-        public int ElapsedHours { get; private set; }
+        public float ElapsedTimeInMinutes { get; private set; }
+        public int ElapsedHours => (int)(ElapsedTimeInMinutes / 60);
         public int WorkingHours => _endHours - _startHours;
-        public float HourDuration => 60f / _timeSpeed;
+        public float HourDuration => 60f / CurrentTimeSpeed;
+        
+        private float CurrentTimeSpeed => NeedSpeedUp ? _timeSpeed * _speedUpFactor : _timeSpeed;
+        private bool NeedSpeedUp => _needSpeedUp?.Invoke() ?? false;
 
-        public void Run(float timeSpeed)
+        public void Run(float timeSpeed, float speedUpFactor, Func<bool> needSpeedUp)
         {
             _timeSpeed = timeSpeed;
-            _runTime = Time.realtimeSinceStartupAsDouble * 100;
-            _pauseDuration = 0;
+            _speedUpFactor = speedUpFactor;
+            _needSpeedUp = needSpeedUp;
 
             Stopped = false;
             EndTimeReached = false;
-            ElapsedHours = 0;
+            ElapsedTimeInMinutes = 0;
 
             RenderTime(_startHours);
         }
 
         public void Stop()
         {
-            if (Stopped)
-                return;
-            
             Stopped = true;
-            _startPauseTime = Time.realtimeSinceStartupAsDouble * 100;
         }
 
         public void Continue()
         {
-            if (Stopped == false)
-                return;
-            
             Stopped = false;
-            _pauseDuration += Time.realtimeSinceStartupAsDouble * 100 - _startPauseTime;
         }
 
         private void Update()
@@ -56,11 +52,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
             if (EndTimeReached || Stopped)
                 return;
 
-            double elapsedTimeInMinutes = (Time.realtimeSinceStartupAsDouble * 100 - _runTime - _pauseDuration) * _timeSpeed / 60;
-            ElapsedHours = (int)(elapsedTimeInMinutes / 60);
+            ElapsedTimeInMinutes += Time.unscaledDeltaTime * CurrentTimeSpeed;
             
             int hours = _startHours + ElapsedHours;
-            int minutes = (int)(elapsedTimeInMinutes % 60);
+            int minutes = (int)(ElapsedTimeInMinutes % 60);
             
             if (hours >= _endHours)
                 RenderTime(_endHours);
