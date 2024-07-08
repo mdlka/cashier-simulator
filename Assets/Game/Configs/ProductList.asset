@@ -16,9 +16,9 @@ MonoBehaviour:
   - _product: {fileID: 7722111609809673729, guid: d54067c4c8587424eb826b0f5276cf84, type: 3}
     _icon: {fileID: 651244148, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u0411\u0430\u043D\u0430\u043D"
-    _purchasePriceInCents: 600
+    _purchasePriceInCents: 0
     _priceUpgrade:
-      _startValue: 60
+      _startValue: 30
   - _product: {fileID: 160075617230939035, guid: dd293120cbae1a649a21f9f24ae6d6f7, type: 3}
     _icon: {fileID: 8956618, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u0419\u043E\u0433\u0443\u0440\u0442"
@@ -28,66 +28,66 @@ MonoBehaviour:
   - _product: {fileID: 2625376656763673400, guid: 1041fc69bf2de4647b73def58c88a8c8, type: 3}
     _icon: {fileID: 1052202500, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u042F\u0431\u043B\u043E\u043A\u043E"
-    _purchasePriceInCents: 500
+    _purchasePriceInCents: 1200
     _priceUpgrade:
-      _startValue: 50
+      _startValue: 120
   - _product: {fileID: 160075617230939035, guid: 8bcb2ab42d55be44fb980c8afaf5593b, type: 3}
     _icon: {fileID: -326925009, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u042F\u0439\u0446\u0430"
-    _purchasePriceInCents: 1000
+    _purchasePriceInCents: 1550
     _priceUpgrade:
-      _startValue: 100
+      _startValue: 155
   - _product: {fileID: 160075617230939035, guid: 064ac2bc2541b2743932147be67fa823, type: 3}
     _icon: {fileID: -1163237864, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u041F\u043E\u043C\u0438\u0434\u043E\u0440"
-    _purchasePriceInCents: 4350
+    _purchasePriceInCents: 2400
     _priceUpgrade:
-      _startValue: 435
+      _startValue: 240
   - _product: {fileID: 160075617230939035, guid: a0dddcbb5ddf42946bd85773ae852160, type: 3}
     _icon: {fileID: -385505043, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u041A\u043E\u043B\u0430"
-    _purchasePriceInCents: 1500
+    _purchasePriceInCents: 3300
     _priceUpgrade:
-      _startValue: 150
+      _startValue: 330
   - _product: {fileID: 7105054472199416933, guid: af960121141e95047b9189e949d3a0ce, type: 3}
     _icon: {fileID: 512683666, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u0425\u043B\u0435\u0431"
-    _purchasePriceInCents: 2310
+    _purchasePriceInCents: 5000
     _priceUpgrade:
-      _startValue: 200
+      _startValue: 465
   - _product: {fileID: 6678906134326035183, guid: c38bd0b1019082b469d5e3b30e50d30b, type: 3}
     _icon: {fileID: -851223720, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u042F\u0431\u043B\u043E\u0447\u043D\u044B\u0439 \u0441\u043E\u043A"
-    _purchasePriceInCents: 1250
+    _purchasePriceInCents: 6150
     _priceUpgrade:
-      _startValue: 125
+      _startValue: 615
   - _product: {fileID: 6690493380587567190, guid: bec9671c91d36ed498be01c9bbc660d4, type: 3}
     _icon: {fileID: -1517708313, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u041C\u043E\u043B\u043E\u043A\u043E"
-    _purchasePriceInCents: 5000
+    _purchasePriceInCents: 7550
     _priceUpgrade:
-      _startValue: 500
+      _startValue: 755
   - _product: {fileID: 160075617230939035, guid: 392e1c19701ee7643873ea2d6df9184e, type: 3}
     _icon: {fileID: -1924587341, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u0421\u044B\u0440"
     _purchasePriceInCents: 12000
     _priceUpgrade:
-      _startValue: 1200
+      _startValue: 1230
   - _product: {fileID: 160075617230939035, guid: 2d2006bdaa95a254d85360b49a2f6c7a, type: 3}
     _icon: {fileID: -1705898658, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u041A\u043E\u043B\u0431\u0430\u0441\u0430"
-    _purchasePriceInCents: 6000
+    _purchasePriceInCents: 15450
     _priceUpgrade:
-      _startValue: 600
+      _startValue: 1550
   - _product: {fileID: 160075617230939035, guid: 683378f5ef2ddf140a7cbb9ecd92f2ad, type: 3}
     _icon: {fileID: -187466123, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u0410\u0440\u0431\u0443\u0437"
-    _purchasePriceInCents: 7500
+    _purchasePriceInCents: 25600
     _priceUpgrade:
-      _startValue: 750
+      _startValue: 2310
   - _product: {fileID: 160075617230939035, guid: ae7fd42f07b808b448fb36caf51cbe51, type: 3}
     _icon: {fileID: -1930949150, guid: 14643852b6be04d44818a8393de9815d, type: 3}
     _ruName: "\u041C\u044F\u0441\u043E"
-    _purchasePriceInCents: 15500
+    _purchasePriceInCents: 43500
     _priceUpgrade:
-      _startValue: 1550
+      _startValue: 3250
