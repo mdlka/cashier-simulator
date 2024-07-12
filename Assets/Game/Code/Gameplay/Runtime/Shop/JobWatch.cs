@@ -12,8 +12,8 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private Func<float> _timeSpeed;
 
-        public bool Stopped { get; private set; }
-        public bool EndTimeReached { get; private set; }
+        public bool Stopped { get; private set; } = true;
+        public bool EndTimeReached { get; private set; } = true;
         public float ElapsedTimeInMinutes { get; private set; }
         public int ElapsedHours => (int)(ElapsedTimeInMinutes / 60);
         public int WorkingHours => _endHours - _startHours;

@@ -6,6 +6,9 @@ namespace YellowSquad.GamePlatformSdk
 {
     internal abstract class BaseAdvertisement : IAdvertisement
     {
+        public event Action AdsStarted;
+        public event Action AdsEnded;
+        
         public Result LastRewardedResult { get; private set; }
         public double LastAdTime { get; private set; } = -SdkSettings.IntervalBetweenAdsInSeconds;
         
@@ -13,12 +16,16 @@ namespace YellowSquad.GamePlatformSdk
         {
             if (CanShowAds() == false)
                 return;
-            
+
+            AdsStarted?.Invoke();
+            onEnd += () => AdsEnded?.Invoke();
             OnShowInterstitial(onEnd);
         }
 
         public void ShowRewarded(Action<Result> onEnd)
         {
+            AdsStarted?.Invoke();
+            onEnd += _ => AdsEnded?.Invoke();
             OnShowRewarded(onEnd);
         }
 
@@ -29,8 +36,10 @@ namespace YellowSquad.GamePlatformSdk
 
             bool ended = false;
             
+            AdsStarted?.Invoke();
             OnShowInterstitial(onEnd: () => ended = true);
             yield return new WaitUntil(() => ended);
+            AdsEnded?.Invoke();
             
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }
@@ -43,8 +52,10 @@ namespace YellowSquad.GamePlatformSdk
             bool ended = false;
             LastRewardedResult = Result.Failure;
             
+            AdsStarted?.Invoke();
             OnShowRewarded(onEnd: result => { ended = true; LastRewardedResult = result; });
             yield return new WaitUntil(() => ended);
+            AdsEnded?.Invoke();
             
             LastAdTime = Time.realtimeSinceStartupAsDouble;
         }

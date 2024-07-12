@@ -8,12 +8,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
     public class ShopUpgradeMenu : MonoBehaviour
     {
+        [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private Wallet _wallet;
         [SerializeField] private UpgradeButton _upgradeCartButton;
         [SerializeField] private UpgradeButton _upgradePopularityButton;
         [SerializeField] private BoostButton _boostProductsPriceButton;
         [SerializeField] private BoostButton _boostPopularityButton;
         [SerializeField] private Button _closeButton;
+        [SerializeField] private Button _backButton;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private ShopSettings _shopSettings;
 
@@ -26,7 +28,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void OnEnable()
         {
-            _closeButton.onClick.AddListener(OnCloseButtonClick);
+            _closeButton.onClick.AddListener(Close);
+            _backButton.onClick.AddListener(OnBackButtonClick);
             _upgradeCartButton.Clicked += OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked += OnUpgradePopularityButtonClicked;
             _boostProductsPriceButton.Clicked += OnBoostProductsPriceButtonClicked;
@@ -35,7 +38,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void OnDisable()
         {
-            _closeButton.onClick.RemoveListener(OnCloseButtonClick);
+            _closeButton.onClick.RemoveListener(Close);
+            _backButton.onClick.RemoveListener(OnBackButtonClick);
             _upgradeCartButton.Clicked -= OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked -= OnUpgradePopularityButtonClicked;
             _boostProductsPriceButton.Clicked -= OnBoostProductsPriceButtonClicked;
@@ -45,18 +49,25 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         public void Open()
         {
             Opened = true;
-            _canvasGroup.Enable();
             
             RenderUpgradeButton(_upgradeCartButton, _shopSettings.CartCapacityUpgrade);
             RenderUpgradeButton(_upgradePopularityButton, _shopSettings.PopularityUpgrade, "%");
             _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost);
             _boostPopularityButton.Render(_shopSettings.PopularityBoost);
+            
+            _canvasGroup.Enable();
         }
 
-        private void OnCloseButtonClick()
+        private void Close()
         {
             Opened = false;
             _canvasGroup.Disable(0.2f);
+        }
+
+        private void OnBackButtonClick()
+        {
+            Close();
+            _purchaseProductMenu.Open(openDuration: 0f);
         }
 
         private void OnBoostProductsPriceButtonClicked()

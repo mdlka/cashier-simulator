@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using YellowSquad.GamePlatformSdk;
@@ -29,8 +30,11 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _productBuyMenuView.BoostPopularityButtonClicked -= OnBoostPopularityButtonClicked;
         }
 
-        public void Open()
+        public void Open(float openDuration = 0.2f)
         {
+            if (Opened)
+                throw new InvalidOperationException("Already opened");
+            
             Opened = true;
 
             _productBuyMenuView.Clear();
@@ -44,7 +48,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
                 {
                     _productBuyMenuView.Render(productInfo, _wallet, 
                         _productsInventory.OpenedProducts.Contains(productInfo.Product.NameTag));
-                });
+                }, openDuration);
         }
 
         private void OnBuyButtonClicked()

@@ -48,45 +48,58 @@ namespace YellowSquad.CashierSimulator.Application
             
             yield return PlayTutorialIfNeed();
 
+            bool firstIterationEnded = false;
+
             while (true)
             {
-                _inputRouter.ResetCameraRotation();
-                _shop.StartDay();
+                if (GamePlatformSdkContext.Current.Save.HasKey(SaveConstants.ShopStatsSaveKey) == false || firstIterationEnded)
+                {
+                    _inputRouter.ResetCameraRotation();
+                    _shop.StartDay();
 
-                yield return new WaitUntil(() => _shop.WorkIsDone);
-                yield return new WaitForSeconds(5);
+                    yield return new WaitUntil(() => _shop.WorkIsDone);
+                    yield return new WaitForSeconds(5);
 
-                while (_settings.Opened)
-                    yield return new WaitForSeconds(1);
+                    while (_settings.Opened)
+                        yield return new WaitForSeconds(1);
 
+                    _needUpdate = false;
+                    _inputRouter.SetActiveCursor(true);
+                
+                    _shop.DeactivateBoosts();
+                    _shop.ShowStats();
+                
+                    UpdateLeaderboardScore();
+                    GamePlatformSdkContext.Current.Save.Save();
+                
+                    yield return new WaitUntil(() => _shop.StatsShowing == false);
+                    yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
+                }
+                
                 _needUpdate = false;
                 _inputRouter.SetActiveCursor(true);
-                
-                _shop.DeactivateBoosts();
-                _shop.ShowStats();
-                
-                UpdateLeaderboardScore();
-                GamePlatformSdkContext.Current.Save.Save();
-                
-                yield return new WaitUntil(() => _shop.StatsShowing == false);
-                yield return GamePlatformSdkContext.Current.Advertisement.ShowInterstitial();
 
                 _purchaseProductMenu.Open();
                 
                 yield return new WaitForSeconds(0.3f);
                 _inputRouter.ResetCameraRotation();
+
+                while (_purchaseProductMenu.Opened)
+                {
+                    yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
+                    _shop.SaveProducts();
                 
-                yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
-                _shop.SaveProducts();
+                    _shopUpgradeMenu.Open();
+                    yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
+                    _shop.SaveShopUpgrades();
+                }
                 
-                _shopUpgradeMenu.Open();
-                yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
-                
-                _shop.SaveShopUpgrades();
                 GamePlatformSdkContext.Current.Save.Save();
                 
                 _inputRouter.SetActiveCursor(false);
                 _needUpdate = true;
+
+                firstIterationEnded = true;
             }
         }
 

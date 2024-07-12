@@ -37,12 +37,12 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
                 product.Clicked -= OnProductClick;
         }
         
-        internal void Render(IReadOnlyCollection<string> openedProducts, Action onCloseButtonClick = null, Action<ProductInfo> onProductSelect = null)
+        internal void Render(IReadOnlyCollection<string> openedProducts, Action onCloseButtonClick = null, Action<ProductInfo> onProductSelect = null, float openDuration = 0.2f)
         {
             if (_rendered)
                 throw new InvalidOperationException("Before this you need to call " + nameof(Close));
             
-            _canvasGroup.Enable(duration: 0.2f);
+            _canvasGroup.Enable(openDuration);
             _onCloseButtonClick = onCloseButtonClick;
             _onProductSelect = onProductSelect;
 

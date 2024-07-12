@@ -5,6 +5,9 @@ namespace YellowSquad.GamePlatformSdk
 {
     public interface IAdvertisement
     {
+        event Action AdsStarted;
+        event Action AdsEnded;
+        
         Result LastRewardedResult { get; }
         double LastAdTime { get; }
 

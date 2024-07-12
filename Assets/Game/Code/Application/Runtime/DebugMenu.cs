@@ -7,10 +7,14 @@ namespace YellowSquad.CashierSimulator.Application
     {
         private void Update()
         {
+            if (gameObject.activeSelf == false)
+                return;
+
+            if (enabled == false)
+                return;
+            
             if (Input.GetKeyDown(KeyCode.Alpha9))
                 DeleteSave();
-            else if (Input.GetKeyDown(KeyCode.P))
-                AudioListener.pause = !AudioListener.pause;
         }
 
         private void DeleteSave()
