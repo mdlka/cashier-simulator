@@ -12,6 +12,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private JobWatch _watch;
         [SerializeField] private CustomersQueue _customersQueue;
         [SerializeField] private ShopStatsView _statsView;
+        [SerializeField] private StartDayView _startDayView;
         [SerializeField] private CustomerFactory _customerFactory;
         [SerializeField] private GameSettings _gameSettings;
         [SerializeField] private ShopSettings _shopSettings;
@@ -56,6 +57,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             _stats.StartDay();
 
             WorkIsDone = false;
+            StartCoroutine(_startDayView.Render(_stats.CurrentDay.LastDayNumber));
             StartCoroutine(Working());
         }
 
