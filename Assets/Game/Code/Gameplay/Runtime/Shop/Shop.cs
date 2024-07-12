@@ -92,8 +92,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
         private IEnumerator Working()
         {
             _watch.Run(() => _shopSettings.TimeSpeed);
+            
+            Debug.Log(_shopSettings.TimeSpeed);
 
-            int totalCustomers = 0;
             int createdCustomers = 0;
             int createCustomersHoursInterval = _shopSettings.MinCostumersPerDay > 0 ? _watch.WorkingHours / (_shopSettings.MinCostumersPerDay + 1) : -1;
             
@@ -121,8 +122,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
                     createdCustomers += 1;
                 }
                 
-                totalCustomers += 1;
-
                 float timeInMinutes = _watch.ElapsedTimeInMinutes;
                 yield return new WaitUntil(() => _watch.ElapsedTimeInMinutes - timeInMinutes >=
                     60f / (_shopSettings.MaxCostumersPerHour * _shopSettings.Popularity) || _watch.EndTimeReached);
