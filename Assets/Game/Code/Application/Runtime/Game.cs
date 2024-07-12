@@ -17,6 +17,7 @@ namespace YellowSquad.CashierSimulator.Application
         [SerializeField] private ProductsInventory _productsInventory;
         [SerializeField] private PurchaseProductMenu _purchaseProductMenu;
         [SerializeField] private ShopUpgradeMenu _shopUpgradeMenu;
+        [SerializeField] private GameTutorial _gameTutorial;
         [SerializeField] private InputRouter _inputRouter;
         [SerializeField] private GameSettings _settings;
         [SerializeField] private CanvasGroup _blackScreenCanvasGroup;
@@ -45,11 +46,13 @@ namespace YellowSquad.CashierSimulator.Application
             _shop.Initialize(GamePlatformSdkContext.Current.Save);
             _wallet.Initialize(GamePlatformSdkContext.Current.Save);
             
+            yield return PlayTutorialIfNeed();
+
             while (true)
             {
                 _inputRouter.ResetCameraRotation();
                 _shop.StartDay();
-                
+
                 yield return new WaitUntil(() => _shop.WorkIsDone);
                 yield return new WaitForSeconds(5);
 
@@ -93,6 +96,22 @@ namespace YellowSquad.CashierSimulator.Application
                 return;
             
             _inputRouter.UpdateInput();
+        }
+
+        private IEnumerator PlayTutorialIfNeed()
+        {
+            if (GamePlatformSdkContext.Current.Save.HasKey(SaveConstants.GameTutorialSaveKey)) 
+                yield break;
+            
+            _needUpdate = false;
+                    
+            _inputRouter.SetActiveCursor(true);
+            yield return _gameTutorial.Play();
+                
+            GamePlatformSdkContext.Current.Save.SetString(SaveConstants.GameTutorialSaveKey, "Complete");
+            GamePlatformSdkContext.Current.Save.Save();
+                    
+            _needUpdate = true;
         }
 
         private void UpdateLeaderboardScore()

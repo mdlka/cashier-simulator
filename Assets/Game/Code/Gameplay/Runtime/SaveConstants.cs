@@ -8,5 +8,6 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public const string ProductsPriceUpgradeLevelsSaveKey = "ProductsPriceUpgradeLevelsSave";
         public const string OpenedProductsSaveKey = "OpenedProductsSave";
         public const string GameSettingsSaveKey = "GameSettingsSave";
+        public const string GameTutorialSaveKey = "GameTutorialSave";
     }
 }
