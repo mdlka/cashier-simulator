@@ -12,14 +12,14 @@ namespace YellowSquad.CashierSimulator.Application
         {
             GamePlatformSdkContext.Current.Advertisement.AdsStarted += AdsShowed;
             GamePlatformSdkContext.Current.Advertisement.AdsEnded += AdsClose;
-            WebApplication.InBackgroundChangeEvent += OnBackground;
+            WebApplication.InBackgroundChangeEvent += OnBackgroundChange;
         }
         
         private void OnDisable()
         {
             GamePlatformSdkContext.Current.Advertisement.AdsStarted -= AdsShowed;
             GamePlatformSdkContext.Current.Advertisement.AdsEnded -= AdsClose;
-            WebApplication.InBackgroundChangeEvent -= OnBackground;
+            WebApplication.InBackgroundChangeEvent -= OnBackgroundChange;
         }
 
         private void AdsShowed()
@@ -34,7 +34,7 @@ namespace YellowSquad.CashierSimulator.Application
             EnableFocus();
         }
 
-        private void OnBackground(bool isBackground)
+        private void OnBackgroundChange(bool isBackground)
         {
             if (_adsShowing)
                 return;
