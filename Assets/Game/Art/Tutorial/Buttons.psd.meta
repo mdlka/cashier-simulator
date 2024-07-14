@@ -173,9 +173,9 @@ TextureImporter:
       name: Space
       rect:
         serializedVersion: 2
-        x: 156
-        y: 50
-        width: 128
+        x: 154
+        y: 49
+        width: 156
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -215,7 +215,7 @@ TextureImporter:
       name: Esc
       rect:
         serializedVersion: 2
-        x: 289
+        x: 314
         y: 57
         width: 90
         height: 49
@@ -236,12 +236,12 @@ TextureImporter:
       name: S
       rect:
         serializedVersion: 2
-        x: 384
+        x: 410
         y: 57
         width: 50
         height: 49
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
