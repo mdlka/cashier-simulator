@@ -85,12 +85,16 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         private void OnUpgradeCartButtonClicked()
         {
             ApplyUpgrade(_shopSettings.CartCapacityUpgrade);
+            
             RenderUpgradeButton(_upgradeCartButton, _shopSettings.CartCapacityUpgrade);
+            RenderUpgradeButton(_upgradePopularityButton, _shopSettings.PopularityUpgrade, "%");
         }
 
         private void OnUpgradePopularityButtonClicked()
         {
             ApplyUpgrade(_shopSettings.PopularityUpgrade);
+            
+            RenderUpgradeButton(_upgradeCartButton, _shopSettings.CartCapacityUpgrade);
             RenderUpgradeButton(_upgradePopularityButton, _shopSettings.PopularityUpgrade, "%");
         }
 
