@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
@@ -43,7 +44,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _canvasGroup.Enable();
 
             _icon.sprite = productInfo.Icon;
-            _nameText.text = productInfo.RuName;
+            _nameText.text = GamePlatformSdkContext.Current.Language == Language.Russian ? productInfo.RuName : productInfo.EnName;
             
             _buyButton.Render(productInfo.PurchasePrice, wallet);
             _upgradePriceButton.Render(productInfo.PriceUpgrade, wallet, 

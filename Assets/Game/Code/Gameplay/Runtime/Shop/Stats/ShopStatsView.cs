@@ -47,9 +47,9 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
             bool mostPopularProductNotExist = string.IsNullOrEmpty(stats.Products.MostPopularProductTag);
             bool biggestProfitProductNotExist = string.IsNullOrEmpty(stats.Products.BiggestProfitProductTag);
-            _mostPopularProductText.Render(mostPopularProductNotExist ? "-" : _productList.FindInfoBy(stats.Products.MostPopularProductTag).RuName, 
+            _mostPopularProductText.Render(mostPopularProductNotExist ? "-" : _productList.LocalizedNameBy(stats.Products.MostPopularProductTag), 
                 !mostPopularProductNotExist);
-            _biggestProfitProductText.Render(biggestProfitProductNotExist ? "-" : $"{_productList.FindInfoBy(stats.Products.BiggestProfitProductTag).RuName} " +
+            _biggestProfitProductText.Render(biggestProfitProductNotExist ? "-" : $"{_productList.LocalizedNameBy(stats.Products.BiggestProfitProductTag)} " +
                 $"(+{stats.Products.BiggestProfit.ToPriceTag()})", !biggestProfitProductNotExist);
             
             _balanceText.Render($"+{stats.TotalProfit.ToPriceTag()}", stats.TotalProfit.TotalCents > 0);

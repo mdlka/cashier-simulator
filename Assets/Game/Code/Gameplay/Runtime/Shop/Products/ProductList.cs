@@ -78,6 +78,12 @@ namespace YellowSquad.CashierSimulator.Gameplay
                 product.PopularityBoost.Deactivate();
         }
 
+        internal string LocalizedNameBy(string tag)
+        {
+            var info = FindInfoBy(tag);
+            return GamePlatformSdkContext.Current.Language == Language.Russian ? info.RuName : info.EnName;
+        }
+
         internal ProductInfo FindInfoBy(string tag)
         {
             return _products.First(info => info.Product.NameTag == tag);

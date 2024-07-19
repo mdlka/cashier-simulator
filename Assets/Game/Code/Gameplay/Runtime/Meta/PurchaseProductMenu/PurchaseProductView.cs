@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
@@ -33,7 +34,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             ProductInfo = info;
             
             _icon.sprite = info.Icon;
-            _nameText.text = info.RuName;
+            _nameText.text = GamePlatformSdkContext.Current.Language == Language.Russian ? info.RuName : info.EnName;
             _priceText.text = opened ? _openedText : info.PurchasePrice.ToPriceTag();
             _priceText.color = opened ? _openedTextColor : _priceText.color;
         }

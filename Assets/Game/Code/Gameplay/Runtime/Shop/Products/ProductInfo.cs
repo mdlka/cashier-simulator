@@ -11,6 +11,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private Product _product;
         [SerializeField] private Sprite _icon;
         [SerializeField] private string _ruName;
+        [SerializeField] private string _enName;
         [SerializeField, Min(0)] private long _purchasePriceInCents;
         [SerializeField] private ProductUpgrade _priceUpgrade;
 
@@ -19,6 +20,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
         public Product Product => _product;
         public Sprite Icon => _icon;
         public string RuName => _ruName;
+        public string EnName => _enName;
         public Currency Price => _priceUpgrade.CurrentValue;
         public Currency PurchasePrice => _purchasePrice ??= new Currency(_purchasePriceInCents);
         public ProductUpgrade PriceUpgrade => _priceUpgrade;

@@ -12,7 +12,7 @@ namespace YellowSquad.GamePlatformSdk
                  SystemLanguage.Russian or SystemLanguage.Belarusian or SystemLanguage.Ukrainian => Language.Russian,
                 _ => Language.English
             };
-            
+
             Debug.Log("Sdk initialized");
             yield break;
         }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Lean.Localization;
 using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay;
 using YellowSquad.CashierSimulator.Gameplay.Meta;
@@ -11,6 +12,9 @@ namespace YellowSquad.CashierSimulator.Application
     public class Game : MonoBehaviour
     {
         private const string LeaderboardName = "MainLeaderboard";
+
+        private const string Ru = "Language/Russian";
+        private const string En = "Language/English";
 
         [SerializeField] private Shop _shop;
         [SerializeField] private Wallet _wallet;
@@ -37,6 +41,8 @@ namespace YellowSquad.CashierSimulator.Application
             _blackScreenCanvasGroup.Enable();
             
             yield return GamePlatformSdkContext.Current.Initialize();
+            
+            LeanLocalization.SetCurrentLanguageAll(GamePlatformSdkContext.Current.Language == Language.Russian ? Ru : En);
             
             _blackScreenCanvasGroup.Disable(0.5f);
             

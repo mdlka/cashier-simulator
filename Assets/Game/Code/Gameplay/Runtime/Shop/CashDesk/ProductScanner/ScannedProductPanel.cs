@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using YellowSquad.GamePlatformSdk;
 
 namespace YellowSquad.CashierSimulator.Gameplay
 {
@@ -19,7 +20,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
             TargetProductNameTag = productNameTag;
             CurrentProductsCount = count;
 
-            _nameText.text = _productList.FindInfoBy(productNameTag).RuName;
+            _nameText.text = _productList.LocalizedNameBy(productNameTag);
             _countText.text = count.ToString();
             _priceText.text = productPrice.ToPriceTag();
             _totalText.text = (productPrice * count).ToPriceTag();
