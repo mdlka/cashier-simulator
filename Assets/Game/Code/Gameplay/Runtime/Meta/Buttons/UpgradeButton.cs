@@ -8,6 +8,9 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
     internal class UpgradeButton : MonoBehaviour
     {
+        private const string DefaultTextTranslationName = "Menu/Upgrade";
+        private const string MaxUpgradesTextTranslationName = "Menu/Max";
+        
         [SerializeField] private bool _needShowCurrentLevel;
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private TMP_Text _statsText;
@@ -15,12 +18,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _cantBuyColor;
         [SerializeField, LeanTranslationName] private string _statsHeaderTranslationName;
-        [SerializeField, LeanTranslationName] private string _defaultTextTranslationName;
         [SerializeField, LeanTranslationName] private string _cantBuyTextTranslationName;
-        [SerializeField, LeanTranslationName] private string _maxUpgradesTextTranslationName;
-        [SerializeField] private string _statsHeader;
-        [SerializeField] private string _defaultText;
-        [SerializeField] private string _cantBuyText;
 
         private string _defaultColorHtml;
 
@@ -46,7 +44,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             if (upgrade.Max)
             {
                 _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue}";
-                _priceText.text = LeanLocalization.GetTranslationText(_maxUpgradesTextTranslationName);
+                _priceText.text = LeanLocalization.GetTranslationText(MaxUpgradesTextTranslationName);
                 _button.image.color = _defaultColor;
                 _button.interactable = false;
             }
@@ -54,7 +52,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             {
                 bool canBuy = wallet.CanSpend(upgrade.Price);
 
-                string localizedDefaultText = LeanLocalization.GetTranslationText(_defaultTextTranslationName);
+                string localizedDefaultText = LeanLocalization.GetTranslationText(DefaultTextTranslationName);
                 string localizedCantBuyText = LeanLocalization.GetTranslationText(_cantBuyTextTranslationName);
             
                 _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue} -> <color={_defaultColorHtml}>{nextValue}</color>";

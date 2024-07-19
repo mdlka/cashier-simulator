@@ -1,4 +1,5 @@
 ﻿using System;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private Button _button;
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _cantBuyColor;
-        [SerializeField] private string _defaultText;
-        [SerializeField] private string _cantBuyText;
+        [SerializeField, LeanTranslationName] private string _defaultTextTranslationName;
+        [SerializeField, LeanTranslationName] private string _cantBuyTextTranslationName;
 
         public event Action Clicked;
 
@@ -30,7 +31,10 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         {
             bool canBuy = wallet.CanSpend(price);
 
-            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n{_defaultText}" : _cantBuyText;
+            string localizedDefaultText = LeanLocalization.GetTranslationText(_defaultTextTranslationName);
+            string localizedCantBuyText = LeanLocalization.GetTranslationText(_cantBuyTextTranslationName);
+
+            _priceText.text = canBuy ? $"{price.ToPriceTag()}\n<b>{localizedDefaultText}" : $"<b>{localizedCantBuyText}";
             _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
         }
 

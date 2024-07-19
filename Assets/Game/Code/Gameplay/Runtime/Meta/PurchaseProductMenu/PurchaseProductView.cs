@@ -1,4 +1,5 @@
 ﻿using System;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private Button _button;
         [Header("Opened product settings")]
-        [SerializeField] private string _openedText;
+        [SerializeField, LeanTranslationName] private string _openedTextTranslationName;
         [SerializeField] private Color _openedTextColor;
 
         internal event Action<PurchaseProductView> Clicked;
@@ -32,10 +33,12 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         public void Render(ProductInfo info, bool opened)
         {
             ProductInfo = info;
+
+            string localizedOpenedText = LeanLocalization.GetTranslationText(_openedTextTranslationName);
             
             _icon.sprite = info.Icon;
             _nameText.text = GamePlatformSdkContext.Current.Language == Language.Russian ? info.RuName : info.EnName;
-            _priceText.text = opened ? _openedText : info.PurchasePrice.ToPriceTag();
+            _priceText.text = opened ? localizedOpenedText : info.PurchasePrice.ToPriceTag();
             _priceText.color = opened ? _openedTextColor : _priceText.color;
         }
 
