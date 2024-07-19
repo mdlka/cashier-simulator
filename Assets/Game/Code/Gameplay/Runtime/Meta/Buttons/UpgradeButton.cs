@@ -1,4 +1,5 @@
 ﻿using System;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,14 +8,16 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 {
     internal class UpgradeButton : MonoBehaviour
     {
-        private const string MaxUpgradesText = "Макс";
-
         [SerializeField] private bool _needShowCurrentLevel;
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private TMP_Text _statsText;
         [SerializeField] private Button _button;
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _cantBuyColor;
+        [SerializeField, LeanTranslationName] private string _statsHeaderTranslationName;
+        [SerializeField, LeanTranslationName] private string _defaultTextTranslationName;
+        [SerializeField, LeanTranslationName] private string _cantBuyTextTranslationName;
+        [SerializeField, LeanTranslationName] private string _maxUpgradesTextTranslationName;
         [SerializeField] private string _statsHeader;
         [SerializeField] private string _defaultText;
         [SerializeField] private string _cantBuyText;
@@ -43,16 +46,19 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             if (upgrade.Max)
             {
                 _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue}";
-                _priceText.text = MaxUpgradesText;
+                _priceText.text = LeanLocalization.GetTranslationText(_maxUpgradesTextTranslationName);
                 _button.image.color = _defaultColor;
                 _button.interactable = false;
             }
             else
             {
                 bool canBuy = wallet.CanSpend(upgrade.Price);
+
+                string localizedDefaultText = LeanLocalization.GetTranslationText(_defaultTextTranslationName);
+                string localizedCantBuyText = LeanLocalization.GetTranslationText(_cantBuyTextTranslationName);
             
                 _statsText.text = $"{StatsHeader(upgrade.CurrentLevel)}\n<size=80%>{currentValue} -> <color={_defaultColorHtml}>{nextValue}</color>";
-                _priceText.text = canBuy ? $"{upgrade.Price.ToPriceTag()}\n{_defaultText}" : $"{upgrade.Price.ToPriceTag()}\n{_cantBuyText}";
+                _priceText.text = canBuy ? $"{upgrade.Price.ToPriceTag()}\n{localizedDefaultText}" : $"{upgrade.Price.ToPriceTag()}\n{localizedCantBuyText}";
                 _button.image.color = canBuy ? _defaultColor : _cantBuyColor;
                 _button.interactable = true;
             }
@@ -60,7 +66,8 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private string StatsHeader(long currentLevel)
         {
-            return currentLevel == 0 || !_needShowCurrentLevel ? _statsHeader : $"{_statsHeader} <b>({currentLevel})</b>";
+            string localizedHeader = LeanLocalization.GetTranslationText(_statsHeaderTranslationName);
+            return currentLevel == 0 || !_needShowCurrentLevel ? localizedHeader : $"{localizedHeader} <b>({currentLevel})</b>";
         }
 
         private void OnButtonClick()

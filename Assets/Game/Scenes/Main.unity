@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u043E\u043B-\u0432\u043E"
+  m_text: Unit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 9662252}
   - component: {fileID: 9662254}
   - component: {fileID: 9662253}
+  - component: {fileID: 9662255}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -329,8 +330,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b>\u0411\u0443\u0441\u0442 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438</b>\n<color=#51BA7F>x2</color>
-    \u043D\u0430 \u0434\u0435\u043D\u044C"
+  m_text: '<b>Popularity boost</b>
+
+    <color=#51BA7F>x2</color> for a day'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -407,6 +409,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9662251}
   m_CullTransparentMesh: 1
+--- !u!114 &9662255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9662251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/PopularityBoost
+  FallbackText: "<b>\u0411\u0443\u0441\u0442 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438</b>\n<color=#51BA7F>x2</color>
+    \u043D\u0430 \u0434\u0435\u043D\u044C"
 --- !u!1 &10017756
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +481,10 @@ MonoBehaviour:
   _button: {fileID: 771483912}
   _defaultColor: {r: 0.31764707, g: 0.7294118, b: 0.49803925, a: 1}
   _cantBuyColor: {r: 0.7294118, g: 0.31764707, b: 0.31764707, a: 1}
+  _statsHeaderTranslationName: Menu/BasketCapacity
+  _defaultTextTranslationName: Menu/Upgrade
+  _cantBuyTextTranslationName: Menu/NotEnough
+  _maxUpgradesTextTranslationName: Menu/Max
   _statsHeader: "<b>\u0412\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C
     \u043A\u043E\u0440\u0437\u0438\u043D\u044B</b>"
   _defaultText: "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C"
@@ -877,6 +898,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41431169}
   m_CullTransparentMesh: 1
+--- !u!1 &46146117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 46146118}
+  - component: {fileID: 46146119}
+  m_Layer: 0
+  m_Name: Menu/BasketCapacity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &46146118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46146117}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &46146119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46146117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: <b>Basket capacity</b>
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "<b>\u0412\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u044C
+      \u043A\u043E\u0440\u0437\u0438\u043D\u044B</b>"
+    Object: {fileID: 0}
 --- !u!1 &49489317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,6 +2170,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98105044}
   m_CullTransparentMesh: 1
+--- !u!1 &104063862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104063863}
+  - component: {fileID: 104063864}
+  m_Layer: 0
+  m_Name: Menu/Products
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104063863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104063862}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &104063864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104063862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Products
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u044B"
+    Object: {fileID: 0}
 --- !u!1 &139152911
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,6 +3708,7 @@ GameObject:
   - component: {fileID: 207437816}
   - component: {fileID: 207437818}
   - component: {fileID: 207437817}
+  - component: {fileID: 207437819}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3628,8 +3755,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b>\u0411\u0443\u0441\u0442 \u0446\u0435\u043D</b> \n<color=#51BA7F>x2</color>
-    \u043D\u0430 \u0434\u0435\u043D\u044C"
+  m_text: "<b>Price boost</b> \n<color=#51BA7F>x2</color> for a day"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -3706,6 +3832,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207437815}
   m_CullTransparentMesh: 1
+--- !u!114 &207437819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207437815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/PriceBoost
+  FallbackText: "<b>\u0411\u0443\u0441\u0442 \u0446\u0435\u043D</b> \n<color=#51BA7F>x2</color>
+    \u043D\u0430 \u0434\u0435\u043D\u044C"
 --- !u!1 &208422132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,6 +5060,7 @@ GameObject:
   - component: {fileID: 294941180}
   - component: {fileID: 294941182}
   - component: {fileID: 294941181}
+  - component: {fileID: 294941183}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4965,7 +5107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430"
+  m_text: Store upgrades
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -5042,6 +5184,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294941179}
   m_CullTransparentMesh: 1
+--- !u!114 &294941183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294941179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/StoreUpgrades
+  FallbackText: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430"
 --- !u!1 &297360984
 GameObject:
   m_ObjectHideFlags: 0
@@ -7294,6 +7450,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _yRotate: 0
+--- !u!1 &406722766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406722767}
+  - component: {fileID: 406722768}
+  m_Layer: 0
+  m_Name: Menu/NewDay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406722767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406722766}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &406722768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406722766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/Russian
+    Text: "\u041D\u043E\u0432\u044B\u0439 \u0434\u0435\u043D\u044C"
+    Object: {fileID: 0}
+  - Language: Language/English
+    Text: New day
+    Object: {fileID: 0}
 --- !u!1001 &409340565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8557,6 +8765,7 @@ GameObject:
   - component: {fileID: 449113355}
   - component: {fileID: 449113357}
   - component: {fileID: 449113356}
+  - component: {fileID: 449113358}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -8603,7 +8812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u044B"
+  m_text: Products
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -8680,6 +8889,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449113354}
   m_CullTransparentMesh: 1
+--- !u!114 &449113358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449113354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/Products
+  FallbackText: "\u041F\u0440\u043E\u0434\u0443\u043A\u0442\u044B"
 --- !u!1001 &452123665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9377,7 +9600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041E\u0442\u0434\u0430\u0442\u044C..."
+  m_text: Giving...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -14860,6 +15083,59 @@ MonoBehaviour:
   - Language: Language/Russian
     Text: "\u0421\u0434\u0430\u0447\u0430"
     Object: {fileID: 0}
+--- !u!1 &738014629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 738014630}
+  - component: {fileID: 738014631}
+  m_Layer: 0
+  m_Name: Menu/PriceBoost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &738014630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738014629}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &738014631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738014629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: "<b>Price boost</b> \n<color=#51BA7F>x2</color> for a day"
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "<b>\u0411\u0443\u0441\u0442 \u0446\u0435\u043D</b> \n<color=#51BA7F>x2</color>
+      \u043D\u0430 \u0434\u0435\u043D\u044C"
+    Object: {fileID: 0}
 --- !u!1 &740216285
 GameObject:
   m_ObjectHideFlags: 0
@@ -17408,7 +17684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u0442\u043E\u0433\u043E"
+  m_text: Total
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -17633,6 +17909,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851368659}
   m_CullTransparentMesh: 1
+--- !u!1 &852249599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 852249600}
+  - component: {fileID: 852249601}
+  m_Layer: 0
+  m_Name: Menu/Boosts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &852249600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852249599}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &852249601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852249599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Boosts
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u0411\u0443\u0441\u0442\u044B"
+    Object: {fileID: 0}
 --- !u!1 &857367202
 GameObject:
   m_ObjectHideFlags: 0
@@ -18201,6 +18529,10 @@ MonoBehaviour:
   _button: {fileID: 1312989520}
   _defaultColor: {r: 0.31764707, g: 0.7294118, b: 0.49803925, a: 1}
   _cantBuyColor: {r: 0.7294118, g: 0.31764707, b: 0.31764707, a: 1}
+  _statsHeaderTranslationName: Menu/Popularity
+  _defaultTextTranslationName: Menu/Upgrade
+  _cantBuyTextTranslationName: Menu/NotEnough
+  _maxUpgradesTextTranslationName: Menu/Max
   _statsHeader: "<b>\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u044C</b>"
   _defaultText: "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C"
   _cantBuyText: "\u041D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442"
@@ -19230,6 +19562,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4012472858492880, guid: b192cc40154b00840a019f85bd789519, type: 3}
   m_PrefabInstance: {fileID: 917261076}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &919533873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 919533874}
+  - component: {fileID: 919533875}
+  m_Layer: 0
+  m_Name: Menu/NotEnough
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &919533874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919533873}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &919533875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919533873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Not enough
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u041D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442"
+    Object: {fileID: 0}
 --- !u!1001 &926513590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21003,6 +21387,10 @@ MonoBehaviour:
   _button: {fileID: 1520474289}
   _defaultColor: {r: 0.31764707, g: 0.7294118, b: 0.49803925, a: 1}
   _cantBuyColor: {r: 0.7294118, g: 0.31764707, b: 0.31764707, a: 1}
+  _statsHeaderTranslationName: 
+  _defaultTextTranslationName: 
+  _cantBuyTextTranslationName: 
+  _maxUpgradesTextTranslationName: 
   _statsHeader: "<b>\u0421\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C</b>"
   _defaultText: "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C"
   _cantBuyText: "\u041D\u0435 \u0445\u0432\u0430\u0442\u0430\u0435\u0442"
@@ -21857,6 +22245,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067636804}
   m_CullTransparentMesh: 1
+--- !u!1 &1079146487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079146488}
+  - component: {fileID: 1079146489}
+  m_Layer: 0
+  m_Name: Menu/Popularity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079146488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079146487}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079146489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079146487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: <b>Popularity</b>
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "<b>\u041F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u044C</b>"
+    Object: {fileID: 0}
 --- !u!4 &1087611703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4012472858492880, guid: b192cc40154b00840a019f85bd789519, type: 3}
@@ -23878,7 +24318,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u0442\u043E\u0433\u043E"
+  m_text: Total
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -26220,6 +26660,58 @@ Transform:
   - {fileID: 1336996781}
   m_Father: {fileID: 310511479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1375928913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375928914}
+  - component: {fileID: 1375928915}
+  m_Layer: 0
+  m_Name: Menu/StoreUpgrades
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1375928914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375928913}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375928915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375928913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Store upgrades
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430"
+    Object: {fileID: 0}
 --- !u!1 &1387675756
 GameObject:
   m_ObjectHideFlags: 0
@@ -26278,7 +26770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u0430\u0441\u0441\u0430"
+  m_text: Checkout
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -28091,7 +28583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u0430"
+  m_text: Product name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -28656,6 +29148,61 @@ MonoBehaviour:
   _statsName: "\u0411\u0430\u043B\u0430\u043D\u0441:"
   _statsColor: {r: 0.31764707, g: 0.7294118, b: 0.49803922, a: 1}
   _text: {fileID: 1508295852}
+--- !u!1 &1509453193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509453194}
+  - component: {fileID: 1509453195}
+  m_Layer: 0
+  m_Name: Menu/PopularityBoost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1509453194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509453193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509453195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509453193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: '<b>Popularity boost</b>
+
+      <color=#51BA7F>x2</color> for a day'
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "<b>\u0411\u0443\u0441\u0442 \u043F\u043E\u043F\u0443\u043B\u044F\u0440\u043D\u043E\u0441\u0442\u0438</b>\n<color=#51BA7F>x2</color>
+      \u043D\u0430 \u0434\u0435\u043D\u044C"
+    Object: {fileID: 0}
 --- !u!1 &1510281715
 GameObject:
   m_ObjectHideFlags: 0
@@ -29017,7 +29564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0426\u0435\u043D\u0430"
+  m_text: Price
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -29368,6 +29915,58 @@ MonoBehaviour:
   _isOffIcon: {fileID: 21300000, guid: cb9438866d238dd4798edfd3fd605eea, type: 3}
   _targetImage: {fileID: 1713334362}
   _button: {fileID: 1521392728}
+--- !u!1 &1524423936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524423937}
+  - component: {fileID: 1524423938}
+  m_Layer: 0
+  m_Name: Menu/Upgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524423937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524423936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524423938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524423936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Upgrade
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C"
+    Object: {fileID: 0}
 --- !u!1 &1534679987
 GameObject:
   m_ObjectHideFlags: 0
@@ -30026,7 +30625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u0434\u0430\u0447\u0430"
+  m_text: Change
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -31032,7 +31631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u0442\u043E\u0433\u043E"
+  m_text: Total
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -32103,6 +32702,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720273588}
   m_CullTransparentMesh: 1
+--- !u!1 &1720880295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720880296}
+  - component: {fileID: 1720880297}
+  m_Layer: 0
+  m_Name: Menu/Max
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720880296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720880295}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1846272461}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1720880297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720880295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: Language/English
+    Text: Max
+    Object: {fileID: 0}
+  - Language: Language/Russian
+    Text: "\u041C\u0430\u043A\u0441"
+    Object: {fileID: 0}
 --- !u!1 &1730614678
 GameObject:
   m_ObjectHideFlags: 0
@@ -33232,6 +33883,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3218365955856307233, guid: 79ddfa8a92056a2448252cb721b94cca, type: 3}
   m_PrefabInstance: {fileID: 1839363878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1846272460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846272461}
+  m_Layer: 0
+  m_Name: Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1846272461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846272460}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1375928914}
+  - {fileID: 46146118}
+  - {fileID: 1079146488}
+  - {fileID: 1524423937}
+  - {fileID: 852249600}
+  - {fileID: 738014630}
+  - {fileID: 1509453194}
+  - {fileID: 406722767}
+  - {fileID: 104063863}
+  - {fileID: 1720880296}
+  - {fileID: 919533874}
+  m_Father: {fileID: 1937145062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1850192290
 GameObject:
   m_ObjectHideFlags: 0
@@ -34664,7 +35357,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u0430\u0441\u0441\u043E\u0432\u044B\u0439 \u0430\u043F\u043F\u0430\u0440\u0430\u0442"
+  m_text: Cash register
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -34938,8 +35631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: Language/Russian
-  detectLanguage: 1
+  currentLanguage: Language/English
+  detectLanguage: 0
   defaultLanguage: Language/Russian
   saveLoad: 1
   prefabs: []
@@ -34958,6 +35651,7 @@ Transform:
   m_Children:
   - {fileID: 468732018}
   - {fileID: 674359835}
+  - {fileID: 1846272461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1949181802
@@ -35473,7 +36167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u043E\u0441\u0442\u0443\u043F\u0438\u043B\u043E"
+  m_text: Received
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -35575,6 +36269,7 @@ GameObject:
   - component: {fileID: 1961377634}
   - component: {fileID: 1961377636}
   - component: {fileID: 1961377635}
+  - component: {fileID: 1961377637}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -35621,7 +36316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0411\u0443\u0441\u0442\u044B"
+  m_text: Boosts
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -35698,6 +36393,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961377633}
   m_CullTransparentMesh: 1
+--- !u!114 &1961377637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961377633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/Boosts
+  FallbackText: "\u0411\u0443\u0441\u0442\u044B"
 --- !u!1 &1962582854
 GameObject:
   m_ObjectHideFlags: 0
@@ -36086,6 +36795,7 @@ GameObject:
   - component: {fileID: 1981988809}
   - component: {fileID: 1981988811}
   - component: {fileID: 1981988810}
+  - component: {fileID: 1981988812}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -36132,7 +36842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u043E\u0432\u044B\u0439 \u0434\u0435\u043D\u044C"
+  m_text: New day
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
@@ -36209,6 +36919,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981988808}
   m_CullTransparentMesh: 1
+--- !u!114 &1981988812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981988808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu/NewDay
+  FallbackText: "\u041D\u043E\u0432\u044B\u0439 \u0434\u0435\u043D\u044C"
 --- !u!1 &1992506094
 GameObject:
   m_ObjectHideFlags: 0
@@ -39289,7 +40013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u0442\u043E\u0433\u043E"
+  m_text: Total
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
   m_sharedMaterial: {fileID: 942589445191879500, guid: 02fea1fb776e0ad43a5e684a1ab0ce9e, type: 2}
