@@ -29,7 +29,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         private void OnEnable()
         {
             _closeButton.onClick.AddListener(Close);
-            _backButton.onClick.AddListener(OnBackButtonClick);
+            _backButton.onClick.AddListener(OpenProductsMenu);
             _upgradeCartButton.Clicked += OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked += OnUpgradePopularityButtonClicked;
             _boostProductsPriceButton.Clicked += OnBoostProductsPriceButtonClicked;
@@ -39,14 +39,14 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
         private void OnDisable()
         {
             _closeButton.onClick.RemoveListener(Close);
-            _backButton.onClick.RemoveListener(OnBackButtonClick);
+            _backButton.onClick.RemoveListener(OpenProductsMenu);
             _upgradeCartButton.Clicked -= OnUpgradeCartButtonClicked;
             _upgradePopularityButton.Clicked -= OnUpgradePopularityButtonClicked;
             _boostProductsPriceButton.Clicked -= OnBoostProductsPriceButtonClicked;
             _boostPopularityButton.Clicked -= OnBoostPopularityButtonClicked;
         }
 
-        public void Open()
+        public void Open(float openDuration = 0.2f)
         {
             Opened = true;
             
@@ -55,7 +55,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _boostProductsPriceButton.Render(_shopSettings.ProductsPriceBoost);
             _boostPopularityButton.Render(_shopSettings.PopularityBoost);
             
-            _canvasGroup.Enable();
+            _canvasGroup.Enable(openDuration);
         }
 
         private void Close()
@@ -64,7 +64,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _canvasGroup.Disable(0.2f);
         }
 
-        private void OnBackButtonClick()
+        private void OpenProductsMenu()
         {
             Close();
             _purchaseProductMenu.Open(openDuration: 0f);
