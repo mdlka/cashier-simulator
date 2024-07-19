@@ -10,6 +10,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
     internal class PurchaseProductView : MonoBehaviour
     {
         [SerializeField] private Image _icon;
+        [SerializeField] private Image _upgradeIcon;
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _priceText;
         [SerializeField] private Button _button;
@@ -37,6 +38,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             string localizedOpenedText = LeanLocalization.GetTranslationText(_openedTextTranslationName);
             
             _icon.sprite = info.Icon;
+            _upgradeIcon.enabled = opened;
             _nameText.text = GamePlatformSdkContext.Current.Language == Language.Russian ? info.RuName : info.EnName;
             _priceText.text = opened ? localizedOpenedText : info.PurchasePrice.ToPriceTag();
             _priceText.color = opened ? _openedTextColor : _priceText.color;
