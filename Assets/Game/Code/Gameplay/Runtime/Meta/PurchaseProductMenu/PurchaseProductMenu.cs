@@ -41,7 +41,7 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
             _productListView.Render(_productsInventory.OpenedProducts, 
                 onCloseButtonClick: () =>
                 {
-                    _productListView.Close();
+                    _productListView.Close(0f);
                     Opened = false;
                 },
                 onProductSelect: productInfo =>

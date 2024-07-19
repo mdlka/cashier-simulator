@@ -66,7 +66,6 @@ namespace YellowSquad.CashierSimulator.Gameplay.Meta
 
         private void OpenProductsMenu()
         {
-            Close();
             _purchaseProductMenu.Open(openDuration: 0f);
         }
 

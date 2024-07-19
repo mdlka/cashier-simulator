@@ -90,7 +90,7 @@ namespace YellowSquad.CashierSimulator.Application
                 yield return new WaitForSeconds(0.3f);
                 _inputRouter.ResetCameraRotation();
 
-                while (_shopUpgradeMenu.Opened || _purchaseProductMenu.Opened)
+                while (_shopUpgradeMenu.Opened)
                 {
                     yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
                     _shop.SaveShopUpgrades();
@@ -101,12 +101,6 @@ namespace YellowSquad.CashierSimulator.Application
                     
                     yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
                     _shop.SaveProducts();
-                    GamePlatformSdkContext.Current.Save.Save();
-                        
-                    _shopUpgradeMenu.Open(openDuration: 0f);
-                        
-                    yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
-                    _shop.SaveShopUpgrades();
                     GamePlatformSdkContext.Current.Save.Save();
                 }
 
