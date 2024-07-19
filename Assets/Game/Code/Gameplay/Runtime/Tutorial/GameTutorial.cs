@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,15 +42,15 @@ namespace YellowSquad.CashierSimulator.Gameplay
             for (int i = 0; i < _screens.Length - 1; i++)
             {
                 var pair = _screens[i];
-                _screenImage.sprite = pair.Screen;
-                _descriptionText.text = pair.RuDescription;
+                _screenImage.sprite = pair.LocalizedScreen;
+                _descriptionText.text = pair.LocalizedDescription;
 
                 yield return new WaitUntil(() => _needNext);
                 _needNext = false;
             }
             
-            _screenImage.sprite = _screens[^1].Screen;
-            _descriptionText.text = _screens[^1].RuDescription;
+            _screenImage.sprite = _screens[^1].LocalizedScreen;
+            _descriptionText.text = _screens[^1].LocalizedDescription;
 
             _nextButton.gameObject.SetActive(false);
             _endTutorialButton.gameObject.SetActive(true);
@@ -77,8 +78,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [Serializable]
         private class Pair
         {
-            [field: SerializeField] public Sprite Screen { get; private set; }
-            [field: SerializeField, TextArea] public string RuDescription { get; private set; }
+            [SerializeField, LeanTranslationName] private string _screenTranslationName;
+            [SerializeField, LeanTranslationName] private string _descriptionTranslationName;
+
+            public Sprite LocalizedScreen => LeanLocalization.GetTranslationObject<Sprite>(_screenTranslationName);
+            public string LocalizedDescription => LeanLocalization.GetTranslationText(_descriptionTranslationName);
         }
     }
 }
