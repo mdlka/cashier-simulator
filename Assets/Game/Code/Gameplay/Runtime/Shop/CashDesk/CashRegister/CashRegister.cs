@@ -7,7 +7,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 {
     public class CashRegister : MonoBehaviour
     {
-        private const float ChangePercentDifferenceForCanEnd = 50;
+        private const float ChangePercentDifferenceForCanEnd = 30;
         
         private readonly Queue<(SlotAction, CashSlot)> _slotsQueue = new();
         private readonly List<Cash> _cash = new();
