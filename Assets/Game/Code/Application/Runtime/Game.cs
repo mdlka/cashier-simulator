@@ -96,15 +96,15 @@ namespace YellowSquad.CashierSimulator.Application
                     _shop.SaveShopUpgrades();
                     GamePlatformSdkContext.Current.Save.Save();
 
-                    if (_purchaseProductMenu.Opened)
-                    {
-                        yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
-                        _shop.SaveProducts();
-                        GamePlatformSdkContext.Current.Save.Save();
-                    }
-
-                    _shopUpgradeMenu.Open(openDuration: 0f);
+                    if (_purchaseProductMenu.Opened == false) 
+                        continue;
                     
+                    yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
+                    _shop.SaveProducts();
+                    GamePlatformSdkContext.Current.Save.Save();
+                        
+                    _shopUpgradeMenu.Open(openDuration: 0f);
+                        
                     yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
                     _shop.SaveShopUpgrades();
                     GamePlatformSdkContext.Current.Save.Save();

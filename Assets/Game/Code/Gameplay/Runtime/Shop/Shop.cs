@@ -91,7 +91,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private IEnumerator Working()
         {
-            _watch.Run(() => _shopSettings.TimeSpeed);
+            _watch.Run(() => _shopSettings.TimeSpeed, _stats.CurrentDay.LastDayNumber);
             
             int createdCustomers = 0;
             int createCustomersHoursInterval = _shopSettings.MinCostumersPerDay > 0 ? _watch.WorkingHours / (_shopSettings.MinCostumersPerDay + 1) : -1;

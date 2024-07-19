@@ -1,4 +1,5 @@
 ﻿using System;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
         [SerializeField] private int _startHours;
         [SerializeField] private int _endHours;
         [SerializeField] private TMP_Text _timeText;
+        [SerializeField, LeanTranslationName] private string _dayTranslationName; 
 
         private Func<float> _timeSpeed;
+        private string _currentDay;
 
         public bool Stopped { get; private set; } = true;
         public bool EndTimeReached { get; private set; } = true;
@@ -20,9 +23,10 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private float CurrentTimeSpeed => _timeSpeed?.Invoke() ?? 1f;
 
-        public void Run(Func<float> timeSpeed)
+        public void Run(Func<float> timeSpeed, long day)
         {
             _timeSpeed = timeSpeed;
+            _currentDay = $"{LeanLocalization.GetTranslationText(_dayTranslationName)} {day}";
 
             Stopped = false;
             EndTimeReached = false;
@@ -61,7 +65,7 @@ namespace YellowSquad.CashierSimulator.Gameplay
 
         private void RenderTime(int hours, int minutes = 0)
         {
-            _timeText.text = $"{hours:00}:{minutes:00}";
+            _timeText.text = $"<size=80%>{_currentDay}, <size=100%>{hours:00}:{minutes:00}";
         }
     }
 }
