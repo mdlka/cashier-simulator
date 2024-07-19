@@ -20,8 +20,8 @@ MonoBehaviour:
   _popularityUpgrade:
     _startValue: 10
     _maxValue: 100
-    _startUpgradePriceInCents: 250
+    _startUpgradePriceInCents: 100
   _cartCapacityUpgrade:
     _startValue: 1
     _maxValue: 10
-    _startUpgradePriceInCents: 100
+    _startUpgradePriceInCents: 50
