@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Lean.Localization;
 using TMPro;
 using UnityEngine;
 using YellowSquad.CashierSimulator.Gameplay.Useful;
@@ -9,11 +10,11 @@ namespace YellowSquad.CashierSimulator.Gameplay
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private string _header;
+        [SerializeField, LeanTranslationName] private string _headerTranslationName;
 
         public IEnumerator Render(long day)
         {
-            _text.text = $"{_header} {day}";
+            _text.text = $"{LeanLocalization.GetTranslationText(_headerTranslationName)} {day}";
             _canvasGroup.Enable(0.2f);
 
             yield return new WaitForSeconds(1f);
