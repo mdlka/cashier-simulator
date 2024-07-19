@@ -94,14 +94,16 @@ namespace YellowSquad.CashierSimulator.Application
                 {
                     yield return new WaitUntil(() => _purchaseProductMenu.Opened == false);
                     _shop.SaveProducts();
+                    
+                    GamePlatformSdkContext.Current.Save.Save();
                 
                     _shopUpgradeMenu.Open();
                     yield return new WaitUntil(() => _shopUpgradeMenu.Opened == false);
                     _shop.SaveShopUpgrades();
+                    
+                    GamePlatformSdkContext.Current.Save.Save();
                 }
-                
-                GamePlatformSdkContext.Current.Save.Save();
-                
+
                 _inputRouter.SetActiveCursor(false);
                 _needUpdate = true;
 
